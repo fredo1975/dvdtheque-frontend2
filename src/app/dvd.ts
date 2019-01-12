@@ -3,4 +3,9 @@ export class Dvd {
     annee: number;
     zone: String;
     edition: String;
+
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
+
 }

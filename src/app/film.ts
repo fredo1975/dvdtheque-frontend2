@@ -8,6 +8,8 @@ export class Film {
     ripped: boolean;
     realisateur: Personne;
     acteurs: Personne[];
-    constructor() {
+
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 }

@@ -1,11 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FilmListComponent } from './film-list/film-list.component';
+import { FilmDetailComponent } from './film-detail/film-detail.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 
 describe('AppComponent', () => {
+  const routes: Routes = [
+    { path: '', redirectTo: '/filmList', pathMatch: 'full' },
+    { path: 'filmList', component: FilmListComponent },
+    { path: 'filmDetail/;id', component: FilmDetailComponent }
+  ];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterModule.forRoot(routes)],
       declarations: [
-        AppComponent
+        AppComponent, FilmListComponent, FilmDetailComponent, NavbarComponent
       ],
     }).compileComponents();
   }));
@@ -16,16 +26,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'dvdtheque-frontend'`, () => {
+  it(`should have as title 'dvdtheque'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('dvdtheque-frontend');
+    expect(app.title).toEqual('dvdtheque');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to dvdtheque-frontend!');
-  });
 });
