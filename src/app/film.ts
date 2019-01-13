@@ -22,8 +22,4 @@ export class Film {
             json['acteurs'],
         );
     }
-
-    public getTitre(): string {
-        return this.titre;
-    }
 }

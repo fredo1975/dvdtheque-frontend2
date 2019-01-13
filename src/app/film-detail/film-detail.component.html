@@ -1,3 +1,42 @@
-<p>
-  film-detail works!
-</p>
+<div class="container">
+  <div class="row">
+      <div class="col-md-10 offset-md-2">
+      <h2>Modification d'un Film</h2>
+      <div class="form-group">
+          <label htmlFor="titre">Titre</label>
+          <input [(ngModel)]="film.titre" placeholder="titre" class="form-control"/>
+      </div>
+      <div class="form-group">
+          <label htmlFor="titreO">Titre Original</label>
+          <input [(ngModel)]="film.O" placeholder="" class="form-control"/>
+      </div>
+      <div class="form-group">
+          <label htmlFor="annee">Année</label>
+          <select class="form-control" >
+              <option *ngFor="let annee of annees" [selected]="annee === film.annee" [ngValue]="film.annee">{{annee}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label htmlFor="zone_dvd">Zone DVD</label>
+          <select class="form-control" >
+              <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone" [ngValue]="film.dvd.zone">{{zone}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label htmlFor="annee">Année</label>
+          <select class="form-control" >
+              <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee" [ngValue]="film.dvd.annee">{{anneeDvd}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label htmlFor="realisateur">Réalisateur</label>
+          <select class="form-control" >
+              <option *ngFor="let real of realisateurs" [selected]="real.id === film.realisateur.id" [ngValue]="film.realisateur.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
+          </select>
+      </div>
+      <div class="checkbox">
+          <label><input type="checkbox" [checked]="film.ripped" /> Ripped</label>
+        </div>
+    </div>
+  </div>
+</div>

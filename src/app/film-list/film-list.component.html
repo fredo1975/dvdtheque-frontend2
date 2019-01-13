@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <br/>
 <h3>Liste des Films </h3>
-Taille : {{films.length}}
+<div *ngIf="films===undefined">LOADING ....</div>
+<div *ngIf="films!==undefined && films.length>0">Taille : {{films.length}}</div>
 <br/>
 <table class="table table-bordered table-striped">
   <thead>
@@ -16,7 +17,9 @@ Taille : {{films.length}}
   <tbody>
     <tr *ngFor="let film of films">
       <td>
-        {{film.titre | uppercase}}
+          <a routerLink="/filmDetail/{{film.id}}">
+            {{film.titre | uppercase}}
+          </a>
       </td>
       <td>
         {{film.realisateur.prenom | uppercase}} {{film.realisateur.nom | uppercase}}
