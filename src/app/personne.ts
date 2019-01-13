@@ -1,8 +1,13 @@
 export class Personne {
-    id: number;
-    nom: String;
-    prenom: String;
+    constructor(public id: number,
+        public nom: string,
+        public prenom: string) {
+    }
 
-    constructor(values: Object = {}) {
+    public static fromJson(json: Object): Personne {
+        return new Personne(
+            json['id'],
+            json['nom'],
+            json['prenom'] );
     }
 }

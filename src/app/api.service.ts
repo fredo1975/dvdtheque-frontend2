@@ -18,13 +18,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private extractData(res: Response) {
-    console.log(res);
-    let body = res;
-    return body || { };
-  }
-
   getFilms(): Observable<Film[]> {
-    return this.http.get<Film[]>(endpoint + 'films');
+    return this.http.get<Film[]>(endpoint + '/films').pipe(map(
+      (jsonArray: Object[]) => jsonArray.map(jsonItem => Film.fromJson(jsonItem))
+    ));
   }
 }

@@ -15,8 +15,7 @@ describe('ApiService', () => {
 
   it('should fetched all films', () => {
     const service: ApiService = TestBed.get(ApiService);
-    const data: Observable<any> = service.getFilms();
-    console.log(data);
+    service.getFilms().subscribe(films => console.log(films));
   });
 });
 
@@ -26,7 +25,8 @@ describe('Films List API Exists', () => {
   it('returns status code 200', () => {
     const service: ApiService = TestBed.get(ApiService);
     const data: Observable<Film[]> = service.getFilms();
-    console.log(data);
-    console.log(data.pipe);
+    let _films: Film[];
+    data.subscribe(films => _films = films);
+    console.log(_films);
   });
 });

@@ -1,11 +1,19 @@
 export class Dvd {
     id: number;
     annee: number;
-    zone: String;
-    edition: String;
+    zone: string;
+    edition: string;
 
-    constructor(values: Object = {}) {
-        Object.assign(this, values);
+    constructor(id: number,
+        annee: number,
+        zone: string,
+        edition: string) {
     }
-
+    public static fromJson(json: Object): Dvd {
+        return new Dvd(
+            json['id'],
+            json['annee'],
+            json['zone'],
+            json['edition'] );
+    }
 }
