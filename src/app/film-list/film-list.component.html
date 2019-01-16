@@ -2,8 +2,8 @@
 <div class="container-fluid">
   <br/>
 <h3>Liste des Films </h3>
-<div *ngIf="films===undefined">LOADING ....</div>
-<div *ngIf="films!==undefined && films.length>0">Taille : {{films.length}}</div>
+<div *ngIf="!films">LOADING ....</div>
+<div *ngIf="films">Taille : {{films.length}}
 <br/>
 <table class="table table-bordered table-striped">
   <thead>
@@ -44,5 +44,6 @@
     </tr>
   </tbody>
 </table>
+</div>
 </div>
 </div>

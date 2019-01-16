@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError} from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
+
 
 const endpoint = 'http://localhost:8083/dvdtheque';
 const httpOptions = {
@@ -29,5 +30,36 @@ export class ApiService {
 
   getAllPersonnes(): Observable<Personne[]> {
     return this.http.get<Personne[]>(endpoint + '/personnes');
+  }
+
+  updateFilm(film: Film): Observable<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(endpoint + '/films/' + film.id , film, httpOptions).pipe(
+      tap(_ => console.log(`updated film id=${film.id}`)),
+      catchError(this.handleError<any>('updateFilm'))
+    );
+  }
+
+  private extractData(res: Response) {
+    const body = res.json();
+    return body;
+  }
+  /*
+  private handleError (error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    const errMsg = (error.message) ? error.message :
+    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
+  }*/
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }

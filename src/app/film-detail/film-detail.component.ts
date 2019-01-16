@@ -1,4 +1,5 @@
 import { Component, OnInit,  Input, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Film } from '../film';
 import { Personne } from '../personne';
 import { FilmService } from '../film.service';
@@ -21,6 +22,7 @@ export class FilmDetailComponent implements OnInit {
   private newActeur: Personne;
   private newActeurSetTemp: Personne[];
   private newActeurSet: Personne[];
+  private updated = false;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
     this.newActeur = new Personne(0, '' , '');
   }
@@ -35,7 +37,6 @@ export class FilmDetailComponent implements OnInit {
     this.annees = this.getAnneesSelect();
     this.zonesList = this.getZonesList();
   }
-
   getAnneesSelect = () => {
     const anneeList = [];
     const currentTime = new Date();
@@ -57,28 +58,40 @@ export class FilmDetailComponent implements OnInit {
   comparePersonne(a: Personne, b: Personne): boolean {
     return a.id === b.id;
   }
-  setSelected(selectElement) {
-    if (selectElement.checked === true) {
-      console.log('selectElement.checked ' + selectElement.value);
+  setSelected(selectElement, act: Personne ) {
+    if (selectElement.checked) {
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
+      this.newActeurSetTemp.push(act);
     } else {
-      console.log('selectElement.unchecked');
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
+      const index = this.newActeurSetTemp.indexOf(act);
+      this.newActeurSetTemp.splice(index, 1);
     }
   }
 
   addNewActeur() {
-    console.log('newActeur=' + this.newActeur.prenom + ' ' + this.newActeur.nom);
+    // console.log('newActeur=' + this.newActeur.prenom + ' ' + this.newActeur.nom);
     if (this.newActeurSetTemp === undefined) {
       this.newActeurSetTemp = [];
     }
     const newAct = Object.assign({}, this.newActeur);
     this.newActeurSetTemp = [...this.newActeurSetTemp , newAct];
+    this.newActeur.nom = '';
+    this.newActeur.prenom = '';
   }
   updateFilm() {
     if (this.newActeurSetTemp !== undefined) {
       this.newActeurSet = [];
     }
+    /*
     for (const act of this.newActeurSetTemp) {
       console.log('act=' + act.prenom + ' ' + act.nom);
+    }*/
+    this.film.newActeurDtoSet = Object.assign([], this.newActeurSetTemp);
+    return this.filmService.updateFilm(this.film).subscribe(obs => {
+      console.log('film with id : ' + this.film.id + ' updated');
+      this.updated = true;
     }
+    , (error) => {console.log(error); });
   }
 }

@@ -28,4 +28,8 @@ export class FilmService {
   getAllPersonnes(): Observable<Personne[]> {
     return this.apiService.getAllPersonnes();
   }
+
+  updateFilm(film: Film): Observable<any> {
+    return this.apiService.updateFilm(film);
+  }
 }
