@@ -1,4 +1,4 @@
-import { Component, OnInit,  Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges,  Input, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Film } from '../film';
 import { Personne } from '../personne';
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './film-detail.component.html',
   styleUrls: ['./film-detail.component.css']
 })
-export class FilmDetailComponent implements OnInit {
+export class FilmDetailComponent implements OnInit, OnChanges {
   // @Input() film: Film;
   @ViewChild('select') selectElRef;
   private film: Film;
@@ -32,10 +32,16 @@ export class FilmDetailComponent implements OnInit {
       , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
-      this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
+    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
     this.annees = this.getAnneesSelect();
     this.zonesList = this.getZonesList();
+  }
+  ngOnChanges() {
+    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
+      , (error) => {console.log('an error occured when fetching all personnes'); });
+    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
+      , (error) => {console.log('an error occured when fetching all personnes'); });
   }
   getAnneesSelect = () => {
     const anneeList = [];
@@ -68,7 +74,23 @@ export class FilmDetailComponent implements OnInit {
       this.newActeurSetTemp.splice(index, 1);
     }
   }
-
+  setRippedSelected(selectElement, film: Film ) {
+    if (selectElement.checked) {
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
+      this.film.ripped = true;
+    } else {
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
+      this.film.ripped = false;
+    }
+  }
+  setSelectedRealisateur(selectElement) {
+    console.log('selectElement.id=' + selectElement.value);
+    
+  }
+  setSelectedAnnee(selectElement) {
+    console.log('selectElement.value=' + selectElement.value);
+    this.film.annee = selectElement.value;
+  }
   addNewActeur() {
     // console.log('newActeur=' + this.newActeur.prenom + ' ' + this.newActeur.nom);
     if (this.newActeurSetTemp === undefined) {
