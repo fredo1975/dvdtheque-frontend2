@@ -5,59 +5,66 @@
         <div *ngIf="!film || !acteurs">
             <p>LOADING ...</p>
         </div>
-        
-        <div *ngIf="film && acteurs">
-            <div class="form-group">
-                <label htmlFor="titre">Titre</label>
-                <input [(ngModel)]="film.titre" placeholder="titre" class="form-control"/>
+    </div>
+</div>
+<div *ngIf="film && acteurs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{film.posterPath}}" alt="" width="300"/>
             </div>
-            <div class="form-group">
-                <label htmlFor="titreO">Titre Original</label>
-                <input [(ngModel)]="film.titreO" placeholder="" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label htmlFor="annee">Année</label>
-                <select class="form-control" [(ngModel)]="film.annee">
-                    <option *ngFor="let annee of annees" [selected]="annee === film.annee" [ngValue]="annee" >{{annee}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label htmlFor="zone_dvd">Zone DVD</label>
-                <select class="form-control" [(ngModel)]="film.dvd.zone">
-                    <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone" [ngValue]="zone">{{zone}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label htmlFor="annee">Année</label>
-                <select class="form-control" [(ngModel)]="film.dvd.annee">
-                    <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee" [ngValue]="anneeDvd">{{anneeDvd}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label htmlFor="realisateur">Réalisateur</label>
-                <select class="form-control" [(ngModel)]="film.realisateur.id">
-                    <option *ngFor="let real of realisateurs" [selected]="real.id === film.realisateur.id" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
-                </select>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label htmlFor="acteur"><b>Acteurs</b></label>
-                        <select multiple class="form-control" size="20" [(ngModel)]="film.acteurs" [compareWith]="comparePersonne">
-                            <option *ngFor="let act of acteurs" [ngValue]="act">{{act.prenom}} {{act.nom}}</option>
-                        </select>
-                    </div>
+            
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label htmlFor="titre">Titre</label>
+                    <input [(ngModel)]="film.titre" placeholder="titre" class="form-control"/>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><b>Nouveaux Acteurs</b></label>
-                        <div *ngFor="let newAct of newActeurSetTemp" class="checkbox" (change)="setSelected($event.target,newAct)">
-                            <label><input type="checkbox" checked/> {{newAct.prenom}} {{newAct.nom}}</label>
+                <div class="form-group">
+                    <label htmlFor="titreO">Titre Original</label>
+                    <input [(ngModel)]="film.titreO" placeholder="" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label htmlFor="annee">Année</label>
+                    <select class="form-control" [(ngModel)]="film.annee">
+                        <option *ngFor="let annee of annees" [selected]="annee === film.annee" [ngValue]="annee" >{{annee}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label htmlFor="zone_dvd">Zone DVD</label>
+                    <select class="form-control" [(ngModel)]="film.dvd.zone">
+                        <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone" [ngValue]="zone">{{zone}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label htmlFor="annee">Année</label>
+                    <select class="form-control" [(ngModel)]="film.dvd.annee">
+                        <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee" [ngValue]="anneeDvd">{{anneeDvd}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label htmlFor="realisateur">Réalisateur</label>
+                    <select class="form-control" [(ngModel)]="film.realisateur.id">
+                        <option *ngFor="let real of realisateurs" [selected]="real.id === film.realisateur.id" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label htmlFor="acteur"><b>Acteurs</b></label>
+                            <select multiple class="form-control" size="20" [(ngModel)]="film.acteurs" [compareWith]="comparePersonne">
+                                <option *ngFor="let act of acteurs" [ngValue]="act">{{act.prenom}} {{act.nom}}</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><b>Nouveaux Acteurs</b></label>
+                            <div *ngFor="let newAct of newActeurSetTemp" class="checkbox" (change)="setSelected($event.target,newAct)">
+                                <label><input type="checkbox" checked/> {{newAct.prenom}} {{newAct.nom}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <p><b>Ajout d'un Acteur</b></p>
                         <div class="form-group">
                             <label htmlFor="prenom">Prénom</label>
@@ -67,19 +74,19 @@
                             <label htmlFor="Nom">Nom</label>
                             <input type="text" class="form-control" [(ngModel)]="newActeur.nom"/>
                         </div>
-                        </div>
-                    <div class="col-md-8 offset-md-4"><button type="button" class="btn btn-primary" (click)="addNewActeur()">Ajouter</button></div>
+                        <div class="col-md-8 offset-md-4"><button type="button" class="btn btn-primary" (click)="addNewActeur()">Ajouter</button></div>
+                    </div>
                 </div>
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" [(checked)]="film.ripped" (change)="setRippedSelected($event.target,film)"/> Ripped</label>
-            </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" [(checked)]="film.ripped" (change)="setRippedSelected($event.target,film)"/> Ripped</label>
+                </div>
 
-            <div class="col-md-5 offset-md-7">
-                <button type="button" class="btn btn-primary" (click)="updateFilm()">Modifier</button>
-            </div>
-            <div *ngIf="updated" class="col-md-5 offset-md-7">
-                <strong>Film modifié</strong>
+                <div class="col-md-5 offset-md-7">
+                    <button type="button" class="btn btn-primary" (click)="updateFilm()">Modifier</button>
+                </div>
+                <div *ngIf="updated" class="col-md-5 offset-md-7">
+                    <strong>Film modifié</strong>
+                </div>
             </div>
         </div>
     </div>

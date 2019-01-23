@@ -3,20 +3,24 @@
   <br/>
 <h3>Liste des Films </h3>
 <div *ngIf="!films">LOADING ....</div>
-<div *ngIf="films">Taille : {{films.length}}
+<div *ngIf="films">Nombre de films : {{films.length}}
 <br/>
 <table class="table table-bordered table-striped">
   <thead>
   <tr>
+    <th>Poster</th>
     <th>Titre</th>
     <th>Réalisateur</th>
     <th>Acteur</th>
     <th>Année</th>
-    <th>Ripped</th>
+    <th>Rippé</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let film of films">
+      <td>
+            <img src="{{film.posterPath}}" alt="" width="300"/>
+      </td>
       <td>
           <a routerLink="/filmDetail/{{film.id}}">
             {{film.titre | uppercase}}
@@ -28,7 +32,7 @@
       <td>
           <div *ngFor="let acteur of film.acteurs">
               {{acteur.prenom | uppercase}} {{acteur.nom | uppercase}}
-          </div>
+          </div>  
       </td>
       <td>
         {{film.annee}}

@@ -6,7 +6,8 @@ import { Film } from './film';
 import { Personne } from './personne';
 
 
-const endpoint = 'http://localhost:8083/dvdtheque';
+// const endpoint = 'http://localhost:8083/dvdtheque';
+const endpoint = 'http://192.168.1.104:8083/dvdtheque';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'

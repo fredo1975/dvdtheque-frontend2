@@ -4,13 +4,15 @@ import { Film } from '../film';
 import { Personne } from '../personne';
 import { FilmService } from '../film.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+const nonRenseigne = 'Non renseigné';
 
 @Component({
   selector: 'app-film-detail',
   templateUrl: './film-detail.component.html',
   styleUrls: ['./film-detail.component.css']
 })
-export class FilmDetailComponent implements OnInit, OnChanges {
+export class FilmDetailComponent implements OnInit {
   // @Input() film: Film;
   @ViewChild('select') selectElRef;
   private film: Film;
@@ -28,7 +30,12 @@ export class FilmDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => this.film = _film
+    this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
+      this.film = _film;
+      if (this.film) {
+        this.film.posterPath = environment.poster_url + this.filmService.getFilmPosterName(this.film.titre);
+      }
+    }
       , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
@@ -37,17 +44,18 @@ export class FilmDetailComponent implements OnInit, OnChanges {
     this.annees = this.getAnneesSelect();
     this.zonesList = this.getZonesList();
   }
+  /*
   ngOnChanges() {
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
-  }
+  }*/
   getAnneesSelect = () => {
     const anneeList = [];
     const currentTime = new Date();
     const yyyy = currentTime.getFullYear();
-    anneeList.push('Non renseigné');
+    anneeList.push(nonRenseigne);
     for (let i = yyyy; i > 1930; i-- ) {
       anneeList.push(i);
     }
@@ -83,14 +91,6 @@ export class FilmDetailComponent implements OnInit, OnChanges {
       this.film.ripped = false;
     }
   }
-  setSelectedRealisateur(selectElement) {
-    console.log('selectElement.id=' + selectElement.value);
-    
-  }
-  setSelectedAnnee(selectElement) {
-    console.log('selectElement.value=' + selectElement.value);
-    this.film.annee = selectElement.value;
-  }
   addNewActeur() {
     // console.log('newActeur=' + this.newActeur.prenom + ' ' + this.newActeur.nom);
     if (this.newActeurSetTemp === undefined) {
@@ -102,6 +102,11 @@ export class FilmDetailComponent implements OnInit, OnChanges {
     this.newActeur.prenom = '';
   }
   updateFilm() {
+    if (this.film.titre === '') {
+      console.log('this.film.titre === vide');
+      alert('Le tire d\'un film ne peut être vide');
+      return;
+    }
     if (this.newActeurSetTemp !== undefined) {
       this.newActeurSet = [];
     }
@@ -110,6 +115,10 @@ export class FilmDetailComponent implements OnInit, OnChanges {
       console.log('act=' + act.prenom + ' ' + act.nom);
     }*/
     this.film.newActeurDtoSet = Object.assign([], this.newActeurSetTemp);
+    if (isNaN(this.film.dvd.annee)) {
+      console.log('this.film.dvd.annee is nan');
+      this.film.dvd.annee = 0;
+    }
     return this.filmService.updateFilm(this.film).subscribe(obs => {
       console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;

@@ -32,4 +32,9 @@ export class FilmService {
   updateFilm(film: Film): Observable<any> {
     return this.apiService.updateFilm(film);
   }
+
+  getFilmPosterName(titre: string): string {
+    const regex = / /gi;
+    return titre.replace(regex, '_');
+  }
 }

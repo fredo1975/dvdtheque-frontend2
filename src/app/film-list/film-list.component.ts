@@ -3,6 +3,7 @@ import { FILMS } from '../mock-films';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-film-list',
@@ -14,7 +15,10 @@ export class FilmListComponent implements OnInit, OnChanges {
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
-    this.getAllFilms().subscribe((data: Film[]) => {this.films = data; }
+    this.getAllFilms().subscribe((data: Film[]) => {
+      this.films = data;
+      this.films.map(f => f.posterPath = this.getPosterImg(f));
+    }
     , (error) => {console.log(error); });
   }
 
@@ -25,5 +29,10 @@ export class FilmListComponent implements OnInit, OnChanges {
 
   getAllFilms(): Observable<Film[]> {
     return this.filmService.loadAll();
+  }
+
+  getPosterImg (film: Film) {
+    // console.log(environment.poster_url + this.filmService.getFilmPosterName(film.titre));
+    return environment.poster_url + this.filmService.getFilmPosterName(film.titre);
   }
 }

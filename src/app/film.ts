@@ -1,4 +1,5 @@
 import { Personne } from './personne';
+import { Dvd } from './dvd';
 
 export class Film {
 
@@ -9,6 +10,8 @@ export class Film {
         public ripped: boolean,
         public realisateur: Personne,
         public acteurs: Personne[],
-        public newActeurDtoSet: Personne[]) {
+        public dvd: Dvd,
+        public newActeurDtoSet: Personne[],
+        public posterPath: string) {
     }
 }
