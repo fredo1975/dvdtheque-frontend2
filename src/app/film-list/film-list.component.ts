@@ -91,11 +91,15 @@ export class FilmListComponent implements OnInit, OnChanges {
 
   filterOnRipped(event: string) {
     // console.log('FilmListComponent::filterOnRipped::event=' + event);
-    this.filteredFilms = [];
-    const ripped = event === 'ripped' ? true : false;
-    for (let i = 0; i < this.films.length; i++) {
-      if (this.films[i].ripped === ripped) {
-        this.filteredFilms.push(this.films[i]);
+    if (event === 'tous') {
+      this.filteredFilms = this.films;
+    } else {
+      this.filteredFilms = [];
+      const ripped = event === 'ripped' ? true : false;
+      for (let i = 0; i < this.films.length; i++) {
+        if (this.films[i].ripped === ripped) {
+          this.filteredFilms.push(this.films[i]);
+        }
       }
     }
   }
