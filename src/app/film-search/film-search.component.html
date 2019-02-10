@@ -8,7 +8,7 @@
 <div class="col">
   <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
     <label htmlFor="realisateur">Par Réalisateur</label>
-    <select class="form-control" [(ngModel)]="filmSearch.realisateur">
+    <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)" allowClear="true">
         <option *ngFor="let real of realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
     </select>
   </div>
@@ -16,7 +16,7 @@
 <div class="col">
   <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
     <label htmlFor="annee">Par Année</label>
-    <select class="form-control" [(ngModel)]="filmSearch.annee">
+    <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)" allowClear="true">
         <option *ngFor="let annee of annees" [ngValue]="annee" >{{annee}}</option>
     </select>
   </div>
@@ -24,7 +24,7 @@
     <div class="col">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="acteur">Par Acteur</label>
-        <select class="form-control" [(ngModel)]="filmSearch.acteur">
+        <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)" allowClear="true">
             <option *ngFor="let acteur of acteurs" [ngValue]="acteur" >{{acteur.prenom | uppercase}} {{acteur.nom | uppercase}}</option>
         </select>
     </div>
@@ -32,7 +32,7 @@
 <div class="col">
     <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
       <label htmlFor="ripped">Rippé</label>
-        <select class="form-control" name="ripped" value="" >
+        <select class="form-control" name="ripped" [(ngModel)]="filmSearch.ripped" (ngModelChange)="filterOnRipped($event)" allowClear="true">
           <option key='tous' value='tous'>Tous</option>
           <option key='ripped' value='ripped'>Rippé</option>
           <option key='nonripped' value='nonripped'>Non Rippé</option>

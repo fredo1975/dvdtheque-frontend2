@@ -13,6 +13,10 @@ export class FilmSearchComponent implements OnInit {
   private acteurs: Personne[];
   private filmSearch: FilmSearch;
   @Output() filterChange = new EventEmitter<string>();
+  @Output() realChange = new EventEmitter<number>();
+  @Output() anneeChange = new EventEmitter<number>();
+  @Output() acteurChange = new EventEmitter<number>();
+  @Output() rippedChange = new EventEmitter<string>();
 
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '');
@@ -28,8 +32,43 @@ export class FilmSearchComponent implements OnInit {
       , (error) => {console.log('an error occured when fetching all personnes'); });
   }
   findTitre(event: any) { // without type info
-    console.log('event.target.value=' + event.target.value);
+    // console.log('event.target.value=' + event.target.value);
     this.filterChange.emit(event.target.value);
-    // this.getSearchStatusChange.emit(event.target.value);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.ripped = null;
+  }
+  filterOnRealisateur(event: any) {
+    // console.log('event=' + event);
+    this.realChange.emit(event);
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.ripped = null;
+  }
+  filterOnAnnee(event: any) {
+    // console.log('event=' + event);
+    this.anneeChange.emit(event);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.ripped = null;
+  }
+  filterOnActeur(event: any) {
+    // console.log('event=' + event.id);
+    this.acteurChange.emit(event.id);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.ripped = null;
+  }
+  filterOnRipped(event: any) {
+    // console.log('event.target.value=' + event);
+    this.rippedChange.emit(event);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
   }
 }

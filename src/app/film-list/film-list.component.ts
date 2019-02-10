@@ -14,7 +14,10 @@ export class FilmListComponent implements OnInit, OnChanges {
   films: Film[];
   filteredFilms: Film[];
   @Input() filmSearch: FilmSearch;
-
+  @Input() realFilmSearch: FilmSearch;
+  @Input() anneeFilmSearch: FilmSearch;
+  @Input() acteurFilmSearch: FilmSearch;
+  @Input() rippedFilmSearch: FilmSearch;
 
   constructor(private filmService: FilmService) { }
 
@@ -45,10 +48,53 @@ export class FilmListComponent implements OnInit, OnChanges {
   }
 
   filterOnTitre(titre: string) {
-    console.log('titre=' + titre);
+    this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
       const re = new RegExp(titre, 'gi');
       if (this.films[i].titre.match(re)) {
+        this.filteredFilms.push(this.films[i]);
+      }
+    }
+  }
+
+  filterOnRealisateur(id: number) {
+    // console.log('FilmListComponent::filterOnRealisateur::id=' + id);
+    this.filteredFilms = [];
+    for (let i = 0; i < this.films.length; i++) {
+      if (this.films[i].realisateur.id === id) {
+        this.filteredFilms.push(this.films[i]);
+      }
+    }
+  }
+
+  filterOnAnnee(annee: number) {
+    // console.log('FilmListComponent::filterOnAnnee::annee=' + annee);
+    this.filteredFilms = [];
+    for (let i = 0; i < this.films.length; i++) {
+      if (this.films[i].annee === annee) {
+        this.filteredFilms.push(this.films[i]);
+      }
+    }
+  }
+
+  filterOnActeur(acteur: number) {
+    // console.log('FilmListComponent::filterOnActeur::acteur.id=' + acteur);
+    this.filteredFilms = [];
+    for (let i = 0; i < this.films.length; i++) {
+      for (let j = 0; j < this.films[i].acteurs.length; j++) {
+        if (this.films[i].acteurs[j].id === acteur) {
+          this.filteredFilms.push(this.films[i]);
+        }
+      }
+    }
+  }
+
+  filterOnRipped(event: string) {
+    // console.log('FilmListComponent::filterOnRipped::event=' + event);
+    this.filteredFilms = [];
+    const ripped = event === 'ripped' ? true : false;
+    for (let i = 0; i < this.films.length; i++) {
+      if (this.films[i].ripped === ripped) {
         this.filteredFilms.push(this.films[i]);
       }
     }

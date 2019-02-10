@@ -1,7 +1,7 @@
 <div class="container-fluid text-center">
 <div class="container-fluid">
   <br/>
-<app-film-search (filterChange)="filterOnTitre($event)"></app-film-search>
+<app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)" (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"></app-film-search>
 <h3>Liste des Films </h3>
 <div *ngIf="!filteredFilms">LOADING ....</div>
 <div *ngIf="filteredFilms">Nombre de films : {{filteredFilms.length}}
