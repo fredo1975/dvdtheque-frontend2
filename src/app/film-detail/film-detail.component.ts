@@ -5,7 +5,7 @@ import { Personne } from '../personne';
 import { FilmService } from '../film.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-const nonRenseigne = 'Non renseigné';
+
 
 @Component({
   selector: 'app-film-detail',
@@ -41,7 +41,7 @@ export class FilmDetailComponent implements OnInit {
       , (error) => {console.log('an error occured when fetching all personnes'); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
-    this.annees = this.getAnneesSelect();
+    this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
   }
   /*
@@ -51,16 +51,6 @@ export class FilmDetailComponent implements OnInit {
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
   }*/
-  getAnneesSelect = () => {
-    const anneeList = [];
-    const currentTime = new Date();
-    const yyyy = currentTime.getFullYear();
-    anneeList.push(nonRenseigne);
-    for (let i = yyyy; i > 1930; i-- ) {
-      anneeList.push(i);
-    }
-    return anneeList;
-  }
 
   getZonesList = () => {
     const zonesList = [];

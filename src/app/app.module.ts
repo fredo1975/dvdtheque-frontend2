@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { HttpClientModule,  } from '@angular/common/http';
+import { FilmSearchComponent } from './film-search/film-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FilmListComponent,
     NavbarComponent,
-    FilmDetailComponent
+    FilmDetailComponent,
+    FilmSearchComponent
   ],
   imports: [
     BrowserModule,

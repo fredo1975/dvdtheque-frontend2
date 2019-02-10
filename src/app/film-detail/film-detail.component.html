@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-      <div class="col-md-10 offset-md-2">
+      <div class="col-md-8 offset-md-4">
         <h2>Modification d'un Film</h2>
         <div *ngIf="!film || !acteurs">
             <p>LOADING ...</p>
@@ -8,13 +8,13 @@
     </div>
 </div>
 <div *ngIf="film && acteurs">
-    <div class="container">
+    
         <div class="row">
-            <div class="col-md-3">
-                <img src="{{film.posterPath}}" alt="" width="300"/>
+            <div class="col-sm-3">
+                <img src="{{film.posterPath}}" alt="" width="500" length="750"/>
             </div>
             
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 <div class="form-group">
                     <label htmlFor="titre">Titre</label>
                     <input [(ngModel)]="film.titre" placeholder="titre" class="form-control"/>
@@ -89,5 +89,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>

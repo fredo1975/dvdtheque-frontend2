@@ -6,6 +6,8 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 
+const nonRenseigne = 'Non renseigné';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,5 +38,16 @@ export class FilmService {
   getFilmPosterName(titre: string): string {
     const regex = / /gi;
     return titre.replace(regex, '_');
+  }
+
+  getAnneesSelect = () => {
+    const anneeList = [];
+    const currentTime = new Date();
+    const yyyy = currentTime.getFullYear();
+    anneeList.push(nonRenseigne);
+    for (let i = yyyy; i > 1930; i-- ) {
+      anneeList.push(i);
+    }
+    return anneeList;
   }
 }

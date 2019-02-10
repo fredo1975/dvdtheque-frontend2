@@ -1,9 +1,10 @@
 <div class="container-fluid text-center">
 <div class="container-fluid">
   <br/>
+<app-film-search (filterChange)="filterOnTitre($event)"></app-film-search>
 <h3>Liste des Films </h3>
-<div *ngIf="!films">LOADING ....</div>
-<div *ngIf="films">Nombre de films : {{films.length}}
+<div *ngIf="!filteredFilms">LOADING ....</div>
+<div *ngIf="filteredFilms">Nombre de films : {{filteredFilms.length}}
 <br/>
 <table class="table table-bordered table-striped">
   <thead>
@@ -17,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let film of films">
+    <tr *ngFor="let film of filteredFilms">
       <td>
             <img src="{{film.posterPath}}" alt="" width="300"/>
       </td>
