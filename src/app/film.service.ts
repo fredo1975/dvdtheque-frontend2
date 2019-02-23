@@ -44,7 +44,7 @@ export class FilmService {
     const anneeList = [];
     const currentTime = new Date();
     const yyyy = currentTime.getFullYear();
-    anneeList.push(nonRenseigne);
+    // anneeList.push(nonRenseigne);
     for (let i = yyyy; i > 1930; i-- ) {
       anneeList.push(i);
     }

@@ -1,7 +1,9 @@
 <div class="container-fluid text-center">
 <div class="container-fluid">
   <br/>
+<div *ngIf="filteredFilms">
 <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)" (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"></app-film-search>
+</div>
 <h3>Liste des Films </h3>
 <div *ngIf="!filteredFilms">LOADING ....</div>
 <div *ngIf="filteredFilms">Nombre de films : {{filteredFilms.length}}
@@ -11,6 +13,7 @@
   <tr>
     <th>Poster</th>
     <th>Titre</th>
+    <th>Titre Original</th>
     <th>Réalisateur</th>
     <th>Acteur</th>
     <th>Année</th>
@@ -20,11 +23,16 @@
   <tbody>
     <tr *ngFor="let film of filteredFilms">
       <td>
-            <img src="{{film.posterPath}}" alt="" width="300"/>
+            <img src="{{film.posterPath}}" alt="" width="200"/>
       </td>
       <td>
           <a routerLink="/filmDetail/{{film.id}}">
             {{film.titre | uppercase}}
+          </a>
+      </td>
+      <td>
+          <a routerLink="/filmDetail/{{film.id}}">
+            {{film.titreO | uppercase}}
           </a>
       </td>
       <td>

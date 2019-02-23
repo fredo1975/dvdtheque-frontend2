@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { HttpClientModule,  } from '@angular/common/http';
 import { FilmSearchComponent } from './film-search/film-search.component';
+import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FilmSearchComponent } from './film-search/film-search.component';
     FilmListComponent,
     NavbarComponent,
     FilmDetailComponent,
-    FilmSearchComponent
+    FilmSearchComponent,
+    FilmTmdbSearchComponent
   ],
   imports: [
     BrowserModule,
