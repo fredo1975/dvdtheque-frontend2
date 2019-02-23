@@ -24,9 +24,10 @@ export class FilmListComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.getAllFilms().subscribe((data: Film[]) => {
       this.films = data;
-      this.films.map(f => f.posterPath = this.getPosterImg(f));
+      // this.films.map(f => console.log('f.posterPath=' + f.posterPath));
+      // this.films.map(f => f.posterPath = this.getPosterImg(f));
       this.filteredFilms = data;
-      this.filteredFilms.map(f => f.posterPath = this.getPosterImg(f));
+      // this.filteredFilms.map(f => f.posterPath = this.getPosterImg(f));
     }
     , (error) => {console.log(error); });
   }
@@ -41,11 +42,11 @@ export class FilmListComponent implements OnInit, OnChanges {
   getAllFilms(): Observable<Film[]> {
     return this.filmService.loadAll();
   }
-
+/*
   getPosterImg (film: Film) {
     // console.log(environment.poster_url + this.filmService.getFilmPosterName(film.titre));
     return environment.poster_url + this.filmService.getFilmPosterName(film.titre);
-  }
+  }*/
 
   filterOnTitre(titre: string) {
     this.filteredFilms = [];

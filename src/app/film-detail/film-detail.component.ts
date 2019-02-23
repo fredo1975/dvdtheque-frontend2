@@ -32,9 +32,6 @@ export class FilmDetailComponent implements OnInit {
   ngOnInit() {
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
-      if (this.film) {
-        this.film.posterPath = environment.poster_url + this.filmService.getFilmPosterName(this.film.titre);
-      }
     }
       , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
