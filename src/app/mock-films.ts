@@ -10,7 +10,7 @@ const act = [act1, ];
 const dvd = new Dvd(1, 2002, '1', 'sony');
 const newActeurDtoSet = [];
 const posterPath = '';
-
+const alreadyInDvdtheque = false;
 export const FILMS: Film[] = [
-  new Film(1, titre, titre , _annee, true, real, act, dvd, newActeurDtoSet, posterPath),
+  new Film(1, titre, titre , _annee, true, real, act, dvd, newActeurDtoSet, posterPath, alreadyInDvdtheque),
 ];

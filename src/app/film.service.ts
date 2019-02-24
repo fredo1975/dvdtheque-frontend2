@@ -23,6 +23,10 @@ export class FilmService {
     return this.apiService.getAllFilms();
   }
 
+  getAllTmdbFilmsByTitre(titre: string) {
+    return this.apiService.getAllTmdbFilmsByTitre(titre);
+  }
+
   getFilm(id: number): Observable<Film> {
     return this.apiService.getFilm(id);
   }

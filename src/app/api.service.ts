@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.get<Film[]>(endpoint + '/films');
   }
 
+  getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
+    return this.http.get<Film[]>(endpoint + '/films/tmdb/byTitre/' + titre);
+  }
+
   getFilm(id: number): Observable<Film> {
     return this.http.get<Film>(endpoint + '/films/byId/' + id);
   }

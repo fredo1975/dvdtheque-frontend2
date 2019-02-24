@@ -12,6 +12,7 @@ export class Film {
         public acteurs: Personne[],
         public dvd: Dvd,
         public newActeurDtoSet: Personne[],
-        public posterPath: string) {
+        public posterPath: string,
+        public alreadyInDvdtheque: boolean) {
     }
 }

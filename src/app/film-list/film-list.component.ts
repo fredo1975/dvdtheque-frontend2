@@ -24,10 +24,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.getAllFilms().subscribe((data: Film[]) => {
       this.films = data;
-      // this.films.map(f => console.log('f.posterPath=' + f.posterPath));
-      // this.films.map(f => f.posterPath = this.getPosterImg(f));
       this.filteredFilms = data;
-      // this.filteredFilms.map(f => f.posterPath = this.getPosterImg(f));
     }
     , (error) => {console.log(error); });
   }

@@ -10,15 +10,15 @@ const act = [act1, ];
 const newAct = [act1, ];
 const posterPath = 'fake';
 const dvd = new Dvd(1, 2019, '1', '1');
-
+const alreadyInDvdtheque = false;
 describe('Film', () => {
   it('should create an instance', () => {
-    expect(new Film(1, titre, titre, _annee, true, real, act, dvd, newAct, posterPath)).toBeTruthy();
+    expect(new Film(1, titre, titre, _annee, true, real, act, dvd, newAct, posterPath, alreadyInDvdtheque)).toBeTruthy();
   });
 });
 
 it('Film should accept values in the constructor', () => {
-    const film = new Film(1, titre, titre, _annee, true, real, act, dvd, newAct, posterPath);
+    const film = new Film(1, titre, titre, _annee, true, real, act, dvd, newAct, posterPath, alreadyInDvdtheque);
     expect(film.titre).toEqual(titre);
     expect(film.titreO).toEqual(titre);
     expect(film.ripped).toEqual(true);
@@ -27,4 +27,5 @@ it('Film should accept values in the constructor', () => {
     expect(film.realisateur.nom).toEqual(real.nom);
     expect(film.acteurs[0].nom).toEqual(act1.nom);
     expect(film.acteurs[0].prenom).toEqual(act1.prenom);
+    expect(film.alreadyInDvdtheque).toEqual(alreadyInDvdtheque);
   });
