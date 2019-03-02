@@ -17,7 +17,7 @@
             -->
         </div>
         <div class="col-lg-8 offset-lg-4">
-            <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()">Chercher les films à remplacer</button>
+            <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()" [disabled]="buttonDisabled">Chercher les films à remplacer</button>
         </div>
         
         <div *ngIf="tmdbFilms">Nombre de films : {{tmdbFilms.length}}
@@ -44,7 +44,7 @@
                   
                   <td>
                       <div *ngFor="let realisateur of film.realisateurs">
-                          {{realisateur.nom | uppercase}}
+                          {{realisateur.nom | uppercase}} - {{film.id}}
                       </div>
                   </td>
                   <td>
@@ -57,7 +57,7 @@
                   </td>
                   <td>
                       <div *ngIf="!film.alreadyInDvdtheque">
-                          <button type="button" class="btn btn-primary" (click)="replaceFilm(film.id)">Remplacer</button>
+                          <button class="btn btn-primary" (click)="replaceFilm(film.id)" [disabled]="buttonDisabled">Remplacer</button>
                       </div>
                       <div *ngIf="film.alreadyInDvdtheque">
                           déjà enregistré

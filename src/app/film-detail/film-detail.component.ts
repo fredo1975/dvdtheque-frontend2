@@ -15,7 +15,8 @@ import { environment } from '../../environments/environment';
 export class FilmDetailComponent implements OnInit {
   // @Input() film: Film;
   @ViewChild('select') selectElRef;
-  private film: Film;
+  @Input() film: Film;
+  @Input() replacedFilm: Film;
   private realisateurs: Personne[];
   private acteurs: Personne[];
   private acteursFilm: Personne[];
@@ -106,13 +107,18 @@ export class FilmDetailComponent implements OnInit {
     }*/
     // this.film.newActeurDtoSet = Object.assign([], this.newActeurSetTemp);
     if (isNaN(this.film.dvd.annee)) {
-      console.log('this.film.dvd.annee is nan');
+      // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
     }
     return this.filmService.updateFilm(this.film).subscribe(obs => {
-      console.log('film with id : ' + this.film.id + ' updated');
+      // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
     }
     , (error) => {console.log(error); });
+  }
+
+  doReplaceFilm(filmEmitted: Film) {
+    // console.log('filmEmitted with id : ' + filmEmitted.id + '  emitted');
+    this.film = filmEmitted;
   }
 }

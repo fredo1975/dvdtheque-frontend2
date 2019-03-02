@@ -59,8 +59,10 @@ export class FilmListComponent implements OnInit, OnChanges {
     // console.log('FilmListComponent::filterOnRealisateur::id=' + id);
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
-      if (this.films[i].realisateur.id === id) {
-        this.filteredFilms.push(this.films[i]);
+      for (let j = 0; j < this.films[i].realisateurs.length; j++) {
+        if (this.films[i].realisateurs[j].id === id) {
+          this.filteredFilms.push(this.films[i]);
+        }
       }
     }
   }

@@ -71,9 +71,11 @@
                 -->
                 <div class="form-group">
                     <label>Réalisateur : </label>
-                    <p>
-                        <b>{{film.realisateur.prenom | uppercase}} {{film.realisateur.nom | uppercase}}</b>
-                    </p>
+                    <div *ngFor="let real of film.realisateurs">
+                        <p>
+                            <b>{{real.nom | uppercase}}</b>
+                        </p>
+                    </div>
                 </div>
                 
                     <!--
@@ -112,6 +114,12 @@
                             <p><b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b></p>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>TMDB ID : </label>
+                    <p>
+                        <b>{{film.tmdbId}}</b>
+                    </p>
+                </div>
             </div>
             <div class="col-lg-12">
                 <div class="col-lg-7 offset-lg-5">
@@ -126,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <app-film-tmdb-search [film]="film"></app-film-tmdb-search>
+        <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
         
     </div>
 </div>

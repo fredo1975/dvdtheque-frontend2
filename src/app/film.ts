@@ -8,11 +8,11 @@ export class Film {
         public titreO: string,
         public annee: number,
         public ripped: boolean,
-        public realisateur: Personne,
+        public realisateurs: Personne[],
         public acteurs: Personne[],
         public dvd: Dvd,
-        public newActeurDtoSet: Personne[],
         public posterPath: string,
-        public alreadyInDvdtheque: boolean) {
+        public alreadyInDvdtheque: boolean,
+        public tmdbId: number) {
     }
 }

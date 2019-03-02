@@ -6,8 +6,8 @@ import { Film } from './film';
 import { Personne } from './personne';
 
 
-// const endpoint = 'http://localhost:8083/dvdtheque';
-const endpoint = 'http://192.168.1.104:8083/dvdtheque';
+const endpoint = 'http://localhost:8083/dvdtheque';
+// const endpoint = 'http://192.168.1.104:8083/dvdtheque';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -37,12 +37,29 @@ export class ApiService {
     return this.http.get<Personne[]>(endpoint + '/personnes');
   }
 
+  getAllActeurs(): Observable<Personne[]> {
+    return this.http.get<Personne[]>(endpoint + '/acteurs');
+  }
+
+  getAllRealisateurs(): Observable<Personne[]> {
+    return this.http.get<Personne[]>(endpoint + '/realisateurs');
+  }
+
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(endpoint + '/films/' + film.id , film, httpOptions).pipe(
       tap(_ => console.log(`updated film id=${film.id}`)),
       catchError(this.handleError<any>('updateFilm'))
+    );
+  }
+
+  replaceFilm(film: Film, tmdbId: number): Observable<Film> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(endpoint + '/films/tmdb/' + tmdbId , film, httpOptions).pipe(
+      tap(_ => console.log(`replaceFilm film id=${film.id}`)),
+      catchError(this.handleError<any>('replaceFilm'))
     );
   }
 

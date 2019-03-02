@@ -35,8 +35,20 @@ export class FilmService {
     return this.apiService.getAllPersonnes();
   }
 
+  getAllActeurs(): Observable<Personne[]> {
+    return this.apiService.getAllActeurs();
+  }
+
+  getAllRealisateurs(): Observable<Personne[]> {
+    return this.apiService.getAllRealisateurs();
+  }
+
   updateFilm(film: Film): Observable<any> {
     return this.apiService.updateFilm(film);
+  }
+
+  replaceFilm(film: Film, tmdbId: number): Observable<any> {
+    return this.apiService.replaceFilm(film, tmdbId);
   }
 
   getFilmPosterName(titre: string): string {

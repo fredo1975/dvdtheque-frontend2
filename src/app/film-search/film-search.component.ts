@@ -26,10 +26,14 @@ export class FilmSearchComponent implements OnInit {
 
   ngOnInit() {
     this.annees = this.filmService.getAnneesSelect();
-    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });
-    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });
+    this.filmService.getAllActeurs().subscribe((data: Personne[]) => {
+        this.acteurs = data;
+    }
+    , (error) => {console.log('an error occured when fetching all acteurs'); });
+    this.filmService.getAllRealisateurs().subscribe((data: Personne[]) => {
+      this.realisateurs = data;
+    }
+    , (error) => {console.log('an error occured when fetching all realisateurs'); });
   }
   findTitre(event: any) { // without type info
     // console.log('event.target.value=' + event.target.value);
