@@ -14,7 +14,7 @@
     <th>Poster</th>
     <th>Titre</th>
     <th>Titre Original</th>
-    <th>Réalisateur</th>
+    <th>Réalisateurs</th>
     <th>Acteur</th>
     <th>Année</th>
     <th>Rippé</th>
@@ -36,12 +36,15 @@
           </a>
       </td>
       <td>
-        {{film.realisateur.nom | uppercase}}
+            <div *ngFor="let realisateur of film.realisateurs">
+                {{realisateur.nom | uppercase}}
+            </div>
+        
       </td>
       <td>
           <div *ngFor="let acteur of film.acteurs">
               {{acteur.nom | uppercase}}
-          </div>  
+          </div>
       </td>
       <td>
         {{film.annee}}

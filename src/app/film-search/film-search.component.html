@@ -2,12 +2,12 @@
     <div class="col">
         <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
             <label htmlFor="titre">Titre</label>
-            <input [(ngModel)]="filmSearch.titre" placeholder="entrer le titre d'un film" class="form-control" (keyup)="findTitre($event)"/>
+            <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control" (keyup)="findTitre($event)"/>
         </div>
     </div>
 <div class="col">
   <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-    <label htmlFor="realisateur">Par Réalisateur</label>
+    <label htmlFor="realisateur">Réalisateur</label>
     <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)" allowClear="true">
         <option *ngFor="let real of realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
     </select>
@@ -15,7 +15,7 @@
 </div>
 <div class="col">
   <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-    <label htmlFor="annee">Par Année</label>
+    <label htmlFor="annee">Année</label>
     <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)" allowClear="true">
         <option *ngFor="let annee of annees" [ngValue]="annee" >{{annee}}</option>
     </select>
@@ -23,7 +23,7 @@
 </div>
     <div class="col">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="acteur">Par Acteur</label>
+        <label htmlFor="acteur">Acteur</label>
         <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)" allowClear="true">
             <option *ngFor="let acteur of acteurs" [ngValue]="acteur" >{{acteur.prenom | uppercase}} {{acteur.nom | uppercase}}</option>
         </select>
