@@ -12,8 +12,8 @@ export class FilmTmdbSearchComponent implements OnInit {
   @Output() replacedFilm = new EventEmitter<Film>();
   private annees: number[];
   private tmdbFilms: Film[];
-  buttonDisabled = false;
-
+  private buttonDisabled = false;
+  private loading = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -23,15 +23,18 @@ export class FilmTmdbSearchComponent implements OnInit {
   serachTmdbFilm() {
     console.log('this.film.titre=' + this.film.titre);
     this.buttonDisabled = true;
+    this.loading = true;
+    this.tmdbFilms = null;
     this.filmService.getAllTmdbFilmsByTitre(this.film.titre).subscribe((data: Film[]) => {
       this.tmdbFilms = data;
       console.log(this.tmdbFilms);
     }
-    , (error) => {console.log(error); }
+    , (error) => {console.log(error); this.buttonDisabled = false; }
     , () => {
       console.log('serachTmdbFilm Fini !');
       this.buttonDisabled = false;
-  });
+      this.loading = false;
+    });
   }
   replaceFilm(tmdbId: number) {
     this.buttonDisabled = true;

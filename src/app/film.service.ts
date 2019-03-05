@@ -51,6 +51,10 @@ export class FilmService {
     return this.apiService.replaceFilm(film, tmdbId);
   }
 
+  saveFilm(tmdbId: number): Observable<any> {
+    return this.apiService.saveFilm(tmdbId);
+  }
+
   getFilmPosterName(titre: string): string {
     const regex = / /gi;
     return titre.replace(regex, '_');

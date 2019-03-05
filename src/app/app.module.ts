@@ -9,6 +9,7 @@ import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { HttpClientModule,  } from '@angular/common/http';
 import { FilmSearchComponent } from './film-search/film-search.component';
 import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
+import { FilmAddComponent } from './film-add/film-add.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.com
     NavbarComponent,
     FilmDetailComponent,
     FilmSearchComponent,
-    FilmTmdbSearchComponent
+    FilmTmdbSearchComponent,
+    FilmAddComponent
   ],
   imports: [
     BrowserModule,

@@ -11,22 +11,26 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./film-list.component.css']
 })
 export class FilmListComponent implements OnInit, OnChanges {
-  films: Film[];
-  filteredFilms: Film[];
+  private films: Film[];
+  private filteredFilms: Film[];
   @Input() filmSearch: FilmSearch;
   @Input() realFilmSearch: FilmSearch;
   @Input() anneeFilmSearch: FilmSearch;
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
-
+  private loading = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.getAllFilms().subscribe((data: Film[]) => {
       this.films = data;
       this.filteredFilms = data;
     }
-    , (error) => {console.log(error); });
+    , (error) => {console.log(error); }
+    , () => {
+      this.loading = false;
+    });
   }
 
   ngOnChanges() {

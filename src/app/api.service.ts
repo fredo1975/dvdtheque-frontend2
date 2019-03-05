@@ -45,6 +45,15 @@ export class ApiService {
     return this.http.get<Personne[]>(endpoint + '/realisateurs');
   }
 
+  saveFilm(tmdbId: number): Observable<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(endpoint + '/films/save/' + tmdbId, httpOptions).pipe(
+      tap(_ => console.log(`added film id=${tmdbId}`)),
+      catchError(this.handleError<any>('saveFilm'))
+    );
+  }
+
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
