@@ -4,10 +4,7 @@ import { Observable, of, throwError} from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
-
-
-const endpoint = 'http://localhost:8083/dvdtheque';
-// const endpoint = 'http://192.168.1.104:8083/dvdtheque';
+import {environment} from '../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -22,33 +19,33 @@ export class ApiService {
   constructor(protected http: HttpClient) { }
 
   getAllFilms(): Observable<Film[]> {
-    return this.http.get<Film[]>(endpoint + '/films');
+    return this.http.get<Film[]>(environment.apiUrl + '/films');
   }
 
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
-    return this.http.get<Film[]>(endpoint + '/films/tmdb/byTitre/' + titre);
+    return this.http.get<Film[]>(environment.apiUrl + '/films/tmdb/byTitre/' + titre);
   }
 
   getFilm(id: number): Observable<Film> {
-    return this.http.get<Film>(endpoint + '/films/byId/' + id);
+    return this.http.get<Film>(environment.apiUrl + '/films/byId/' + id);
   }
 
   getAllPersonnes(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(endpoint + '/personnes');
+    return this.http.get<Personne[]>(environment.apiUrl + '/personnes');
   }
 
   getAllActeurs(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(endpoint + '/acteurs');
+    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs');
   }
 
   getAllRealisateurs(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(endpoint + '/realisateurs');
+    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs');
   }
 
   saveFilm(tmdbId: number): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(endpoint + '/films/save/' + tmdbId, httpOptions).pipe(
+    return this.http.put(environment.apiUrl + '/films/save/' + tmdbId, httpOptions).pipe(
       tap(_ => console.log(`added film id=${tmdbId}`)),
       catchError(this.handleError<any>('saveFilm'))
     );
@@ -57,7 +54,7 @@ export class ApiService {
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(endpoint + '/films/' + film.id , film, httpOptions).pipe(
+    return this.http.put(environment.apiUrl + '/films/' + film.id , film, httpOptions).pipe(
       tap(_ => console.log(`updated film id=${film.id}`)),
       catchError(this.handleError<any>('updateFilm'))
     );
@@ -66,7 +63,7 @@ export class ApiService {
   replaceFilm(film: Film, tmdbId: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(endpoint + '/films/tmdb/' + tmdbId , film, httpOptions).pipe(
+    return this.http.put(environment.apiUrl + '/films/tmdb/' + tmdbId , film, httpOptions).pipe(
       tap(_ => console.log(`replaceFilm film id=${film.id}`)),
       catchError(this.handleError<any>('replaceFilm'))
     );

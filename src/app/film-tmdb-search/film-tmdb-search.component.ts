@@ -11,9 +11,9 @@ export class FilmTmdbSearchComponent implements OnInit {
   @Input() film: Film;
   @Output() replacedFilm = new EventEmitter<Film>();
   private annees: number[];
-  private tmdbFilms: Film[];
-  private buttonDisabled = false;
-  private loading = false;
+  tmdbFilms: Film[];
+  buttonDisabled = false;
+  loading = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {

@@ -8,10 +8,10 @@ import { FilmSearch } from '../film-search';
   styleUrls: ['./film-search.component.css']
 })
 export class FilmSearchComponent implements OnInit {
-  private annees: number[];
-  private realisateurs: Personne[];
-  private acteurs: Personne[];
-  private filmSearch: FilmSearch;
+  annees: number[];
+  realisateurs: Personne[];
+  acteurs: Personne[];
+  filmSearch: FilmSearch;
   @Output() filterChange = new EventEmitter<string>();
   @Output() realChange = new EventEmitter<number>();
   @Output() anneeChange = new EventEmitter<number>();

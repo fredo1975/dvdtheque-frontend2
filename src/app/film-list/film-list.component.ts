@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 })
 export class FilmListComponent implements OnInit, OnChanges {
   private films: Film[];
-  private filteredFilms: Film[];
+  filteredFilms: Film[];
   @Input() filmSearch: FilmSearch;
   @Input() realFilmSearch: FilmSearch;
   @Input() anneeFilmSearch: FilmSearch;

@@ -10,10 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FilmAddComponent implements OnInit {
   private film: Film;
-  private titre: string;
-  private tmdbFilms: Film[];
-  private buttonDisabled = false;
-  private loading = false;
+  titre: string;
+  tmdbFilms: Film[];
+  buttonDisabled = false;
+  loading = false;
   constructor(private filmService: FilmService,
     private route: ActivatedRoute,
     private router: Router) { }
