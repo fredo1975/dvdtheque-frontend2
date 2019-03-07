@@ -26,15 +26,20 @@ export class FilmDetailComponent implements OnInit {
   // private newActeurSetTemp: Personne[];
   private newActeurSet: Personne[];
   private updated = false;
+  private loading = false;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
     // this.newActeur = new Personne(0, '' , '');
   }
 
   ngOnInit() {
+    this.loading = true;
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
     }
-      , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); });
+    , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); }
+    , () => {
+      this.loading = false;
+    });
     /*this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
       , (error) => {console.log('an error occured when fetching all personnes'); });
     this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
