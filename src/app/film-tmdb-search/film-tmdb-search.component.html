@@ -55,7 +55,11 @@
                             <img src="{{film.posterPath}}" alt="" width="200"/>
                     </td>
                     <td>
-                        {{film.titre | uppercase}}
+                        <div *ngIf="film.alreadyInDvdtheque">
+                            <a routerLink="/filmDetail/{{film.id}}">
+                                {{film.titre | uppercase}}
+                            </a>
+                        </div>
                     </td>
                     
                     <td>
