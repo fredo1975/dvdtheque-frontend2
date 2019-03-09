@@ -13,7 +13,7 @@ export class FilmTmdbSearchComponent implements OnInit {
   private annees: number[];
   tmdbFilms: Film[];
   buttonDisabled = false;
-  private loading = false;
+  loading = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
