@@ -12,8 +12,8 @@ export class FilmSearchComponent implements OnInit {
   realisateurs: Personne[];
   acteurs: Personne[];
   filmSearch: FilmSearch;
-  private loadingAllRealisateurs = false;
-  private loadingAllActeurs = false;
+  loadingAllRealisateurs = false;
+  loadingAllActeurs = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() realChange = new EventEmitter<number>();
   @Output() anneeChange = new EventEmitter<number>();
