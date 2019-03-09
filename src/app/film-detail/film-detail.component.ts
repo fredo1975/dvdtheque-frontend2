@@ -115,11 +115,15 @@ export class FilmDetailComponent implements OnInit {
       // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
     }
+    this.loading = true;
     return this.filmService.updateFilm(this.film).subscribe(obs => {
       // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
     }
-    , (error) => {console.log(error); });
+    , (error) => {console.log(error); }
+    , () => {
+      this.loading = false;
+    });
   }
 
   doReplaceFilm(filmEmitted: Film) {

@@ -13,7 +13,7 @@ export class FilmTmdbSearchComponent implements OnInit {
   private annees: number[];
   tmdbFilms: Film[];
   buttonDisabled = false;
-  loading = false;
+  private loading = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -21,23 +21,24 @@ export class FilmTmdbSearchComponent implements OnInit {
   }
 
   serachTmdbFilm() {
-    console.log('this.film.titre=' + this.film.titre);
+    // console.log('this.film.titre=' + this.film.titre);
     this.buttonDisabled = true;
     this.loading = true;
     this.tmdbFilms = null;
     this.filmService.getAllTmdbFilmsByTitre(this.film.titre).subscribe((data: Film[]) => {
       this.tmdbFilms = data;
-      console.log(this.tmdbFilms);
+      // console.log(this.tmdbFilms);
     }
     , (error) => {console.log(error); this.buttonDisabled = false; }
     , () => {
-      console.log('serachTmdbFilm Fini !');
+      // console.log('serachTmdbFilm Fini !');
       this.buttonDisabled = false;
       this.loading = false;
     });
   }
   replaceFilm(tmdbId: number) {
     this.buttonDisabled = true;
+    this.loading = true;
     // console.log('tmdbId=' + tmdbId + ' film.id=' + this.film.id + ' film.tmdbId=' + this.film.tmdbId);
     this.filmService.replaceFilm(this.film, tmdbId).subscribe((filmUpdated: Film) => {
       // console.log('film with id : ' + filmUpdated.id + ' - ' + filmUpdated.titre + ' replaced');
@@ -49,6 +50,7 @@ export class FilmTmdbSearchComponent implements OnInit {
       // console.log('replaceFilm Fini !');
       this.buttonDisabled = false;
       this.replacedFilm.emit(this.film);
+      this.loading = false;
     });
   }
 }
