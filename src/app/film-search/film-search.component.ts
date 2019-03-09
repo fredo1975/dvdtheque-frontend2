@@ -12,6 +12,8 @@ export class FilmSearchComponent implements OnInit {
   realisateurs: Personne[];
   acteurs: Personne[];
   filmSearch: FilmSearch;
+  private loadingAllRealisateurs = false;
+  private loadingAllActeurs = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() realChange = new EventEmitter<number>();
   @Output() anneeChange = new EventEmitter<number>();
@@ -25,16 +27,25 @@ export class FilmSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingAllActeurs = true;
+    this.loadingAllRealisateurs = true;
     this.annees = this.filmService.getAnneesSelect();
     this.filmService.getAllActeurs().subscribe((data: Personne[]) => {
         this.acteurs = data;
     }
-    , (error) => {console.log('an error occured when fetching all acteurs'); });
+    , (error) => {console.log('an error occured when fetching all acteurs'); }
+    , () => {
+      this.loadingAllActeurs = false;
+    });
     this.filmService.getAllRealisateurs().subscribe((data: Personne[]) => {
       this.realisateurs = data;
     }
-    , (error) => {console.log('an error occured when fetching all realisateurs'); });
+    , (error) => {console.log('an error occured when fetching all realisateurs'); }
+    , () => {
+      this.loadingAllRealisateurs = false;
+    });
   }
+
   findTitre(event: any) { // without type info
     // console.log('event.target.value=' + event.target.value);
     this.filterChange.emit(event.target.value);

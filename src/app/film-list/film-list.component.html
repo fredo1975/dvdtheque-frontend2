@@ -1,9 +1,11 @@
-<div class="container-fluid text-center">
-<div class="container-fluid">
+<div class="container text-center">
   <br/>
 <div *ngIf="filteredFilms">
 <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)" (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"></app-film-search>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
 <h3>Liste des Films </h3>
 <div *ngIf="!filteredFilms">
     <div class="col-lg-8 offset-lg-2">
@@ -21,20 +23,25 @@
 <table class="table table-bordered table-striped">
   <thead>
   <tr>
-    <th>Poster</th>
+    <th>Film</th>
+    <!--
     <th>Titre</th>
     <th>Titre Original</th>
     <th>Réalisateurs</th>
     <th>Acteur</th>
     <th>Année</th>
+    -->
     <th>Rippé</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let film of filteredFilms">
       <td>
-            <img src="{{film.posterPath}}" alt="" width="200"/>
+          <a routerLink="/filmDetail/{{film.id}}">
+            <img src="{{film.posterPath}}" alt="" width="300"/>
+          </a>
       </td>
+      <!--
       <td>
           <a routerLink="/filmDetail/{{film.id}}">
             {{film.titre | uppercase}}
@@ -59,6 +66,7 @@
       <td>
         {{film.annee}}
       </td>
+    -->
       <td>
           <div *ngIf="film.ripped">
             <img src="assets/img/ok.png">
@@ -71,5 +79,8 @@
   </tbody>
 </table>
 </div>
+
 </div>
+</div>
+
 </div>

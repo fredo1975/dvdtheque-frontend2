@@ -1,42 +1,52 @@
-<div class="row">   
+<div class="row">
+    <div class="col-md-0">
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
+        <div *ngIf="loadingAllActeurs && loadingAllRealisateurs">chargement des acteurs et des réalisateurs</div>
+    </div>
     <div class="col">
         <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
             <label htmlFor="titre">Titre</label>
             <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control" (keyup)="findTitre($event)"/>
         </div>
     </div>
-<div class="col">
-  <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-    <label htmlFor="realisateur">Réalisateur</label>
-    <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)" allowClear="true">
-        <option *ngFor="let real of realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
-    </select>
-  </div>
-</div>
-<div class="col">
-  <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-    <label htmlFor="annee">Année</label>
-    <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)" allowClear="true">
-        <option *ngFor="let annee of annees" [ngValue]="annee" >{{annee}}</option>
-    </select>
-  </div>
-</div>
     <div class="col">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="acteur">Acteur</label>
-        <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)" allowClear="true">
-            <option *ngFor="let acteur of acteurs" [ngValue]="acteur" >{{acteur.prenom | uppercase}} {{acteur.nom | uppercase}}</option>
+        <label htmlFor="realisateur">Réalisateur</label>
+        <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)" allowClear="true">
+            <option *ngFor="let real of realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
         </select>
+      </div>
     </div>
-</div>
-<div class="col">
-    <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-      <label htmlFor="ripped">Rippé</label>
-        <select class="form-control" name="ripped" [(ngModel)]="filmSearch.ripped" (ngModelChange)="filterOnRipped($event)" allowClear="true">
-          <option key='tous' value='tous'>Tous</option>
-          <option key='ripped' value='ripped'>Rippé</option>
-          <option key='nonripped' value='nonripped'>Non Rippé</option>
+    <div class="col">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="annee">Année</label>
+        <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)" allowClear="true">
+            <option *ngFor="let annee of annees" [ngValue]="annee" >{{annee}}</option>
         </select>
+      </div>
     </div>
-  </div>
+        <div class="col">
+          <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+            <label htmlFor="acteur">Acteur</label>
+            <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)" allowClear="true">
+                <option *ngFor="let acteur of acteurs" [ngValue]="acteur" >{{acteur.prenom | uppercase}} {{acteur.nom | uppercase}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+          <label htmlFor="ripped">Rippé</label>
+            <select class="form-control" name="ripped" [(ngModel)]="filmSearch.ripped" (ngModelChange)="filterOnRipped($event)" allowClear="true">
+              <option key='tous' value='tous'>Tous</option>
+              <option key='ripped' value='ripped'>Rippé</option>
+              <option key='nonripped' value='nonripped'>Non Rippé</option>
+            </select>
+        </div>
+      </div>
 </div>
