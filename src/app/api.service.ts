@@ -54,7 +54,7 @@ export class ApiService {
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl + '/films/' + film.id , film, httpOptions).pipe(
+    return this.http.put(environment.apiUrl + '/films/update/' + film.id , film, httpOptions).pipe(
       tap(_ => console.log(`updated film id=${film.id}`)),
       catchError(this.handleError<any>('updateFilm'))
     );

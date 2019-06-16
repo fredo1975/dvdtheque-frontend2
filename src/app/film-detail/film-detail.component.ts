@@ -119,6 +119,7 @@ export class FilmDetailComponent implements OnInit {
     return this.filmService.updateFilm(this.film).subscribe(obs => {
       // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
+      this.film.dvd.dateRip = new Date();
     }
     , (error) => {console.log(error); }
     , () => {
