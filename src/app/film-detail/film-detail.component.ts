@@ -22,13 +22,10 @@ export class FilmDetailComponent implements OnInit {
   private acteursFilm: Personne[];
   private annees: number[];
   private zonesList: number[];
-  // private newActeur: Personne;
-  // private newActeurSetTemp: Personne[];
   private newActeurSet: Personne[];
   private updated = false;
   private loading = false;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
-    // this.newActeur = new Personne(0, '' , '');
   }
 
   ngOnInit() {
@@ -40,20 +37,9 @@ export class FilmDetailComponent implements OnInit {
     , () => {
       this.loading = false;
     });
-    /*this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });
-    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });*/
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
   }
-  /*
-  ngOnChanges() {
-    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.realisateurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });
-    this.filmService.getAllPersonnes().subscribe((data: Personne[]) => {this.acteurs = data; }
-      , (error) => {console.log('an error occured when fetching all personnes'); });
-  }*/
 
   getZonesList = () => {
     const zonesList = [];
@@ -65,17 +51,7 @@ export class FilmDetailComponent implements OnInit {
   comparePersonne(a: Personne, b: Personne): boolean {
     return a.id === b.id;
   }
-  /*
-  setSelected(selectElement, act: Personne ) {
-    if (selectElement.checked) {
-      // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
-      this.newActeurSetTemp.push(act);
-    } else {
-      // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
-      const index = this.newActeurSetTemp.indexOf(act);
-      this.newActeurSetTemp.splice(index, 1);
-    }
-  }*/
+
   setRippedSelected(selectElement, film: Film ) {
     if (selectElement.checked) {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
@@ -85,32 +61,8 @@ export class FilmDetailComponent implements OnInit {
       this.film.ripped = false;
     }
   }
-  /*
-  addNewActeur() {
-    // console.log('newActeur=' + this.newActeur.prenom + ' ' + this.newActeur.nom);
-    if (this.newActeurSetTemp === undefined) {
-      this.newActeurSetTemp = [];
-    }
-    const newAct = Object.assign({}, this.newActeur);
-    this.newActeurSetTemp = [...this.newActeurSetTemp , newAct];
-    this.newActeur.nom = '';
-    this.newActeur.prenom = '';
-  }*/
+
   updateFilm() {
-    /*
-    if (this.film.titre === '') {
-      console.log('this.film.titre === vide');
-      alert('Le tire d\'un film ne peut être vide');
-      return;
-    }
-    if (this.newActeurSetTemp !== undefined) {
-      this.newActeurSet = [];
-    }*/
-    /*
-    for (const act of this.newActeurSetTemp) {
-      console.log('act=' + act.prenom + ' ' + act.nom);
-    }*/
-    // this.film.newActeurDtoSet = Object.assign([], this.newActeurSetTemp);
     if (isNaN(this.film.dvd.annee)) {
       // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
