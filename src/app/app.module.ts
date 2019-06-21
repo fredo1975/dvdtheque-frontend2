@@ -10,6 +10,7 @@ import { HttpClientModule,  } from '@angular/common/http';
 import { FilmSearchComponent } from './film-search/film-search.component';
 import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
 import { FilmAddComponent } from './film-add/film-add.component';
+import { FilmExportComponent } from './film-export/film-export.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FilmAddComponent } from './film-add/film-add.component';
     FilmDetailComponent,
     FilmSearchComponent,
     FilmTmdbSearchComponent,
-    FilmAddComponent
+    FilmAddComponent,
+    FilmExportComponent
   ],
   imports: [
     BrowserModule,
