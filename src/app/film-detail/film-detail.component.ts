@@ -26,17 +26,20 @@ export class FilmDetailComponent implements OnInit {
   private newActeurSet: Personne[];
   private updated = false;
   private loading = false;
+  private buttonDisabled = false;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
     this.loading = true;
+    this.buttonDisabled = true;
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
     }
     , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); }
     , () => {
       this.loading = false;
+      this.buttonDisabled = false;
     });
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
@@ -73,6 +76,7 @@ export class FilmDetailComponent implements OnInit {
     return this.filmService.updateFilm(this.film).subscribe(obs => {
       // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
+      this.buttonDisabled = true;
       if (this.film.ripped) {
         if (this.film.dvd.dateRip != null) {
 
@@ -86,6 +90,7 @@ export class FilmDetailComponent implements OnInit {
     , (error) => {console.log(error); }
     , () => {
       this.loading = false;
+      this.buttonDisabled = false;
     });
   }
 
