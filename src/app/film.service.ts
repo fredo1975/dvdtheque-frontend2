@@ -55,6 +55,9 @@ export class FilmService {
     return this.apiService.saveFilm(tmdbId);
   }
 
+  exportFilmList() {
+    return this.apiService.exportFilmList();
+  }
   getFilmPosterName(titre: string): string {
     const regex = / /gi;
     return titre.replace(regex, '_');

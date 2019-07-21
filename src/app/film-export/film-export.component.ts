@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilmService } from '../film.service';
 
 @Component({
   selector: 'app-film-export',
@@ -8,13 +9,33 @@ import { Component, OnInit } from '@angular/core';
 export class FilmExportComponent implements OnInit {
   loading = false;
   buttonDisabled = false;
-  constructor() { }
+  exportResult: any;
+  constructor(private filmService: FilmService) { }
 
   ngOnInit() {
   }
 
   exportFilmList() {
     console.log('exportFilmList');
+    this.buttonDisabled = true;
+    this.loading = true;
+    this.filmService.exportFilmList().subscribe((data: any) => {
+      const filename = data.headers.get('filename');
+      this.saveFile(data.body, filename);
+    }
+    , (error) => {console.log(error); }
+    , () => {
+      console.log('exportFilmList this.exportResult=' + this.exportResult);
+      this.buttonDisabled = false;
+      this.loading = false;
+    });
+  }
+  saveFile(data: any, filename?: string) {
+    const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    // fileSaver.saveAs(blob, filename);
+  }
+  importFilmList() {
+    console.log('importFilmList');
     this.buttonDisabled = true;
     this.loading = true;
   }

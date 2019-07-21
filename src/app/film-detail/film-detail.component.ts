@@ -5,7 +5,7 @@ import { Personne } from '../personne';
 import { FilmService } from '../film.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-
+import { DvdFormat } from '../dvd-format.enum';
 
 @Component({
   selector: 'app-film-detail',
@@ -21,6 +21,7 @@ export class FilmDetailComponent implements OnInit {
   private acteurs: Personne[];
   private acteursFilm: Personne[];
   private annees: number[];
+  private dvdFormats: string[];
   private zonesList: number[];
   private newActeurSet: Personne[];
   private updated = false;
@@ -39,6 +40,7 @@ export class FilmDetailComponent implements OnInit {
     });
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
+    this.dvdFormats = [null, DvdFormat[DvdFormat.BLUERAY], DvdFormat[DvdFormat.DVD]];
   }
 
   getZonesList = () => {
@@ -72,7 +74,11 @@ export class FilmDetailComponent implements OnInit {
       // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
       if (this.film.ripped) {
-        this.film.dvd.dateRip = new Date();
+        if (this.film.dvd.dateRip != null) {
+
+        } else {
+          this.film.dvd.dateRip = new Date();
+        }
       } else {
         this.film.dvd.dateRip = null;
       }

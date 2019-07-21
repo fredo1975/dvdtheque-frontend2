@@ -70,6 +70,15 @@ export class ApiService {
     );
   }
 
+  exportFilmList() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(environment.apiUrl + '/films/export/' , null, httpOptions).pipe(
+      tap(_ => console.log('exportFilmList')),
+      catchError(this.handleError<any>('exportFilmList'))
+    );
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body;
