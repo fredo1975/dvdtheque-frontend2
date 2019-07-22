@@ -25,8 +25,8 @@ export class FilmDetailComponent implements OnInit {
   private zonesList: number[];
   private newActeurSet: Personne[];
   private updated = false;
-  private loading = false;
-  private buttonDisabled = false;
+  loading = false;
+  buttonDisabled = false;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
   }
 
