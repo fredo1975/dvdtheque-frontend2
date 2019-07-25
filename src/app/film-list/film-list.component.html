@@ -32,6 +32,8 @@
     <th>Année</th>
     -->
     <th>Rippé</th>
+    <th>Format</th>
+    <th>Durée (min)</th>
     </tr>
   </thead>
   <tbody>
@@ -74,6 +76,12 @@
           <div *ngIf="!film.ripped">
             <img src="assets/img/ko.png">
           </div>
+      </td>
+      <td>
+        {{film.dvd.format}}
+      </td>
+      <td>
+        {{film.runtime}}
       </td>
     </tr>
   </tbody>

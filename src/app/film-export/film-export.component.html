@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-lg-8 offset-lg-4">
-          <button class="btn btn-primary" (click)="exportFilmList()" [disabled]="buttonDisabled">Exporter au format Excel</button>&nbsp;
+          <button class="btn btn-primary" (click)="exportFilmList($event)" [disabled]="buttonDisabled">Exporter au format Excel</button>&nbsp;
           <button class="btn btn-primary" (click)="importFilmList()" [disabled]="buttonDisabled">Importer au format Csv</button>
       </div>
       

@@ -72,8 +72,8 @@ export class ApiService {
 
   exportFilmList() {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(environment.apiUrl + '/films/export/' , null, httpOptions).pipe(
+    headers.append('Content-Type', 'ResponseContentType.Blob');
+    return this.http.post(environment.apiUrl + '/films/export' , null, httpOptions).pipe(
       tap(_ => console.log('exportFilmList')),
       catchError(this.handleError<any>('exportFilmList'))
     );

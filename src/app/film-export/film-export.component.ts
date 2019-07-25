@@ -15,13 +15,27 @@ export class FilmExportComponent implements OnInit {
   ngOnInit() {
   }
 
-  exportFilmList() {
+  exportFilmList($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     console.log('exportFilmList');
     this.buttonDisabled = true;
     this.loading = true;
+    const fileName = 'ListeDvdExport.xlsx';
     this.filmService.exportFilmList().subscribe((data: any) => {
-      const filename = data.headers.get('filename');
-      this.saveFile(data.body, filename);
+      const file = new Blob([data], { type: 'ResponseContentType.Blob' });
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        console.log('exportFilmList window.navigator && window.navigator.msSaveOrOpenBlob');
+        window.navigator.msSaveOrOpenBlob(file, fileName);
+      } else {
+        console.log('exportFilmList else');
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
     }
     , (error) => {console.log(error); }
     , () => {
