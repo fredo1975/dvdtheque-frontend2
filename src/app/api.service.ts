@@ -10,7 +10,7 @@ const httpOptions = {
     'Content-Type':  'application/json'
   })
 };
-
+const encodedAuth = window.localStorage.getItem('encodedAuth');
 @Injectable({
   providedIn: 'root'
 })
@@ -71,12 +71,16 @@ export class ApiService {
   }
 
   exportFilmList() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'ResponseContentType.Blob');
-    return this.http.post(environment.apiUrl + '/films/export' , null, httpOptions).pipe(
-      tap(_ => console.log('exportFilmList')),
-      catchError(this.handleError<any>('exportFilmList'))
-    );
+    return this.http.get(environment.apiUrl + '/films/export',{ headers: new HttpHeaders({
+      'Authorization': 'Basic ' + encodedAuth,
+      'Content-Type': 'application/octet-stream',
+      }), responseType: 'blob'}).pipe (
+      tap (
+        // Log the result or error
+        data => console.log('You received data'),
+        error => console.log(error)
+      )
+     );
   }
 
   private extractData(res: Response) {

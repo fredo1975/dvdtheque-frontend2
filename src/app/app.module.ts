@@ -11,7 +11,10 @@ import { FilmSearchComponent } from './film-search/film-search.component';
 import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
 import { FilmAddComponent } from './film-add/film-add.component';
 import { FilmExportComponent } from './film-export/film-export.component';
-
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
   declarations: [
     AppComponent,

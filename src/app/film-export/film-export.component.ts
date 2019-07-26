@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../film.service';
+import * as FileSaver from 'file-saver';
+import { DatePipe } from '@angular/common';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-film-export',
@@ -15,42 +20,28 @@ export class FilmExportComponent implements OnInit {
   ngOnInit() {
   }
 
-  exportFilmList($event) {
-    $event.stopPropagation();
-    $event.preventDefault();
-    console.log('exportFilmList');
+  exportFilmList() {
     this.buttonDisabled = true;
     this.loading = true;
-    const fileName = 'ListeDvdExport.xlsx';
+    const fileName = 'ListeDvdExport';
     this.filmService.exportFilmList().subscribe((data: any) => {
-      const file = new Blob([data], { type: 'ResponseContentType.Blob' });
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        console.log('exportFilmList window.navigator && window.navigator.msSaveOrOpenBlob');
-        window.navigator.msSaveOrOpenBlob(file, fileName);
-      } else {
-        console.log('exportFilmList else');
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(file);
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
+      const now = Date.now();
+      this.saveAsExcelFile(data, `${fileName}-${now }` + EXCEL_EXTENSION);
     }
     , (error) => {console.log(error); }
     , () => {
-      console.log('exportFilmList this.exportResult=' + this.exportResult);
       this.buttonDisabled = false;
       this.loading = false;
     });
   }
-  saveFile(data: any, filename?: string) {
-    const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-    // fileSaver.saveAs(blob, filename);
+  private saveAsExcelFile(data: any, fileName: string): void {
+    const blob: Blob = new Blob([data], {type: EXCEL_TYPE});
+    FileSaver.saveAs(blob, fileName);
   }
   importFilmList() {
     console.log('importFilmList');
-    this.buttonDisabled = true;
+        console.log('exportFilmList else');
+        this.buttonDisabled = true;
     this.loading = true;
   }
 }
