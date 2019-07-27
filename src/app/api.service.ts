@@ -71,7 +71,7 @@ export class ApiService {
   }
 
   exportFilmList() {
-    return this.http.get(environment.apiUrl + '/films/export',{ headers: new HttpHeaders({
+    return this.http.post(environment.apiUrl + '/films/export', null, { headers: new HttpHeaders({
       'Authorization': 'Basic ' + encodedAuth,
       'Content-Type': 'application/octet-stream',
       }), responseType: 'blob'}).pipe (
