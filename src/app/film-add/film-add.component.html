@@ -8,7 +8,8 @@
             </div>
         </div>
         <div class="col-lg-8 offset-lg-4">
-            <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()" [disabled]="buttonDisabled">Chercher le film à ajouter</button>
+            <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()" [disabled]="buttonDisabled">Chercher le film à ajouter</button>&nbsp;
+            <button type="button" class="btn btn-primary" (click)="resetTmdbFilm()" [disabled]="buttonDisabled">Effecer la recherche</button>
         </div>
         <div class="col-lg-8 offset-lg-4">
             <div class="spinner-grow text-muted" *ngIf="loading"></div>
@@ -21,7 +22,6 @@
         </div>
       </div>
     </div>
-
         <div *ngIf="tmdbFilms">
             <br/>
             <div class="container-fluid">

@@ -1,7 +1,8 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearch } from '../film-search';
+import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -19,7 +20,9 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
   @Input() rippedSinceFilmSearch: FilmSearch;
+  @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
+
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -28,10 +31,10 @@ export class FilmListComponent implements OnInit, OnChanges {
       this.films = data;
       this.filteredFilms = data;
     }
-    , (error) => {console.log(error); }
-    , () => {
-      this.loading = false;
-    });
+      , (error) => { console.log(error); }
+      , () => {
+        this.loading = false;
+      });
   }
 
   ngOnChanges() {
@@ -40,15 +43,18 @@ export class FilmListComponent implements OnInit, OnChanges {
     , (error) => {console.log(error); });
     console.log('filmSearch changed');*/
   }
+  resetFilter() {
+    this.filmSearchComponent.resetFilter();
+  }
 
   getAllFilms(): Observable<Film[]> {
     return this.filmService.loadAll();
   }
-/*
-  getPosterImg (film: Film) {
-    // console.log(environment.poster_url + this.filmService.getFilmPosterName(film.titre));
-    return environment.poster_url + this.filmService.getFilmPosterName(film.titre);
-  }*/
+  /*
+    getPosterImg (film: Film) {
+      // console.log(environment.poster_url + this.filmService.getFilmPosterName(film.titre));
+      return environment.poster_url + this.filmService.getFilmPosterName(film.titre);
+    }*/
 
   filterOnTitre(titre: string) {
     this.filteredFilms = [];

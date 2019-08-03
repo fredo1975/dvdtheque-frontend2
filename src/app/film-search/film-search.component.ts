@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Personne } from '../personne';
 import { FilmSearch } from '../film-search';
@@ -31,19 +31,27 @@ export class FilmSearchComponent implements OnInit {
     this.loadingAllRealisateurs = true;
     this.annees = this.filmService.getAnneesSelect();
     this.filmService.getAllActeurs().subscribe((data: Personne[]) => {
-        this.acteurs = data;
+      this.acteurs = data;
     }
-    , (error) => {console.log('an error occured when fetching all acteurs'); }
-    , () => {
-      this.loadingAllActeurs = false;
-    });
+      , (error) => { console.log('an error occured when fetching all acteurs'); }
+      , () => {
+        this.loadingAllActeurs = false;
+      });
     this.filmService.getAllRealisateurs().subscribe((data: Personne[]) => {
       this.realisateurs = data;
     }
-    , (error) => {console.log('an error occured when fetching all realisateurs'); }
-    , () => {
-      this.loadingAllRealisateurs = false;
-    });
+      , (error) => { console.log('an error occured when fetching all realisateurs'); }
+      , () => {
+        this.loadingAllRealisateurs = false;
+      });
+  }
+
+  resetFilter() {
+    this.filmSearch.titre = null;
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.ripped = null;
   }
 
   findTitre(event: any) { // without type info

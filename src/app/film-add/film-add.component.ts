@@ -18,6 +18,10 @@ export class FilmAddComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
+  resetTmdbFilm() {
+    this.tmdbFilms = null;
+    this.titre = null;
+  }
   serachTmdbFilm() {
     if (this.titre == null) {
       alert('il faut un titre pour faire une recherche');
