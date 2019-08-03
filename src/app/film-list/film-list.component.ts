@@ -19,7 +19,6 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() anneeFilmSearch: FilmSearch;
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
-  @Input() rippedSinceFilmSearch: FilmSearch;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
 
@@ -45,6 +44,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   }
   resetFilter() {
     this.filmSearchComponent.resetFilter();
+    this.filteredFilms = this.films;
   }
 
   getAllFilms(): Observable<Film[]> {
@@ -109,21 +109,6 @@ export class FilmListComponent implements OnInit, OnChanges {
       const ripped = event === 'ripped' ? true : false;
       for (let i = 0; i < this.films.length; i++) {
         if (this.films[i].ripped === ripped) {
-          this.filteredFilms.push(this.films[i]);
-        }
-      }
-    }
-  }
-
-  filterOnRippedSince(event: string) {
-    // console.log('FilmListComponent::filterOnRipped::event=' + event);
-    if (event === 'tous') {
-      this.filteredFilms = this.films;
-    } else {
-      this.filteredFilms = [];
-      const rippedSince = event === 'rippedSince' ? true : false;
-      for (let i = 0; i < this.films.length; i++) {
-        if (this.films[i].ripped === rippedSince) {
           this.filteredFilms.push(this.films[i]);
         }
       }
