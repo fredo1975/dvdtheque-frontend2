@@ -7,9 +7,9 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'echo \'stoping image ...\''
-                sh 'ssh jenkins@$SERVER_IP sudo docker stop gallant_franklin'
+                sh 'ssh jenkins@$SERVER_IP sudo docker stop *'
                 sh 'echo \'removing image ...\''
-                sh 'ssh jenkins@$SERVER_IP sudo docker rm gallant_franklin'
+                sh 'ssh jenkins@$SERVER_IP sudo docker rm *'
                 sh 'echo \'build dvdtheque-frontend:prod ...\''
                 sh 'ssh jenkins@$SERVER_IP sudo docker build -t dvdtheque-frontend:prod .'
                 sh 'echo \'run dvdtheque-frontend:prod ...\''
