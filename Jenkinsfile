@@ -6,15 +6,15 @@ pipeline {
     stages {
         stage('Deliver') {
             steps {
-                sh 'echo \'stoping image ...\''
-                sh 'ssh jenkins@$SERVER_IP sudo docker stop *'
-                sh 'echo \'removing image ...\''
-                sh 'ssh jenkins@$SERVER_IP sudo docker rm *'
-                sh 'echo \'build dvdtheque-frontend:prod ...\''
+                sh 'echo stoping image dvdtheque-frontend on server "$SERVER_IP"'
+                sh 'ssh jenkins@$SERVER_IP sudo docker stop dvdtheque-frontend'
+                sh 'echo removing image dvdtheque-frontend on server "$SERVER_IP"'
+                sh 'ssh jenkins@$SERVER_IP sudo docker rm dvdtheque-frontend'
+                sh 'echo build dvdtheque-frontend on server "$SERVER_IP"'
                 sh 'ssh jenkins@$SERVER_IP sudo docker build -t dvdtheque-frontend:prod .'
-                sh 'echo \'run dvdtheque-frontend:prod ...\''
+                sh 'echo run dvdtheque-frontend:prod on server "$SERVER_IP"'
                 sh 'ssh jenkins@$SERVER_IP sudo docker run -d -p 80:80 dvdtheque-frontend:prod'
-                sh 'echo \'check http://localhost/info...\''
+                sh 'echo check http://localhost/info on server "$SERVER_IP"'
                 sh 'ssh jenkins@$SERVER_IP sudo http http://localhost/info'
             }
         }
