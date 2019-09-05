@@ -1,21 +1,24 @@
 pipeline {
-    agent any
-    environment {
-    	def SERVER_IP = '192.168.1.102'
-    }
+    agent { dockerfile true }
     stages {
-        stage('Deliver') {
+        stage('Stop image') {
             steps {
-                sh 'echo stoping image dvdtheque-frontend on server "$SERVER_IP"'
-                sh 'ssh jenkins@$SERVER_IP docker stop dvdtheque-frontend'
-                sh 'echo removing image dvdtheque-frontend on server "$SERVER_IP"'
-                sh 'ssh jenkins@$SERVER_IP docker rm dvdtheque-frontend'
-                sh 'echo build dvdtheque-frontend on server "$SERVER_IP"'
-                sh 'ssh jenkins@$SERVER_IP docker build -t dvdtheque-frontend:prod .'
-                sh 'echo run dvdtheque-frontend:prod on server "$SERVER_IP"'
-                sh 'ssh jenkins@$SERVER_IP docker run -d -p 80:80 dvdtheque-frontend:prod'
-                sh 'echo check http://localhost/info on server "$SERVER_IP"'
-                sh 'ssh jenkins@$SERVER_IP http http://localhost/info'
+                sh 'docker stop dvdtheque-frontend'
+            }
+        }
+        stage('Remove image') {
+            steps {
+                sh 'docker rm dvdtheque-frontend'
+            }
+        }
+        stage('Build image') {
+            steps {
+                sh 'docker build -t dvdtheque-frontend:prod .'
+            }
+        }
+        stage('Run image') {
+            steps {
+                sh 'docker run --name dvdtheque-frontend -d -p 80:80 dvdtheque-frontend:prod'
             }
         }
     }
