@@ -17,7 +17,7 @@ pipeline {
         }*/
         stage('Build image') {
             steps {
-                sh 'docker build -t dvdtheque-frontend:prod .'
+                sh 'ssh localhost "echo \$PATH"'
             }
         }
         stage('Login to docker') {
