@@ -1,14 +1,17 @@
 pipeline {
     agent { dockerfile true }
+    environment {
+    	def SERVER_IP = '192.168.1.102'
+    }
     stages {
-        stage('Stop image') {
+        stage('Stop remote image') {
             steps {
-                sh 'docker stop dvdtheque-frontend'
+                sh 'ssh jenkins@$SERVER_IP docker stop dvdtheque-frontend'
             }
         }
         stage('Remove image') {
             steps {
-                sh 'docker rm dvdtheque-frontend'
+                sh 'ssh jenkins@$SERVER_IP docker rm dvdtheque-frontend'
             }
         }
         stage('Build image') {
@@ -16,9 +19,24 @@ pipeline {
                 sh 'docker build -t dvdtheque-frontend:prod .'
             }
         }
+        stage('Login to docker') {
+            steps {
+                sh 'docker login -u fredo1975 -p fredo1975;0108'
+            }
+        }
+        stage('Tag image') {
+            steps {
+                sh 'docker tag image fredo1975/dvdtheque:prod'
+            }
+        }
+        stage('Publish image') {
+            steps {
+                sh 'docker push fredo1975/dvdtheque:prod'
+            }
+        }
         stage('Run image') {
             steps {
-                sh 'docker run --name dvdtheque-frontend -d -p 80:80 dvdtheque-frontend:prod'
+                sh 'ssh jenkins@$SERVER_IP docker run -d -p 80:80 fredo1975/dvdtheque:prod'
             }
         }
     }
