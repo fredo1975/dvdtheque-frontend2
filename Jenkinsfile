@@ -4,20 +4,11 @@ pipeline {
     	def SERVER_IP = '192.168.1.102'
     }
     stages {
-        /*
-        stage('Stop remote image') {
-            steps {
-                sh 'ssh jenkins@$SERVER_IP docker stop dvdtheque-frontend'
-            }
-        }
-        stage('Remove image') {
-            steps {
-                sh 'ssh jenkins@$SERVER_IP docker rm dvdtheque-frontend'
-            }
-        }*/
+        
+        
         stage('Build image') {
             steps {
-                sh 'ssh localhost "echo \$PATH"'
+                sh 'docker -v $(which docker):/usr/bin/docker build -t dvdtheque-frontend:prod .'
             }
         }
         stage('Login to docker') {
@@ -35,11 +26,10 @@ pipeline {
                 sh 'docker push fredo1975/dvdtheque:prod'
             }
         }
-        /*
         stage('Run image') {
             steps {
                 sh 'ssh jenkins@$SERVER_IP docker run -d -p 80:80 fredo1975/dvdtheque:prod'
             }
-        }*/
+        }
     }
 }
