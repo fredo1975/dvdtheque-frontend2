@@ -1,10 +1,8 @@
-import { Component, OnInit, OnChanges,  Input, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { Film } from '../film';
 import { Personne } from '../personne';
 import { FilmService } from '../film.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { DvdFormat } from '../dvd-format.enum';
 
 @Component({
@@ -14,7 +12,7 @@ import { DvdFormat } from '../dvd-format.enum';
 })
 export class FilmDetailComponent implements OnInit {
   // @Input() film: Film;
-  @ViewChild('select') selectElRef;
+  // @ViewChild('select') selectElRef;
   @Input() film: Film;
   @Input() replacedFilm: Film;
   private realisateurs: Personne[];
@@ -36,11 +34,11 @@ export class FilmDetailComponent implements OnInit {
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
     }
-    , (error) => {console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); }
-    , () => {
-      this.loading = false;
-      this.buttonDisabled = false;
-    });
+      , (error) => { console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); }
+      , () => {
+        this.loading = false;
+        this.buttonDisabled = false;
+      });
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
     this.dvdFormats = [null, DvdFormat[DvdFormat.BLUERAY], DvdFormat[DvdFormat.DVD]];
@@ -57,7 +55,7 @@ export class FilmDetailComponent implements OnInit {
     return a.id === b.id;
   }
 
-  setRippedSelected(selectElement, film: Film ) {
+  setRippedSelected(selectElement, film: Film) {
     if (selectElement.checked) {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
       this.film.ripped = true;
@@ -87,11 +85,11 @@ export class FilmDetailComponent implements OnInit {
         this.film.dvd.dateRip = null;
       }
     }
-    , (error) => {console.log(error); }
-    , () => {
-      this.loading = false;
-      this.buttonDisabled = false;
-    });
+      , (error) => { console.log(error); }
+      , () => {
+        this.loading = false;
+        this.buttonDisabled = false;
+      });
   }
 
   doReplaceFilm(filmEmitted: Film) {

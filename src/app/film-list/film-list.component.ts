@@ -19,9 +19,9 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() anneeFilmSearch: FilmSearch;
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
-  @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
-
+  private ascRipDateSort = true;
+  private asctitreSort = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -43,7 +43,6 @@ export class FilmListComponent implements OnInit, OnChanges {
     console.log('filmSearch changed');*/
   }
   resetFilter() {
-    this.filmSearchComponent.resetFilter();
     this.filteredFilms = this.films;
   }
 
@@ -113,5 +112,45 @@ export class FilmListComponent implements OnInit, OnChanges {
         }
       }
     }
+  }
+  sort(sortParam: string) {
+    // alert(sortParam);
+    if (sortParam === 'daterip') {
+      this.sortDateRip();
+    }
+    if (sortParam === 'titre') {
+      // this.filteredFilms.sort((val1, val2) => val1.titre - val2.titre);
+      this.sortTitre();
+      this.asctitreSort = !this.asctitreSort;
+    }
+    if (sortParam === 'duree') {
+      this.filteredFilms.sort((val1, val2) => val1.runtime - val2.runtime);
+    }
+  }
+  private sortDateRip() {
+    // tslint:disable-next-line:max-line-length
+    this.filteredFilms.sort((val1, val2) => {
+      if (val1.dvd.dateRip && val2.dvd.dateRip) {
+        return new Date(val1.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
+      } else if (new Date(val1.dvd.dateRip).getTime() === 0 && val2.dvd.dateRip) {
+        return new Date(val2.dvd.dateRip).getTime();
+      } else if (val2.dvd.dateRip && new Date(val1.dvd.dateRip).getTime() === 0) {
+        return new Date(val1.dvd.dateRip).getTime();
+      } else {
+        return 0;
+      }
+    });
+  }
+  sortTitre() {
+    this.filteredFilms.sort((val1, val2) => {
+      val1.titre.toLowerCase();
+      val2.titre.toLowerCase();
+      console.log('sortTitre', val1.titre.toLowerCase(), val2.titre.toLowerCase(), this.asctitreSort);
+      if (this.asctitreSort) {
+        return val1 > val2 ? -1 : val2 > val1 ? 1 : 0;
+      } else {
+        return val2 > val1 ? -1 : val1 > val2 ? 1 : 0;
+      }
+    });
   }
 }

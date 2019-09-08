@@ -13,6 +13,7 @@ export class Film {
         public dvd: Dvd,
         public posterPath: string,
         public alreadyInDvdtheque: boolean,
-        public tmdbId: number) {
+        public tmdbId: number,
+        public runtime: number) {
     }
 }

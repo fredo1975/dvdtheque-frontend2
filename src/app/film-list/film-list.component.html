@@ -28,17 +28,11 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>Film</th>
-              <!--
-    <th>Titre</th>
-    <th>Titre Original</th>
-    <th>Réalisateurs</th>
-    <th>Acteur</th>
-    <th>Année</th>
-    -->
+              <th><a routerLink="" (click)="sort('titre')">Film</a></th>
               <th>Rippé</th>
-              <th>Format</th>
-              <th>Durée (min)</th>
+              <th><a routerLink="" (click)="sort('daterip')">Date RIP</a></th>
+              <th><a routerLink="" (click)="sort('dvdformat')">Format</a></th>
+              <th><a routerLink="" (click)="sort('duree')">Durée (min)</a></th>
             </tr>
           </thead>
           <tbody>
@@ -48,38 +42,17 @@
                   <img src="{{film.posterPath}}" alt="" width="300" />
                 </a>
               </td>
-              <!--
-      <td>
-          <a routerLink="/filmDetail/{{film.id}}">
-            {{film.titre | uppercase}}
-          </a>
-      </td>
-      <td>
-          <a routerLink="/filmDetail/{{film.id}}">
-            {{film.titreO | uppercase}}
-          </a>
-      </td>
-      <td>
-            <div *ngFor="let realisateur of film.realisateurs">
-                {{realisateur.nom | uppercase}}
-            </div>
-        
-      </td>
-      <td>
-          <div *ngFor="let acteur of film.acteurs">
-              {{acteur.nom | uppercase}}
-          </div>
-      </td>
-      <td>
-        {{film.annee}}
-      </td>
-    -->
               <td>
                 <div *ngIf="film.ripped">
                   <img src="assets/img/ok.png">
                 </div>
                 <div *ngIf="!film.ripped">
                   <img src="assets/img/ko.png">
+                </div>
+              </td>
+              <td>
+                <div *ngIf="film.dvd.dateRip">
+                  {{film.dvd.dateRip | date:'dd/MM/yy'}}
                 </div>
               </td>
               <td>
