@@ -21,7 +21,9 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() rippedFilmSearch: FilmSearch;
   private loading = false;
   private ascRipDateSort = true;
+  private ascdureeDateSort = false;
   private asctitreSort = false;
+  private ascDvdFormatSort = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -117,6 +119,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     // alert(sortParam);
     if (sortParam === 'daterip') {
       this.sortDateRip();
+      this.ascRipDateSort = !this.ascRipDateSort;
     }
     if (sortParam === 'titre') {
       // this.filteredFilms.sort((val1, val2) => val1.titre - val2.titre);
@@ -124,14 +127,23 @@ export class FilmListComponent implements OnInit, OnChanges {
       this.asctitreSort = !this.asctitreSort;
     }
     if (sortParam === 'duree') {
-      this.filteredFilms.sort((val1, val2) => val1.runtime - val2.runtime);
+      this.sortDuree();
+      this.ascdureeDateSort = !this.ascdureeDateSort;
+    }
+    if (sortParam === 'dvdformat') {
+      this.sortDvdFormat();
+      this.ascDvdFormatSort = !this.ascDvdFormatSort;
     }
   }
   private sortDateRip() {
     // tslint:disable-next-line:max-line-length
     this.filteredFilms.sort((val1, val2) => {
       if (val1.dvd.dateRip && val2.dvd.dateRip) {
-        return new Date(val1.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
+        if (this.ascRipDateSort) {
+          return new Date(val1.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
+        } else {
+          return new Date(val2.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
+        }
       } else if (new Date(val1.dvd.dateRip).getTime() === 0 && val2.dvd.dateRip) {
         return new Date(val2.dvd.dateRip).getTime();
       } else if (val2.dvd.dateRip && new Date(val1.dvd.dateRip).getTime() === 0) {
@@ -140,16 +152,35 @@ export class FilmListComponent implements OnInit, OnChanges {
         return 0;
       }
     });
+    this.ascRipDateSort = !this.ascRipDateSort;
   }
-  sortTitre() {
+  private sortTitre() {
     this.filteredFilms.sort((val1, val2) => {
       val1.titre.toLowerCase();
       val2.titre.toLowerCase();
-      console.log('sortTitre', val1.titre.toLowerCase(), val2.titre.toLowerCase(), this.asctitreSort);
       if (this.asctitreSort) {
-        return val1 > val2 ? -1 : val2 > val1 ? 1 : 0;
+        return val1.titre.toLowerCase() > val2.titre.toLowerCase() ? -1 : val2.titre.toLowerCase() > val1.titre.toLowerCase() ? 1 : 0;
       } else {
-        return val2 > val1 ? -1 : val1 > val2 ? 1 : 0;
+        return val2.titre.toLowerCase() > val1.titre.toLowerCase() ? -1 : val1.titre.toLowerCase() > val2.titre.toLowerCase() ? 1 : 0;
+      }
+    });
+  }
+  private sortDuree() {
+    if (this.ascdureeDateSort) {
+      this.filteredFilms.sort((val1, val2) => val1.runtime - val2.runtime);
+    } else {
+      this.filteredFilms.sort((val1, val2) => val2.runtime - val1.runtime);
+    }
+  }
+  private sortDvdFormat() {
+    this.filteredFilms.sort((val1, val2) => {
+      // tslint:disable-next-line:max-line-length
+      if (this.ascDvdFormatSort) {
+        // tslint:disable-next-line:max-line-length
+        return val1.dvd.format.toString().toLowerCase() > val2.dvd.format.toString().toLowerCase() ? -1 : val2.dvd.format.toString().toLowerCase() > val1.dvd.format.toString().toLowerCase() ? 1 : 0;
+      } else {
+        // tslint:disable-next-line:max-line-length
+        return val2.dvd.format.toString().toLowerCase() > val1.dvd.format.toString().toLowerCase() ? -1 : val1.dvd.format.toString().toLowerCase() > val2.dvd.format.toString().toLowerCase() ? 1 : 0;
       }
     });
   }
