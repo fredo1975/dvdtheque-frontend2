@@ -142,7 +142,7 @@ export class FilmListComponent implements OnInit, OnChanges {
         if (this.ascRipDateSort) {
           return new Date(val1.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
         } else {
-          return new Date(val2.dvd.dateRip).getTime() - new Date(val2.dvd.dateRip).getTime();
+          return new Date(val2.dvd.dateRip).getTime() - new Date(val1.dvd.dateRip).getTime();
         }
       } else if (new Date(val1.dvd.dateRip).getTime() === 0 && val2.dvd.dateRip) {
         return new Date(val2.dvd.dateRip).getTime();
@@ -152,7 +152,6 @@ export class FilmListComponent implements OnInit, OnChanges {
         return 0;
       }
     });
-    this.ascRipDateSort = !this.ascRipDateSort;
   }
   private sortTitre() {
     this.filteredFilms.sort((val1, val2) => {
