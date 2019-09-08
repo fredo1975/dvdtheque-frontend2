@@ -146,7 +146,7 @@ export class FilmListComponent implements OnInit, OnChanges {
         }
       } else if (new Date(val1.dvd.dateRip).getTime() === 0 && val2.dvd.dateRip) {
         return new Date(val2.dvd.dateRip).getTime();
-      } else if (val2.dvd.dateRip && new Date(val1.dvd.dateRip).getTime() === 0) {
+      } else if (val1.dvd.dateRip && new Date(val2.dvd.dateRip).getTime() === 0) {
         return new Date(val1.dvd.dateRip).getTime();
       } else {
         return 0;
