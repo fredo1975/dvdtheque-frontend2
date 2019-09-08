@@ -19,6 +19,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() anneeFilmSearch: FilmSearch;
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
+  @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
   private ascRipDateSort = true;
   private ascdureeDateSort = false;
@@ -45,6 +46,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     console.log('filmSearch changed');*/
   }
   resetFilter() {
+    this.filmSearchComponent.resetFilter();
     this.filteredFilms = this.films;
   }
 
