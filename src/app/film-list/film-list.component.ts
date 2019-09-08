@@ -136,6 +136,21 @@ export class FilmListComponent implements OnInit, OnChanges {
     }
   }
   private sortDateRip() {
+    // elements with daterip null at the end
+    const temp: any[] = [];
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (this.filteredFilms[i].dvd.dateRip) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (new Date(this.filteredFilms[i].dvd.dateRip).getTime() === 0) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    this.filteredFilms = temp;
     // tslint:disable-next-line:max-line-length
     this.filteredFilms.sort((val1, val2) => {
       if (val1.dvd.dateRip && val2.dvd.dateRip) {
