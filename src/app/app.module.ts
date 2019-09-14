@@ -6,7 +6,7 @@ import { FilmListComponent } from './film-list/film-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
-import { HttpClientModule,  } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FilmSearchComponent } from './film-search/film-search.component';
 import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
 import { FilmAddComponent } from './film-add/film-add.component';
@@ -14,6 +14,8 @@ import { FilmExportComponent } from './film-export/film-export.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
+import { ErrorInterceptorService } from './error-interceptor.service';
+
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
   declarations: [
@@ -32,7 +34,11 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

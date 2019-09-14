@@ -1,18 +1,29 @@
 <div class="container-fluid">
-  <div class="row">
-      <div class="col-lg-8 offset-lg-4">
-          <button class="btn btn-primary" (click)="exportFilmList()" [disabled]="buttonDisabled">Exporter au format Excel</button>&nbsp;
-          <button class="btn btn-primary" (click)="importFilmList()" [disabled]="buttonDisabled">Importer au format Csv</button>
-      </div>
-      
-      <div class="col-lg-8 offset-lg-4">
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      </div>
-  </div>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-4">
+            <button class="btn btn-primary" (click)="exportFilmList()" [disabled]="buttonDisabled">Exporter au format
+                Excel</button>&nbsp;
+
+        </div>
+        <span>&nbsp;</span>
+        <div class="col-lg-8 offset-lg-4">
+            <form (ngSubmit)="importFilmList()" #form="ngForm">
+                <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
+                    format
+                    Csv</button>&nbsp;
+                <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)"
+                    #fileInput>
+
+            </form>
+        </div>
+        <div class="col-lg-8 offset-lg-4">
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+        </div>
+    </div>
 </div>

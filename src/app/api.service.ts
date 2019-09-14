@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError} from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type': 'application/json'
   })
 };
 const encodedAuth = window.localStorage.getItem('encodedAuth');
@@ -46,8 +46,7 @@ export class ApiService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(environment.apiUrl + '/films/save/' + tmdbId, httpOptions).pipe(
-      tap(_ => console.log(`added film id=${tmdbId}`)),
-      catchError(this.handleError<any>('saveFilm'))
+      tap(_ => console.log(`added film id=${tmdbId}`))
     );
   }
 
@@ -55,53 +54,30 @@ export class ApiService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log('apiUr=' + environment.apiUrl + '/films/update/' + film.id);
-    return this.http.put(environment.apiUrl + '/films/update/' + film.id , film, httpOptions).pipe(
-      tap(_ => console.log(`updated film id=${film.id}`)),
-      catchError(this.handleError<any>('updateFilm'))
+    return this.http.put(environment.apiUrl + '/films/update/' + film.id, film, httpOptions).pipe(
+      tap(_ => console.log(`updated film id=${film.id}`))
     );
   }
 
   replaceFilm(film: Film, tmdbId: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl + '/films/tmdb/' + tmdbId , film, httpOptions).pipe(
-      tap(_ => console.log(`replaceFilm film id=${film.id}`)),
-      catchError(this.handleError<any>('replaceFilm'))
-    );
+    return this.http.put<Film>(environment.apiUrl + '/films/tmdb/' + tmdbId, film, httpOptions);
+  }
+
+  importFilmList(formdata: FormData): Observable<any> {
+    const url = '/films/import';
+    console.log('importFilmList');
+    return this.http.post(environment.apiUrl + '/films/import', formdata).pipe(
+      tap(_ => console.log('importFilmList done')));
   }
 
   exportFilmList() {
-    return this.http.post(environment.apiUrl + '/films/export', null, { headers: new HttpHeaders({
-      'Authorization': 'Basic ' + encodedAuth,
-      'Content-Type': 'application/octet-stream',
-      }), responseType: 'blob'}).pipe (
-      tap (
-        // Log the result or error
-        data => console.log('You received data'),
-        error => console.log(error)
-      )
-     );
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body;
-  }
-  /*
-  private handleError (error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
-    const errMsg = (error.message) ? error.message :
-    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
-  }*/
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+    return this.http.post(environment.apiUrl + '/films/export', null, {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic ' + encodedAuth,
+        'Content-Type': 'application/octet-stream',
+      }), responseType: 'blob'
+    });
   }
 }

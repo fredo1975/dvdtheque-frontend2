@@ -16,8 +16,8 @@ export class FilmService {
   private baseUrl: string;
 
   constructor(private apiService: ApiService) {
-    this.baseUrl  = 'http://localhost:8083/dvdtheque';
-   }
+    this.baseUrl = 'http://localhost:8083/dvdtheque';
+  }
 
   loadAll(): Observable<Film[]> {
     return this.apiService.getAllFilms();
@@ -58,6 +58,9 @@ export class FilmService {
   exportFilmList() {
     return this.apiService.exportFilmList();
   }
+  importFilmList(formdata: FormData): Observable<any> {
+    return this.apiService.importFilmList(formdata);
+  }
   getFilmPosterName(titre: string): string {
     const regex = / /gi;
     return titre.replace(regex, '_');
@@ -68,7 +71,7 @@ export class FilmService {
     const currentTime = new Date();
     const yyyy = currentTime.getFullYear();
     // anneeList.push(nonRenseigne);
-    for (let i = yyyy; i > 1930; i-- ) {
+    for (let i = yyyy; i > 1930; i--) {
       anneeList.push(i);
     }
     return anneeList;
