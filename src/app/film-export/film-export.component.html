@@ -2,19 +2,8 @@
     <div class="row">
         <div class="col-lg-8 offset-lg-4">
             <button class="btn btn-primary" (click)="exportFilmList()" [disabled]="buttonDisabled">Exporter au format
-                Excel</button>&nbsp;
+                Excel</button>
 
-        </div>
-        <span>&nbsp;</span>
-        <div class="col-lg-8 offset-lg-4">
-            <form (ngSubmit)="importFilmList()" #form="ngForm">
-                <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
-                    format
-                    Csv</button>&nbsp;
-                <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)"
-                    #fileInput>
-
-            </form>
         </div>
         <div class="col-lg-8 offset-lg-4">
             <div class="spinner-grow text-muted" *ngIf="loading"></div>

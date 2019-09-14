@@ -4,19 +4,21 @@ import { FilmListComponent } from './film-list/film-list.component';
 import { FilmAddComponent } from './film-add/film-add.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { FilmExportComponent } from './film-export/film-export.component';
+import { FilmImportComponent } from './film-import/film-import.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/filmList', pathMatch: 'full' },
   { path: 'filmList', component: FilmListComponent },
   { path: 'filmDetail/:id', component: FilmDetailComponent },
   { path: 'filmAdd', component: FilmAddComponent },
-  { path: 'filmExport', component: FilmExportComponent }
+  { path: 'filmExport', component: FilmExportComponent },
+  { path: 'filmImport', component: FilmImportComponent }
 ];
 
 @NgModule({
   declarations: [],
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 

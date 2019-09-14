@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
 import { ErrorInterceptorService } from './error-interceptor.service';
+import { FilmImportComponent } from './film-import/film-import.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -26,7 +27,8 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     FilmSearchComponent,
     FilmTmdbSearchComponent,
     FilmAddComponent,
-    FilmExportComponent
+    FilmExportComponent,
+    FilmImportComponent
   ],
   imports: [
     BrowserModule,

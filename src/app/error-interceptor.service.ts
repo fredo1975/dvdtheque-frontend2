@@ -16,6 +16,6 @@ export class ErrorInterceptorService {
     return next.handle(req)
       .pipe(
         catchError(this.handleError)
-      )
-  };
+      );
+  }
 }

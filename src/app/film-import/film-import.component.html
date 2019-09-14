@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-4">
+      <form (ngSubmit)="importFilmList()" #form="ngForm">
+        <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)" #fileInput>&nbsp;
+        <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
+          format
+          Csv</button>
+      </form>
+    </div>
+    <div class="col-lg-8 offset-lg-4">
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+    </div>
+  </div>
+</div>
