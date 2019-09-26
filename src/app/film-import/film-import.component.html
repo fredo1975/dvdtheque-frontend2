@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-8 offset-lg-4">
+    <div class="col-lg-8">
       <form (ngSubmit)="importFilmList()" #form="ngForm">
         <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)" #fileInput>&nbsp;
         <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
@@ -8,7 +8,7 @@
           Csv</button>
       </form>
     </div>
-    <div class="col-lg-8 offset-lg-4">
+    <div class="col-lg-8">
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
@@ -18,18 +18,34 @@
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
     </div>
 
-    <div class="col-lg-8 offset-lg-4" *ngIf="loadingStatus">
+    <div class="col-lg-8" *ngIf="loadingStatus">
       <p>Status of import</p>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Status</th>
+            <th>Titre</th>
+            <th>Id</th>
+            <th>Timing (ms)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let message of messageHistory">
             <td>
-              {{message.film.titre}} - {{message.JmsStatus}}
+              {{message.status | jmsStatus}}
+            </td>
+            <td>
+              <div *ngIf="message.film">
+                {{message.film.titre}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="message.film">
+                {{message.film.tmdbId}}
+              </div>
+            </td>
+            <td>
+              {{message.timing}}
             </td>
           </tr>
         </tbody>

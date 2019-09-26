@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { FilmService } from '../film.service';
 import { FormGroup } from '@angular/forms';
 import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
 import { Message } from 'stompjs';
 import { environment } from '../../environments/environment';
 import { MessagingService } from './../messaging.service';
@@ -25,15 +24,15 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private TOPIC = '/topic/*';
   private stompClient: Stomp;
   private messagingService: MessagingService;
-  messageHistory: JmsStatusMessage<any>[] = [];
+  messageHistory: JmsStatusMessage<any>[];
   state = 'NOT CONNECTED';
 
-
   constructor(private filmService: FilmService) {
+    this.messageHistory = [];
   }
   ngOnInit() {
-    this.loadingStatus = false;
     this.initializeWebSocketConnection();
+    this.subscribeTopic();
   }
   ngOnDestroy() {
     this.messagingService.disconnect();
@@ -43,6 +42,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
     this.buttonDisabled = true;
     this.loading = true;
     this.loadingStatus = true;
+    this.messageHistory = [];
     this.filmService.importFilmList(this.formdata).subscribe((data: any) => {
       console.log(data);
     }
@@ -50,11 +50,23 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         console.log(error);
         this.buttonDisabled = false;
         this.loading = false;
+        this.loadingStatus = false;
       }
       , () => {
         this.buttonDisabled = false;
         this.loading = false;
       });
+  }
+
+  private subscribeTopic() {
+    // Subscribe to its stream (to listen on messages)
+    this.messagingService.stream().subscribe((message: Message) => {
+      console.log('JSON.parse(message.body)=', JSON.parse(message.body));
+      const jmsStatusMessage: JmsStatusMessage<any> = JmsStatusMessage.fromJson(JSON.parse(message.body));
+      console.log('jmsStatusFilm=', jmsStatusMessage);
+      this.messageHistory.unshift(jmsStatusMessage);
+      this.loadingStatus = true;
+    });
   }
 
   loadFile(event) {
@@ -71,37 +83,10 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private initializeWebSocketConnection() {
     // Instantiate a messagingService
     this.messagingService = new MessagingService(environment.websocketApiUrl, this.TOPIC);
-    // Subscribe to its stream (to listen on messages)
-    this.messagingService.stream().subscribe((message: Message) => {
-      console.log('JSON.parse(message.body)=', JSON.parse(message.body));
-      const jmsStatusMessage: JmsStatusMessage<any> = JmsStatusMessage.fromJson(JSON.parse(message.body));
-      console.log('jmsStatusFilm=', jmsStatusMessage);
-      this.messageHistory.unshift(jmsStatusMessage);
-    });
-
     // Subscribe to its state (to know its connected or not)
     this.messagingService.state().subscribe((state: StompState) => {
       this.state = StompState[state];
       console.log('this.state=', this.state);
     });
   }
-
-  /*
-    private initializeWebSocketConnection() {
-      const ws = new SockJS(environment.websocketApiUrl);
-      this.stompClient = Stomp.over(ws);
-      const that = this;
-      that.stompClient.connect({}, function (frame) {
-        that.stompClient.subscribe(this.TOPIC, (message: Message) => {
-          console.log('message.body', message.body);
-          console.log('JSON.stringify(message.body)', JSON.stringify(message.body));
-        }, console.log('error while subscribing'));
-      }, this.errorCallBack);
-    }
-    private errorCallBack(error) {
-      console.log('errorCallBack -> ' + error);
-      setTimeout(() => {
-        this.initializeWebSocketConnection();
-      }, 5000);
-    }*/
 }
