@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-8 offset-lg-3">
       <form (ngSubmit)="importFilmList()" #form="ngForm">
         <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)" #fileInput>&nbsp;
         <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
@@ -8,7 +8,7 @@
           Csv</button>
       </form>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 offset-lg-3">
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let message of messageHistory">
-            <td>
+            <td [ngStyle]="{'color':message.getStatusValue() === 0 ? 'red' : 'green' }">
               {{message.status | jmsStatus}}
             </td>
             <td>
