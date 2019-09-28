@@ -1,170 +1,149 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-md-7 offset-md-5">
-        <h2>Modification d'un Film</h2>
-        <div *ngIf="!film || loading">
-            <div *ngIf="!filteredFilms">
-                <div class="col-lg-6">
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
-                    <div class="spinner-grow text-muted" *ngIf="loading"></div>
+        <div class="col-md-7 offset-md-5">
+            <h2>Modification d'un Film</h2>
+            <div *ngIf="!film || loading">
+                <div *ngIf="!filteredFilms">
+                    <div class="col-lg-6">
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                        <div class="spinner-grow text-muted" *ngIf="loading"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div *ngIf="film && !loading">
-        <div class="container">
+    <div *ngIf="film && !loading">
         <div class="row">
-            <div class="col-lg-5">
-                <img src="{{film.posterPath}}" alt="" width='500'/>
+            <div class="column poster">
+                <img src="{{film.posterPath}}" alt="" width="100%" />
             </div>
-            <div class="col-lg-1">
+            <div class="column details">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-1"><label>Titre : </label></div>
+                        <div class="col-sm-11"><b>{{film.titre | uppercase}}</b></div>
 
-            </div>
-            <div class="col-lg-6">
-                <!--
-                <div class="form-group">
-                    <label htmlFor="titre">Titre</label>
-                    <input [(ngModel)]="film.titre" placeholder="titre" class="form-control"/>
-                </div>
-                -->
-                <div class="form-group">
-                        <label>Titre : </label>
-                    <p>
-                        <b>{{film.titre | uppercase}}</b>
-                    </p>
-                </div>
-                <div class="form-group">
-                        <label>Titre Original : </label>
-                    <p>
-                        <b>{{film.titreO | uppercase}}</b>
-                    </p>
-                </div>
-                <!--
-                <div class="form-group">
-                    <label htmlFor="annee">Année de sortie : </label>
-                    <select class="form-control" [(ngModel)]="film.annee">
-                        <option *ngFor="let annee of annees" [selected]="annee === film.annee" [ngValue]="annee" >{{annee}}</option>
-                    </select>
-                </div>
-                -->
-                <div class="form-group">
-                        <label>Année de sortie : </label>
-                    <p>
-                        <b>{{film.annee}}</b>
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label htmlFor="zone_dvd">Zone DVD</label>
-                    <select class="form-control" [(ngModel)]="film.dvd.zone">
-                        <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone" [ngValue]="zone">{{zone}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label htmlFor="annee">Année DVD</label>
-                    <select class="form-control" [(ngModel)]="film.dvd.annee">
-                        <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee" [ngValue]="anneeDvd">{{anneeDvd}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label htmlFor="annee">Format DVD</label>
-                    <select class="form-control" [(ngModel)]="film.dvd.format">
-                        <option *ngFor="let dvdFormat of dvdFormats" [selected]="dvdFormat === film.dvd.format" [ngValue]="dvdFormat">{{dvdFormat}}</option>
-                    </select>
-                </div>
-                <!--
-                <div class="form-group">
-                    <label htmlFor="realisateur">Réalisateur</label>
-                    <select class="form-control" [(ngModel)]="film.realisateur.id">
-                        <option *ngFor="let real of realisateurs" [selected]="real.id === film.realisateur.id" [ngValue]="real.id">{{real.prenom | uppercase}} {{real.nom | uppercase}}</option>
-                    </select>
-                </div>
-                -->
-                <div class="form-group">
-                    <label>Réalisateur : </label>
-                    <div *ngFor="let real of film.realisateurs">
-                        <p>
-                            <b>{{real.nom | uppercase}}</b>
-                        </p>
+                        <div class="col-sm-1"><label>Titre Original : </label></div>
+                        <div class="col-sm-11"><b>{{film.titreO | uppercase}}</b></div>
+
+                        <div class="col-sm-1"><label>Année de sortie : </label></div>
+                        <div class="col-sm-11"><b>{{film.annee}}</b></div>
+
+                        <div class="col-sm-1"><label>Réalisateur : </label></div>
+                        <div class="col-sm-11">
+                            <span *ngFor="let real of film.realisateurs">
+                                <b>{{real.nom | uppercase}}</b>
+                            </span>
+                        </div>
+
                     </div>
                 </div>
-                
-                    <!--
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label htmlFor="acteur"><b>Acteurs</b></label>
-                            <select multiple class="form-control" size="20" [(ngModel)]="film.acteurs" [compareWith]="comparePersonne">
-                                <option *ngFor="let act of acteurs" [ngValue]="act">{{act.prenom}} {{act.nom}}</option>
-                            </select>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12"><label>Acteurs</label></div>
+                        <div class="col-sm-3" *ngFor="let act of film.acteurs">
+                            <div class="col-sm-2">
+                                <b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b>
+                            </div>
+                            <div class="col-sm-1">
+                                <img src="{{act.profilePath}}" width="100" />
+                            </div>
+
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><b>Nouveaux Acteurs</b></label>
-                            <div *ngFor="let newAct of newActeurSetTemp" class="checkbox" (change)="setSelected($event.target,newAct)">
-                                <label><input type="checkbox" checked/> {{newAct.prenom}} {{newAct.nom}}</label>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12"><label>Résumé</label></div>
+                        <div class="col-sm-12"><b>{{film.overview}}</b></div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-1"><label>TMDB ID : </label></div>
+                        <div class="col-sm-11"><b>{{film.tmdbId}}</b></div>
+                        <div class="col-sm-1"><label>Durée : </label></div>
+                        <div class="col-sm-11"><b>{{film.runtime}} minutes</b></div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label htmlFor="zone_dvd">Zone DVD</label>
+                                <select class="form-control" [(ngModel)]="film.dvd.zone">
+                                    <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone"
+                                        [ngValue]="zone">
+                                        {{zone}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label htmlFor="annee">Année DVD</label>
+                                <select class="form-control" [(ngModel)]="film.dvd.annee">
+                                    <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee"
+                                        [ngValue]="anneeDvd">{{anneeDvd}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label htmlFor="annee">Format DVD</label>
+                                <select class="form-control" [(ngModel)]="film.dvd.format">
+                                    <option *ngFor="let dvdFormat of dvdFormats"
+                                        [selected]="dvdFormat === film.dvd.format" [ngValue]="dvdFormat">{{dvdFormat}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <p><b>Ajout d'un Acteur</b></p>
-                        <div class="form-group">
-                            <label htmlFor="prenom">Prénom</label>
-                            <input type="text" class="form-control" [(ngModel)]="newActeur.prenom"/>
+                </div>
+                &nbsp;
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <label><input type="checkbox" [(checked)]="film.ripped"
+                                        (change)="setRippedSelected($event.target,film)" /> Ripped</label>
+
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label htmlFor="Nom">Nom</label>
-                            <input type="text" class="form-control" [(ngModel)]="newActeur.nom"/>
+                        <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.ripped">
+                            <div class="form-group">
+                                <label>Rippé le : </label>
+                                <b>{{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
+                            </div>
                         </div>
-                        <div class="col-md-8 offset-md-4"><button type="button" class="btn btn-primary" (click)="addNewActeur()">Ajouter</button></div>
-                    </div>
-                    -->
-                <div class="form-group">
-                    <label>Acteurs : </label>
-                    <div *ngFor="let act of film.acteurs">
-                            <p><b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b></p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Résumé : </label>
-                    <p><b>{{film.overview}}</b></p>
-                </div>
-                <div class="form-group">
-                    <label>Durée : </label>
-                    <p><b>{{film.runtime}} minutes</b></p>
-                </div>
-                <div class="form-group">
-                    <label>TMDB ID : </label>
-                    <p>
-                        <b>{{film.tmdbId}}</b>
-                    </p>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div *ngIf="updated" class="col-lg-12">
+                            <p><b>Film modifié</b></p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Rippé le : </label>
-                    <p>
-                        <b>{{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="col-lg-7 offset-lg-5">
-                    <label><input type="checkbox" [(checked)]="film.ripped" (change)="setRippedSelected($event.target,film)"/> Ripped</label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
+                                modifications</button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-lg-8 offset-lg-4">
-                    <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les modifications</button>
-                </div>
-                <div *ngIf="updated" class="col-lg-7 offset-lg-5">
-                        <p><b>Film modifié</b></p>
-                </div>
             </div>
         </div>
+        <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
     </div>
-    <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
 </div>

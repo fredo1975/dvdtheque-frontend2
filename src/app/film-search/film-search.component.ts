@@ -21,8 +21,8 @@ export class FilmSearchComponent implements OnInit {
   @Output() rippedChange = new EventEmitter<string>();
 
   constructor(private filmService: FilmService) {
-    const real = new Personne(0, '', '');
-    const act1 = new Personne(0, '', '');
+    const real = new Personne(0, '', '', '');
+    const act1 = new Personne(0, '', '', '');
     this.filmSearch = new FilmSearch('', 0, false, real, act1);
   }
 

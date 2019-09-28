@@ -1,0 +1,43 @@
+img {
+    float: left;
+    border: 1px;
+    margin: 0px 0px 15px;
+  }
+
+.column {
+    float: left;
+    padding: 5px;
+  }
+  
+  /* Left and right column */
+  .column.poster {
+    width: 25%;
+  }
+  
+  /* Middle column */
+  .column.details {
+    width: 75%;
+  }
+  
+  .column.details-top {
+    padding: 15px;
+    width: 100%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+
+  .col-sm-2 {
+    max-width: 100%
+  }
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+      width: 100%;
+    }
+  }
