@@ -3,9 +3,7 @@ import { StompService, StompConfig, StompState } from '@stomp/ng2-stompjs';
 import { Message } from '@stomp/stompjs';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+
 export class MessagingService {
 
   private messages: Observable<Message>;
