@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://192.168.1.100:8083/dvdtheque'
+  apiUrl: 'http://192.168.1.100:8083/dvdtheque',
+  websocketApiUrl: 'ws://192.168.1.100:8083/dvdtheque/websocket'
 };
