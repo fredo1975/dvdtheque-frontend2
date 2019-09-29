@@ -1,0 +1,41 @@
+.column {
+    float: left;
+    padding: 0px;
+  }
+
+  .column.card {
+    width: 25%;
+    border:none;
+  }
+
+  .column.card.info-poster {
+    width: 65%;
+    border:none;
+  }
+  .column.card.info-details {
+    width: 35%;
+    border:none;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+      width: 100%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+  img.ripped {
+    width: 20px;
+    height: auto;
+  }

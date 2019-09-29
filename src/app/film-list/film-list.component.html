@@ -1,71 +1,83 @@
-<div class="container text-center">
-  <br />
-  <div *ngIf="filteredFilms">
-    <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
-      (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)"
-      (rippedChange)="filterOnRipped($event)"></app-film-search>
-  </div>
+<div class="container-fluid">
+
+  <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
+    (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)"
+    (rippedChange)="filterOnRipped($event)"></app-film-search>
+
   <div class="row">
-    <div class="col">
+    <div class="col-lg-6 offset-lg-4" *ngIf="filteredFilms">
       <button type="button" class="btn btn-primary" (click)="resetFilter()">Effecer les filtres</button>
     </div>
-    <div class="col-md-12">
-      <h3>Liste des Films </h3>
-      <div *ngIf="!filteredFilms">
-        <div class="col-lg-8 offset-lg-2">
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-          <div class="spinner-grow text-muted" *ngIf="loading"></div>
-        </div>
-      </div>
-      <div *ngIf="filteredFilms">Nombre de films : {{filteredFilms.length}}
-        <br />
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th><a routerLink="" (click)="sort('titre')">Film</a></th>
-              <th>Rippé</th>
-              <th><a routerLink="" (click)="sort('daterip')">Date RIP</a></th>
-              <th><a routerLink="" (click)="sort('dvdformat')">Format</a></th>
-              <th><a routerLink="" (click)="sort('duree')">Durée (min)</a></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let film of filteredFilms">
-              <td>
-                <a routerLink="/filmDetail/{{film.id}}">
-                  <img src="{{film.posterPath}}" alt="" width="300" />
-                </a>
-              </td>
-              <td>
-                <div *ngIf="film.ripped">
-                  <img src="assets/img/ok.png">
-                </div>
-                <div *ngIf="!film.ripped">
-                  <img src="assets/img/ko.png">
-                </div>
-              </td>
-              <td>
-                <div *ngIf="film.dvd.dateRip">
-                  {{film.dvd.dateRip | date:'dd/MM/yy'}}
-                </div>
-              </td>
-              <td>
-                {{film.dvd.format}}
-              </td>
-              <td>
-                {{film.runtime}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
+  </div>
+  <div class="row">
+    <div class="col-lg-2" *ngIf="filteredFilms">
+      <a routerLink="" (click)="sort('titre')">Trier par Titre</a>
+    </div>
+    <div class="col-lg-2" *ngIf="filteredFilms">
+      <a routerLink="" (click)="sort('daterip')">Trier par Date de RIP</a>
+    </div>
+    <div class="col-lg-2" *ngIf="filteredFilms">
+      <a routerLink="" (click)="sort('dvdformat')">Trier par Format</a>
+    </div>
+    <div class="col-lg-2" *ngIf="filteredFilms">
+      <a routerLink="" (click)="sort('duree')">Trier par Durée (min)</a>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-12" *ngIf="filteredFilms">
+      <h3>Liste des Films </h3>
+    </div>
 
+    <div class="col-lg-8 offset-lg-4" *ngIf="!filteredFilms">
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+    </div>
+  </div>
+  <div class="row" *ngIf="filteredFilms">
+    <div class="col-lg-12">Nombre de films : {{filteredFilms.length}}</div>
+  </div>
+  <div class="row">
+    <div class="column card" *ngFor="let film of filteredFilms">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="column card info-poster">
+            <a routerLink="/filmDetail/{{film.id}}">
+              <img src="{{film.posterPath}}" alt="" width="300" />
+            </a>
+          </div>
+          <div class="column card info-details">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">
+                  {{film.dvd.format}}
+                </div>
+                <div class="col-sm-12">
+                  Durée : {{film.runtime}}
+                </div>
+                <div class="col-sm-12">Rippé :
+                  <span *ngIf="film.ripped">
+                    <img src="assets/img/ok.png" class="img ripped">
+                  </span>
+                  <span *ngIf="!film.ripped">
+                    <img src="assets/img/ko.png" class="img ripped">
+                  </span>
+                </div>
+
+                <div class="col-sm-12" *ngIf="film.dvd.dateRip">Rippé le :
+                  <span>
+                    {{film.dvd.dateRip | date:'dd/MM/yy'}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
