@@ -26,7 +26,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private messagingService: MessagingService;
   messageHistory: JmsStatusMessage<any>[];
   state = 'NOT CONNECTED';
-
+  time = 0;
   constructor(private filmService: FilmService) {
     this.messageHistory = [];
   }
@@ -38,21 +38,29 @@ export class FilmImportComponent implements OnInit, OnDestroy {
     this.messagingService.disconnect();
   }
   importFilmList() {
+    const start = new Date().getTime();
     this.buttonDisabled = true;
     this.loading = true;
     this.loadingStatus = true;
     this.messageHistory = [];
     this.filmService.importFilmList(this.formdata).subscribe((data: any) => {
+
     }
       , (error) => {
         console.log(error);
         this.buttonDisabled = false;
         this.loading = false;
         this.loadingStatus = false;
+        const end = new Date().getTime();
+        this.time = end - start;
+        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       }
       , () => {
         this.buttonDisabled = false;
         this.loading = false;
+        const end = new Date().getTime();
+        this.time = end - start;
+        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       });
   }
 

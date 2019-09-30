@@ -1,14 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-8 offset-lg-3">
+    <div class="col-lg-8 offset-lg-4">
+      <h2>Importer des films au format Excel ou CSV</h2>
+      Realisateur | Titre | Zonedvd | Annee | Acteurs | Rippé | RIP | Date | Dvd | Format | TMDB ID
+    </div>
+    <div class="col-lg-8 offset-lg-4">&nbsp;</div>
+    <div class="col-lg-8 offset-lg-4">
       <form (ngSubmit)="importFilmList()" #form="ngForm">
         <input type="file" ng-model="file_upload" name="file" type="file" (change)="loadFile($event)" #fileInput>&nbsp;
-        <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer au
-          format
-          Csv</button>
+        <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer</button>
       </form>
     </div>
-    <div class="col-lg-8 offset-lg-3">
+    <div class="col-lg-8 offset-lg-5">
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
       <div class="spinner-grow text-muted" *ngIf="loading"></div>
@@ -19,7 +22,8 @@
     </div>
 
     <div class="col-lg-8" *ngIf="loadingStatus">
-      <p>Status of import</p>
+      <p>Status de l'import <span *ngIf="time!=0"> temps ecoulé : {{time / 1000}} s</span></p>
+
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
