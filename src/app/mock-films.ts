@@ -16,6 +16,7 @@ const alreadyInDvdtheque = false;
 const tmdbId = 100;
 const runtime = 120;
 const genres: Genre[] = [new Genre(1, 'genre', 1)];
+const homepage = 'spider-man';
 export const FILMS: Film[] = [
-  new Film(1, titre, titre, _annee, true, real, act, genres, dvd, posterPath, alreadyInDvdtheque, tmdbId, runtime),
+  new Film(1, titre, titre, _annee, true, true, real, act, genres, dvd, posterPath, alreadyInDvdtheque, tmdbId, runtime, homepage),
 ];

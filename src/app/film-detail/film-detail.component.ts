@@ -64,7 +64,15 @@ export class FilmDetailComponent implements OnInit {
       this.film.ripped = false;
     }
   }
-
+  setVuSelected(selectElement, film: Film) {
+    if (selectElement.checked) {
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
+      this.film.vu = true;
+    } else {
+      // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
+      this.film.vu = false;
+    }
+  }
   updateFilm() {
     if (isNaN(this.film.dvd.annee)) {
       // console.log('this.film.dvd.annee is nan');

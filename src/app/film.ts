@@ -9,6 +9,7 @@ export class Film {
         public titreO: string,
         public annee: number,
         public ripped: boolean,
+        public vu: boolean,
         public realisateurs: Personne[],
         public acteurs: Personne[],
         public genres: Genre[],
@@ -16,6 +17,7 @@ export class Film {
         public posterPath: string,
         public alreadyInDvdtheque: boolean,
         public tmdbId: number,
-        public runtime: number) {
+        public runtime: number,
+        public homepage: string) {
     }
 }
