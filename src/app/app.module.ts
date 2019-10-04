@@ -17,6 +17,8 @@ import localeFrExtra from '@angular/common/locales/extra/fr';
 import { ErrorInterceptorService } from './error-interceptor.service';
 import { FilmImportComponent } from './film-import/film-import.component';
 import { JmsStatusPipe } from './pipes/jms-status.pipe';
+import { GenresPipe } from './pipes/genres.pipe';
+import { RealisateursPipe } from './pipes/realisateurs.pipe';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -30,7 +32,9 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     FilmAddComponent,
     FilmExportComponent,
     FilmImportComponent,
-    JmsStatusPipe
+    JmsStatusPipe,
+    GenresPipe,
+    RealisateursPipe
   ],
   imports: [
     BrowserModule,

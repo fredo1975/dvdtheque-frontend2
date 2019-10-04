@@ -36,11 +36,14 @@
 
                         <div class="col-sm-1"><label>Réalisateur : </label></div>
                         <div class="col-sm-11">
-                            <span *ngFor="let real of film.realisateurs">
-                                <b>{{real.nom | uppercase}} &nbsp;</b>
-                            </span>
+                            <b>{{film.realisateurs | realisateurs}} &nbsp;</b>
                         </div>
-
+                        <div class="col-sm-1"><label>Genres : </label></div>
+                        <div class="col-sm-11">
+                            <b>{{film.genres | genres}} &nbsp;</b>
+                        </div>
+                        <div class="col-sm-1"><label>Durée : </label></div>
+                        <div class="col-sm-11"><b>{{film.runtime}} minutes</b></div>
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -53,7 +56,6 @@
                             <div class="col-sm-1">
                                 <img src="{{act.profilePath}}" width="100" />
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -62,15 +64,6 @@
                     <div class="row">
                         <div class="col-sm-12"><label>Résumé</label></div>
                         <div class="col-sm-12"><b>{{film.overview}}</b></div>
-                    </div>
-                </div>
-                &nbsp;
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-1"><label>TMDB ID : </label></div>
-                        <div class="col-sm-11"><b>{{film.tmdbId}}</b></div>
-                        <div class="col-sm-1"><label>Durée : </label></div>
-                        <div class="col-sm-11"><b>{{film.runtime}} minutes</b></div>
                     </div>
                 </div>
                 &nbsp;
@@ -105,6 +98,13 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-1"><label>TMDB ID : </label></div>
+                        <div class="col-sm-11"><b>{{film.tmdbId}}</b></div>
                     </div>
                 </div>
                 &nbsp;

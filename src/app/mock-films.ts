@@ -2,6 +2,7 @@ import { Film } from './film';
 import { Personne } from './personne';
 import { Dvd } from './dvd';
 import { DvdFormat } from './dvd-format.enum';
+import { Genre } from './genre';
 
 const titre = 'spider-man';
 const _annee = 2016;
@@ -14,6 +15,7 @@ const posterPath = '';
 const alreadyInDvdtheque = false;
 const tmdbId = 100;
 const runtime = 120;
+const genres: Genre[] = [new Genre(1, 'genre', 1)];
 export const FILMS: Film[] = [
-  new Film(1, titre, titre, _annee, true, real, act, dvd, posterPath, alreadyInDvdtheque, tmdbId, runtime),
+  new Film(1, titre, titre, _annee, true, real, act, genres, dvd, posterPath, alreadyInDvdtheque, tmdbId, runtime),
 ];
