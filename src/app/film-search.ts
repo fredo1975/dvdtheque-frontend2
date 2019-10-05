@@ -6,6 +6,7 @@ export class FilmSearch {
         public ripped: boolean,
         public realisateur: Personne,
         public acteur: Personne,
-        public genre: string = '') {
+        public genre: string = '',
+        public vu: boolean) {
     }
 }

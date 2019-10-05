@@ -55,7 +55,7 @@
       </select>
     </div>
   </div>
-  <div class="col-lg-2">
+  <div class="col-lg-1">
     <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
       <label htmlFor="ripped">Rippé</label>
       <select class="form-control" name="ripped" [(ngModel)]="filmSearch.ripped"
@@ -63,6 +63,17 @@
         <option key='tous' value='tous'>Tous</option>
         <option key='ripped' value='ripped'>Rippé</option>
         <option key='nonripped' value='nonripped'>Non Rippé</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-1">
+    <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+      <label htmlFor="vu">Vu</label>
+      <select class="form-control" name="ripped" [(ngModel)]="filmSearch.vu" (ngModelChange)="filterOnVu($event)"
+        allowClear="true">
+        <option key='tous' value='tous'>Tous</option>
+        <option key='vu' value='vu'>Vu</option>
+        <option key='nonvu' value='nonvu'>Non Vu</option>
       </select>
     </div>
   </div>

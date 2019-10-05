@@ -23,11 +23,12 @@ export class FilmSearchComponent implements OnInit {
   @Output() acteurChange = new EventEmitter<number>();
   @Output() rippedChange = new EventEmitter<string>();
   @Output() genreChange = new EventEmitter<string>();
+  @Output() vuChange = new EventEmitter<string>();
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
     const genre = '';
-    this.filmSearch = new FilmSearch('', 0, false, real, act1);
+    this.filmSearch = new FilmSearch('', 0, false, real, act1, '', false);
   }
 
   ngOnInit() {
@@ -65,6 +66,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
 
   findTitre(event: any) { // without type info
@@ -75,6 +77,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
   filterOnRealisateur(event: any) {
     // console.log('event=' + event);
@@ -84,6 +87,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
   filterOnAnnee(event: any) {
     // console.log('event=' + event);
@@ -93,6 +97,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
   filterOnActeur(event: any) {
     // console.log('event=' + event.id);
@@ -102,6 +107,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.titre = null;
     this.filmSearch.ripped = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
   filterOnRipped(event: any) {
     // console.log('event.target.value=' + event);
@@ -111,6 +117,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.titre = null;
     this.filmSearch.acteur = null;
     this.filmSearch.genre = null;
+    this.filmSearch.vu = null;
   }
   filterOnGenre(event: any) {
     // console.log('event.target.value=' + event);
@@ -120,5 +127,15 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;
     this.filmSearch.acteur = null;
+    this.filmSearch.vu = null;
+  }
+  filterOnVu(event: any) {
+    // console.log('event.target.value=' + event);
+    this.vuChange.emit(event);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.genre = null;
   }
 }

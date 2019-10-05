@@ -20,6 +20,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
   @Input() genreFilmSearch: FilmSearch;
+  @Input() vuFilmSearch: FilmSearch;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
   private ascRipDateSort = true;
@@ -111,6 +112,19 @@ export class FilmListComponent implements OnInit, OnChanges {
         if (this.films[i].genres[j].name === genre) {
           this.filteredFilms.push(this.films[i]);
           break;
+        }
+      }
+    }
+  }
+  filterOnVu(event: string) {
+    if (event === 'tous') {
+      this.filteredFilms = this.films;
+    } else {
+      this.filteredFilms = [];
+      const vu = event === 'vu' ? true : false;
+      for (let i = 0; i < this.films.length; i++) {
+        if (this.films[i].vu === vu) {
+          this.filteredFilms.push(this.films[i]);
         }
       }
     }
