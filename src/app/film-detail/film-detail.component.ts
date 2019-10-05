@@ -83,13 +83,7 @@ export class FilmDetailComponent implements OnInit {
       // console.log('film with id : ' + this.film.id + ' updated');
       this.updated = true;
       this.buttonDisabled = true;
-      if (this.film.ripped) {
-        if (this.film.dvd.dateRip != null) {
-
-        } else {
-          this.film.dvd.dateRip = new Date();
-        }
-      } else {
+      if (!this.film.ripped) {
         this.film.dvd.dateRip = null;
       }
     }
