@@ -19,6 +19,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() anneeFilmSearch: FilmSearch;
   @Input() acteurFilmSearch: FilmSearch;
   @Input() rippedFilmSearch: FilmSearch;
+  @Input() genreFilmSearch: FilmSearch;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
   private ascRipDateSort = true;
@@ -39,12 +40,7 @@ export class FilmListComponent implements OnInit, OnChanges {
       });
   }
 
-  ngOnChanges() {
-    /*
-    this.getAllFilms().subscribe((data: Film[]) => {this.films = Object.assign({}, data); }
-    , (error) => {console.log(error); });
-    console.log('filmSearch changed');*/
-  }
+  ngOnChanges() { }
   resetFilter() {
     this.filmSearchComponent.resetFilter();
     this.filteredFilms = this.films;
@@ -53,12 +49,6 @@ export class FilmListComponent implements OnInit, OnChanges {
   getAllFilms(): Observable<Film[]> {
     return this.filmService.loadAll();
   }
-  /*
-    getPosterImg (film: Film) {
-      // console.log(environment.poster_url + this.filmService.getFilmPosterName(film.titre));
-      return environment.poster_url + this.filmService.getFilmPosterName(film.titre);
-    }*/
-
   filterOnTitre(titre: string) {
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
@@ -68,7 +58,6 @@ export class FilmListComponent implements OnInit, OnChanges {
       }
     }
   }
-
   filterOnRealisateur(id: number) {
     // console.log('FilmListComponent::filterOnRealisateur::id=' + id);
     this.filteredFilms = [];
@@ -80,7 +69,6 @@ export class FilmListComponent implements OnInit, OnChanges {
       }
     }
   }
-
   filterOnAnnee(annee: number) {
     // console.log('FilmListComponent::filterOnAnnee::annee=' + annee);
     this.filteredFilms = [];
@@ -90,7 +78,6 @@ export class FilmListComponent implements OnInit, OnChanges {
       }
     }
   }
-
   filterOnActeur(acteur: number) {
     // console.log('FilmListComponent::filterOnActeur::acteur.id=' + acteur);
     this.filteredFilms = [];
@@ -102,9 +89,9 @@ export class FilmListComponent implements OnInit, OnChanges {
       }
     }
   }
-
   filterOnRipped(event: string) {
     // console.log('FilmListComponent::filterOnRipped::event=' + event);
+    console.log('FilmListComponent::filterOnRipped::this.films=' + this.films);
     if (event === 'tous') {
       this.filteredFilms = this.films;
     } else {
@@ -113,6 +100,17 @@ export class FilmListComponent implements OnInit, OnChanges {
       for (let i = 0; i < this.films.length; i++) {
         if (this.films[i].ripped === ripped) {
           this.filteredFilms.push(this.films[i]);
+        }
+      }
+    }
+  }
+  filterOnGenre(genre: string) {
+    this.filteredFilms = [];
+    for (let i = 0; i < this.films.length; i++) {
+      for (let j = 0; j < this.films[i].genres.length; j++) {
+        if (this.films[i].genres[j].name === genre) {
+          this.filteredFilms.push(this.films[i]);
+          break;
         }
       }
     }

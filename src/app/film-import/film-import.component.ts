@@ -53,14 +53,14 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.loadingStatus = false;
         const end = new Date().getTime();
         this.time = end - start;
-        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
+        // console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       }
       , () => {
         this.buttonDisabled = false;
         this.loading = false;
         const end = new Date().getTime();
         this.time = end - start;
-        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
+        // console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       });
   }
 

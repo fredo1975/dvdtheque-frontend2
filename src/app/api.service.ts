@@ -4,6 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
+import { Genre } from './genre';
 import { environment } from '../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
@@ -36,6 +37,10 @@ export class ApiService {
 
   getAllActeurs(): Observable<Personne[]> {
     return this.http.get<Personne[]>(environment.apiUrl + '/acteurs');
+  }
+
+  getAllGenres(): Observable<Genre[]> {
+    return this.http.get<Genre[]>(environment.apiUrl + '/films/genres');
   }
 
   getAllRealisateurs(): Observable<Personne[]> {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Personne } from '../personne';
+import { Genre } from '../genre';
 import { FilmSearch } from '../film-search';
 @Component({
   selector: 'app-film-search',
@@ -11,24 +12,26 @@ export class FilmSearchComponent implements OnInit {
   annees: number[];
   realisateurs: Personne[];
   acteurs: Personne[];
+  genres: Genre[];
   filmSearch: FilmSearch;
   loadingAllRealisateurs = false;
   loadingAllActeurs = false;
+  loadingAllGenres = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() realChange = new EventEmitter<number>();
   @Output() anneeChange = new EventEmitter<number>();
   @Output() acteurChange = new EventEmitter<number>();
   @Output() rippedChange = new EventEmitter<string>();
-
+  @Output() genreChange = new EventEmitter<string>();
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
+    const genre = '';
     this.filmSearch = new FilmSearch('', 0, false, real, act1);
   }
 
   ngOnInit() {
     this.loadingAllActeurs = true;
-    this.loadingAllRealisateurs = true;
     this.annees = this.filmService.getAnneesSelect();
     this.filmService.getAllActeurs().subscribe((data: Personne[]) => {
       this.acteurs = data;
@@ -37,12 +40,21 @@ export class FilmSearchComponent implements OnInit {
       , () => {
         this.loadingAllActeurs = false;
       });
+    this.loadingAllRealisateurs = true;
     this.filmService.getAllRealisateurs().subscribe((data: Personne[]) => {
       this.realisateurs = data;
     }
       , (error) => { console.log('an error occured when fetching all realisateurs'); }
       , () => {
         this.loadingAllRealisateurs = false;
+      });
+    this.loadingAllGenres = true;
+    this.filmService.getAllGenres().subscribe((data: Genre[]) => {
+      this.genres = data;
+    }
+      , (error) => { console.log('an error occured when fetching all genres'); }
+      , () => {
+        this.loadingAllGenres = false;
       });
   }
 
@@ -52,6 +64,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.annee = null;
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
+    this.filmSearch.genre = null;
   }
 
   findTitre(event: any) { // without type info
@@ -61,6 +74,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.annee = null;
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
+    this.filmSearch.genre = null;
   }
   filterOnRealisateur(event: any) {
     // console.log('event=' + event);
@@ -69,6 +83,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.titre = null;
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
+    this.filmSearch.genre = null;
   }
   filterOnAnnee(event: any) {
     // console.log('event=' + event);
@@ -77,6 +92,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.titre = null;
     this.filmSearch.acteur = null;
     this.filmSearch.ripped = null;
+    this.filmSearch.genre = null;
   }
   filterOnActeur(event: any) {
     // console.log('event=' + event.id);
@@ -85,10 +101,21 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;
     this.filmSearch.ripped = null;
+    this.filmSearch.genre = null;
   }
   filterOnRipped(event: any) {
     // console.log('event.target.value=' + event);
     this.rippedChange.emit(event);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.genre = null;
+  }
+  filterOnGenre(event: any) {
+    // console.log('event.target.value=' + event);
+    this.genreChange.emit(event);
+    this.filmSearch.ripped = null;
     this.filmSearch.realisateur = null;
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;

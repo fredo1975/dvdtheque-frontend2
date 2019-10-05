@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { FILMS } from './mock-films';
 import { Film } from './film';
 import { Personne } from './personne';
+import { Genre } from './genre';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
-import { HttpClient } from '@angular/common/http';
 
 const nonRenseigne = 'Non renseigné';
 
@@ -33,6 +33,10 @@ export class FilmService {
 
   getAllPersonnes(): Observable<Personne[]> {
     return this.apiService.getAllPersonnes();
+  }
+
+  getAllGenres(): Observable<Genre[]> {
+    return this.apiService.getAllGenres();
   }
 
   getAllActeurs(): Observable<Personne[]> {
