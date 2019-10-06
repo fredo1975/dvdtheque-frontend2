@@ -79,21 +79,17 @@ export class FilmDetailComponent implements OnInit {
       this.film.dvd.annee = 0;
     }
     this.loading = true;
+    this.buttonDisabled = true;
     return this.filmService.updateFilm(this.film).subscribe(obs => {
       // console.log('film with id : ' + this.film.id + ' updated');
-      this.updated = true;
-      this.buttonDisabled = true;
-      if (!this.film.ripped) {
-        this.film.dvd.dateRip = null;
-      }
     }
       , (error) => { console.log(error); }
       , () => {
         this.loading = false;
         this.buttonDisabled = false;
+        this.updated = true;
       });
   }
-
   doReplaceFilm(filmEmitted: Film) {
     // console.log('filmEmitted with id : ' + filmEmitted.id + '  emitted');
     this.film = filmEmitted;
