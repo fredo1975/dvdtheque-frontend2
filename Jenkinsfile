@@ -34,8 +34,8 @@ node {
         }
     }
     stage('Remote stop container') {
-		sh 'echo APP_ENV="${APP_ENV}"'
-        sh 'echo DEV_SERVER_IP=${DEV_SERVER_IP}'
+		sh "echo APP_ENV=$APP_ENV"
+        sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 		if("${APP_ENV}" == "dev"){
 			sh "ssh jenkins@$DEV_SERVER_IP docker stop dvdtheque-frontend"
         }else if ("${APP_ENV}" == "prod") {
@@ -77,5 +77,4 @@ node {
 			sh "ssh jenkins@$PROD_SERVER_IP docker ps -a"
 		}
     }
-
 }
