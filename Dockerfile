@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./ /app/
 
-ARG configuration=${env.ENV}
+ARG configuration=$arg
 
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
