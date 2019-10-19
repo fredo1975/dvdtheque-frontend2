@@ -49,24 +49,19 @@ node {
 			sh "ssh jenkins@$PROD_SERVER_IP docker rm dvdtheque-frontend"
 		}
     }
-    /*
     stage('docker login dockhub registry') {
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
         }else if ("${APP_ENV}" == "prod") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
 		}
-    }*/
+    }
     stage('docker pull to container') {
-        /*
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker pull fredo1975/dvdtheque:latest"
         }else if ("${APP_ENV}" == "prod") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker pull fredo1975/dvdtheque:latest"
-		}*/
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.pull("latest")
-        }
+		}
     }
     stage('docker run container') {
         if("${APP_ENV}" == "dev"){
