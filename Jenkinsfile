@@ -12,7 +12,7 @@ node {
          * docker build on the command line */
 
         /* app = docker.build("fredo1975/dvdtheque --build-arg arg=${env.ENV}") */
-        sh 'docker build -t fredo1975/dvdtheque --build-arg arg=$ENV'
+        sh 'docker build --build-arg arg=$ENV -t fredo1975/dvdtheque'
         sh 'docker tag image fredo1975/dvdtheque:tag'
     }
 
