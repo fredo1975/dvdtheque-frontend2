@@ -49,6 +49,7 @@ node {
 			sh "ssh jenkins@$PROD_SERVER_IP docker rm dvdtheque-frontend"
 		}
     }
+    
     stage('docker login dockhub registry') {
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
