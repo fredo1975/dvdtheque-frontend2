@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("fredo1975/dvdtheque")
+        app = docker.build("fredo1975/dvdtheque:${env.ENV}")
     }
 
     stage('Test image') {
