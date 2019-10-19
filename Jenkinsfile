@@ -11,7 +11,9 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("fredo1975/dvdtheque --build-arg arg=${env.ENV}")
+        /* app = docker.build("fredo1975/dvdtheque --build-arg arg=${env.ENV}") */
+        sh 'docker build -t fredo1975/dvdtheque --build-arg arg=${env.ENV}'
+        sh 'docker tag image fredo1975/dvdtheque:tag'
     }
 
     stage('Test image') {
@@ -29,7 +31,8 @@ node {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("latest")
+            // app.push("latest")
+            sh 'docker push fredo1975/dvdtheque:latest'
         }
     }
 }
