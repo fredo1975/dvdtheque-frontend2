@@ -1,6 +1,7 @@
 node {
     def app
-
+    def PROD_SERVER_IP = "192.168.1.102"
+	def DEV_SERVER_IP = "192.168.1.101"
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
@@ -32,4 +33,48 @@ node {
             app.push("latest")
         }
     }
+    stage('Remote stop container') {
+		sh 'echo APP_ENV="${APP_ENV}"'
+		if("${APP_ENV}" == "dev"){
+			sh 'ssh jenkins@$DEV_SERVER_IP docker stop dvdtheque-frontend'
+        }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker stop dvdtheque-frontend'
+		}
+    }
+    stage('remote remove container') {
+        if("${APP_ENV}" == "dev"){
+            sh 'ssh jenkins@$DEV_SERVER_IP docker rm dvdtheque-frontend'
+        }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker rm dvdtheque-frontend'
+		}
+    }
+    stage('docker login dockhub registry') {
+        if("${APP_ENV}" == "dev"){
+            sh 'ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/'
+        }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/'
+		}
+    }
+    stage('docker pull to container') {
+        if("${APP_ENV}" == "dev"){
+            sh 'ssh jenkins@$DEV_SERVER_IP docker pull fredo1975/dvdtheque:latest'
+        }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker pull fredo1975/dvdtheque:latest'
+		}
+    }
+    stage('docker run container') {
+        if("${APP_ENV}" == "dev"){
+            sh 'ssh jenkins@$DEV_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest'
+         }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest'
+		}
+    }
+    stage('docker ps -a') {
+         if("${APP_ENV}" == "dev"){
+            sh 'ssh jenkins@$DEV_SERVER_IP docker ps -a'
+        }else if ("${APP_ENV}" == "prod") {
+			sh 'ssh jenkins@$PROD_SERVER_IP docker ps -a'
+		}
+    }
+
 }
