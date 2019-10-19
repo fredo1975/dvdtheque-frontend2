@@ -38,14 +38,14 @@ node {
         sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 		if("${APP_ENV}" == "dev"){
 			sh "ssh jenkins@$DEV_SERVER_IP docker stop dvdtheque-frontend"
-        }else if ("${APP_ENV}" == "prod") {
+        }else if ("${APP_ENV}" == "production") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker stop dvdtheque-frontend"
 		}
     }
     stage('remote remove container') {
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker rm dvdtheque-frontend"
-        }else if ("${APP_ENV}" == "prod") {
+        }else if ("${APP_ENV}" == "production") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker rm dvdtheque-frontend"
 		}
     }
@@ -54,7 +54,7 @@ node {
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
             sh "ssh jenkins@$DEV_SERVER_IP docker pull fredo1975/dvdtheque:latest"
-        }else if ("${APP_ENV}" == "prod") {
+        }else if ("${APP_ENV}" == "production") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
             sh "ssh jenkins@$PROD_SERVER_IP docker pull fredo1975/dvdtheque:latest"
 		}
@@ -70,14 +70,14 @@ node {
     stage('docker run container') {
         if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest"
-         }else if ("${APP_ENV}" == "prod") {
+         }else if ("${APP_ENV}" == "production") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest"
 		}
     }
     stage('docker ps -a') {
          if("${APP_ENV}" == "dev"){
             sh "ssh jenkins@$DEV_SERVER_IP docker ps -a"
-        }else if ("${APP_ENV}" == "prod") {
+        }else if ("${APP_ENV}" == "production") {
 			sh "ssh jenkins@$PROD_SERVER_IP docker ps -a"
 		}
     }
