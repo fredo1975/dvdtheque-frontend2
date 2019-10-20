@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./ /app/
 
-ARG configuration=$arg
+ARG configuration=production
 
 RUN echo "$configuration"
 
