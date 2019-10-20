@@ -8,6 +8,8 @@ RUN npm install
 
 COPY ./ /app/
 
+RUN echo $arg
+
 RUN npm run build -- --output-path=./dist/out --configuration $arg
 
 FROM nginx:alpine
