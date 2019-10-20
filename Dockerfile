@@ -10,11 +10,11 @@ COPY ./ /app/
 
 RUN echo "$ARG"
 
-ARG CONF=$ARG
+ARG arg
 
-RUN echo "$CONF"
+ENV CONF=${arg}
 
-RUN npm run build -- --output-path=./dist/out --configuration ${ARG}
+RUN npm run build -- --output-path=./dist/out --configuration ${CONF}
 
 FROM nginx:alpine
 
