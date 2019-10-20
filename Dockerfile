@@ -8,8 +8,6 @@ RUN npm install
 
 COPY ./ /app/
 
-RUN echo "$ARG"
-
 ARG arg
 
 ENV CONF=${arg}
