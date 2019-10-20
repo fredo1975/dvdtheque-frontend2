@@ -10,7 +10,7 @@ COPY ./ /app/
 
 ARG configuration=$arg
 
-RUN echo $configuration
+RUN echo "$configuration"
 
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
