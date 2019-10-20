@@ -14,7 +14,7 @@ ARG CONF=$ARG
 
 RUN echo "$CONF"
 
-RUN npm run build -- --output-path=./dist/out --configuration $CONF
+RUN npm run build -- --output-path=./dist/out --configuration ${ARG}
 
 FROM nginx:alpine
 
