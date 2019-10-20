@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  dev: true,
+  environmentName: 'dev',
   // apiUrl: 'http://localhost:8083/dvdtheque',
   // websocketApiUrl: 'ws://localhost:8083/dvdtheque/websocket',
   apiUrl: 'http://192.168.1.103:8083/dvdtheque',
