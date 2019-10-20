@@ -8,9 +8,11 @@ RUN npm install
 
 COPY ./ /app/
 
-RUN echo "$arg"
+ARG configuration=$arg
 
-RUN npm run build -- --output-path=./dist/out --configuration $arg
+RUN echo $configuration
+
+RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
 FROM nginx:alpine
 
