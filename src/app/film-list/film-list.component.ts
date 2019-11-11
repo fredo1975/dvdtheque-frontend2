@@ -3,8 +3,8 @@ import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearch } from '../film-search';
 import { FilmSearchComponent } from '../film-search/film-search.component';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-film-list',
@@ -27,7 +27,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
-  constructor(private filmService: FilmService) { }
+  constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -99,7 +99,7 @@ export class FilmListComponent implements OnInit, OnChanges {
       this.filteredFilms = [];
       const ripped = event === 'ripped' ? true : false;
       for (let i = 0; i < this.films.length; i++) {
-        if (this.films[i].ripped === ripped) {
+        if (this.films[i].dvd.ripped === ripped) {
           this.filteredFilms.push(this.films[i]);
         }
       }

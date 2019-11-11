@@ -8,7 +8,6 @@ export class Film {
         public titre: string,
         public titreO: string,
         public annee: number,
-        public ripped: boolean,
         public vu: boolean,
         public realisateurs: Personne[],
         public acteurs: Personne[],

@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 &nbsp;
-                <div class="container-fluid">
+                <div class="container-fluid" *ngIf="film.dvd">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
@@ -117,16 +117,16 @@
                     </div>
                 </div>
                 &nbsp;
-                <div class="container-fluid">
+                <div class="container-fluid" *ngIf="film.dvd">
                     <div class="row">
                         <div class="col-sm-1">
                             <div class="form-group">
-                                <label><input type="checkbox" [(checked)]="film.ripped"
+                                <label><input type="checkbox" [(checked)]="film.dvd.ripped"
                                         (change)="setRippedSelected($event.target,film)" /> Ripped</label>
 
                             </div>
                         </div>
-                        <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.ripped">
+                        <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.dvd.ripped">
                             <div class="form-group">
                                 <label>Rippé le : </label>
                                 <b>{{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>

@@ -1,97 +1,109 @@
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6 offset-lg-2">
-            <div class="form-group">
-                <label htmlFor="titre">Titre</label>
-                <input [(ngModel)]="titre" placeholder="titre" class="form-control"/>
-            </div>
-        </div>
-        <div class="col-lg-8 offset-lg-4">
-            <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()" [disabled]="buttonDisabled">Chercher le film à ajouter</button>&nbsp;
-            <button type="button" class="btn btn-primary" (click)="resetTmdbFilm()" [disabled]="buttonDisabled">Effecer la recherche</button>
-        </div>
-        <div class="col-lg-8 offset-lg-4">
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-        </div>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-2">
+      <div class="form-group">
+        <label htmlFor="titre">Titre</label>
+        <input [(ngModel)]="titre" placeholder="titre" class="form-control" />
       </div>
     </div>
-        <div *ngIf="tmdbFilms">
-            <br/>
-            <div class="container-fluid">
-              <div class="row">
-            <div class="col-lg-8 offset-lg-4">
-                <p>Nombre de films : {{tmdbFilms.length}}</p>
-            </div>
-            <div class="col-lg-12">
-            <table class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>Poster</th>
-                <th>Titre</th>
-                <th>Titre Original</th>
-                <th>Réalisateur</th>
-                <th>Acteur</th>
-                <th>Année</th>
-                <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let film of tmdbFilms">
-                  <td>
-                        <img src="{{film.posterPath}}" alt="" width="200"/>
-                  </td>
-                  <td>
-                      {{film.titre | uppercase}}
-                    <!--
+    <div class="col-lg-6 offset-lg-2">
+      <div class="form-group">
+        <label htmlFor="origine">Origine du Film</label>
+        <select class="form-control" [(ngModel)]="origine">
+          <option *ngFor="let filmOrigine of filmOrigines" [selected]="filmOrigine" [ngValue]="filmOrigine">
+            {{filmOrigine}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-8 offset-lg-4">
+      <button type="button" class="btn btn-primary" (click)="serachTmdbFilm()" [disabled]="buttonDisabled">Chercher le
+        film à ajouter</button>&nbsp;
+      <button type="button" class="btn btn-primary" (click)="resetTmdbFilm()" [disabled]="buttonDisabled">Effecer la
+        recherche</button>
+    </div>
+    <div class="col-lg-8 offset-lg-4">
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="tmdbFilms">
+  <br />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-4">
+        <p>Nombre de films : {{tmdbFilms.length}}</p>
+      </div>
+      <div class="col-lg-12">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Poster</th>
+              <th>Titre</th>
+              <th>Titre Original</th>
+              <th>Réalisateur</th>
+              <th>Acteur</th>
+              <th>Année</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let film of tmdbFilms">
+              <td>
+                <img src="{{film.posterPath}}" alt="" width="200" />
+              </td>
+              <td>
+                {{film.titre | uppercase}}
+                <!--
                       <div *ngIf="film.alreadyInDvdtheque">
                           <a routerLink="/filmDetail/{{film.id}}">
                               {{film.titre | uppercase}}
                           </a>
                       </div>
                       -->
-                  </td>
-                  <td>
-                    {{film.titreO | uppercase}}
-                  <!--
+              </td>
+              <td>
+                {{film.titreO | uppercase}}
+                <!--
                     <div *ngIf="film.alreadyInDvdtheque">
                         <a routerLink="/filmDetail/{{film.id}}">
                             {{film.titre | uppercase}}
                         </a>
                     </div>
                     -->
-                </td>
-                  <td>
-                      <div *ngFor="let realisateur of film.realisateurs">
-                          {{realisateur.nom | uppercase}}
-                      </div>
-                  </td>
-                  <td>
-                      <div *ngFor="let acteur of film.acteurs">
-                          {{acteur.nom | uppercase}}
-                      </div>
-                  </td>
-                  <td>
-                    {{film.annee}}
-                  </td>
-                  <td>
-                      <div *ngIf="!film.alreadyInDvdtheque">
-                          <button class="btn btn-primary" (click)="saveFilm(film.id)" [disabled]="buttonDisabled">Ajouter</button>
-                      </div>
-                      <div *ngIf="film.alreadyInDvdtheque">
-                          déjà enregistré
-                      </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </td>
+              <td>
+                <div *ngFor="let realisateur of film.realisateurs">
+                  {{realisateur.nom | uppercase}}
+                </div>
+              </td>
+              <td>
+                <div *ngFor="let acteur of film.acteurs">
+                  {{acteur.nom | uppercase}}
+                </div>
+              </td>
+              <td>
+                {{film.annee}}
+              </td>
+              <td>
+                <div *ngIf="!film.alreadyInDvdtheque">
+                  <button class="btn btn-primary" (click)="saveFilm(film.id)"
+                    [disabled]="buttonDisabled">Ajouter</button>
+                </div>
+                <div *ngIf="film.alreadyInDvdtheque">
+                  déjà enregistré
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>

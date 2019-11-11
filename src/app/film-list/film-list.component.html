@@ -60,14 +60,14 @@
                 <div class="col-sm-12">
                   Durée : {{film.runtime}}
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-12" *ngIf="film.dvd">
                   {{film.dvd.format}}
                 </div>
-                <div class="col-sm-12">Rippé :
-                  <span *ngIf="film.ripped">
+                <div class="col-sm-12" *ngIf="film.dvd">Rippé :
+                  <span *ngIf="film.dvd.ripped">
                     <img src="assets/img/ok.png" class="img ripped">
                   </span>
-                  <span *ngIf="!film.ripped">
+                  <span *ngIf="!film.dvd.ripped">
                     <img src="assets/img/ko.png" class="img ripped">
                   </span>
                 </div>
@@ -79,7 +79,7 @@
                     <img src="assets/img/ko.png" class="img ripped">
                   </span>
                 </div>
-                <div class="col-sm-12" *ngIf="film.dvd.dateRip">Rippé le :
+                <div class="col-sm-12" *ngIf="film.dvd && film.dvd.dateRip">Rippé le :
                   <span>
                     {{film.dvd.dateRip | date:'dd/MM/yy'}}
                   </span>

@@ -58,10 +58,10 @@ export class FilmDetailComponent implements OnInit {
   setRippedSelected(selectElement, film: Film) {
     if (selectElement.checked) {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
-      this.film.ripped = true;
+      this.film.dvd.ripped = true;
     } else {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
-      this.film.ripped = false;
+      this.film.dvd.ripped = false;
     }
   }
   setVuSelected(selectElement, film: Film) {

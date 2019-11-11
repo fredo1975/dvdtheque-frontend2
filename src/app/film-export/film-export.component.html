@@ -3,6 +3,16 @@
         <div class="col-lg-8 offset-lg-4">
             <h2>Exporter la liste des films au format Excel</h2>
         </div>
+        <div class="col-lg-2 offset-lg-4">
+            <div class="form-group">
+                <label htmlFor="origine">Origine des Films</label>
+                <select class="form-control" [(ngModel)]="origine">
+                    <option *ngFor="let filmOrigine of filmOrigines" [selected]="filmOrigine" [ngValue]="filmOrigine">
+                        {{filmOrigine}}
+                    </option>
+                </select>
+            </div>
+        </div>
         <div class="col-lg-8 offset-lg-5">
             <button class="btn btn-primary" (click)="exportFilmList()" [disabled]="buttonDisabled">Exporter au format
                 Excel</button>

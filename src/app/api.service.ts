@@ -5,6 +5,8 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
 import { Genre } from './genre';
+import { Origine } from './enums/origine.enum';
+
 import { environment } from '../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
@@ -47,10 +49,10 @@ export class ApiService {
     return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs');
   }
 
-  saveFilm(tmdbId: number): Observable<any> {
+  saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl + '/films/save/' + tmdbId, httpOptions).pipe(
+    return this.http.put(environment.apiUrl + '/films/save/' + tmdbId, filmOrigine, httpOptions).pipe(
       tap(_ => console.log(`added film id=${tmdbId}`))
     );
   }
@@ -77,8 +79,8 @@ export class ApiService {
       tap(_ => console.log('importFilmList done')));
   }
 
-  exportFilmList() {
-    return this.http.post(environment.apiUrl + '/films/export', null, {
+  exportFilmList(origine: Origine) {
+    return this.http.post(environment.apiUrl + '/films/export', origine, {
       headers: new HttpHeaders({
         'Authorization': 'Basic ' + encodedAuth,
         'Content-Type': 'application/octet-stream',

@@ -5,12 +5,14 @@ export class Dvd {
     annee: number;
     zone: string;
     edition: string;
+    ripped: boolean;
     dateRip: Date;
     format: DvdFormat;
     constructor(id: number,
         annee: number,
         zone: string,
         edition: string,
+        ripped: boolean,
         dateRip: Date,
         format: DvdFormat) {
     }
@@ -20,6 +22,7 @@ export class Dvd {
             json['annee'],
             json['zone'],
             json['edition'],
+            json['ripped'],
             json['dateRip'],
             json['format']);
     }

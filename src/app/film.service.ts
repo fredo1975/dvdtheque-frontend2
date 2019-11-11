@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FILMS } from './mock-films';
 import { Film } from './film';
 import { Personne } from './personne';
 import { Genre } from './genre';
+import { Origine } from './enums/origine.enum';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 
@@ -55,12 +55,12 @@ export class FilmService {
     return this.apiService.replaceFilm(film, tmdbId);
   }
 
-  saveFilm(tmdbId: number): Observable<any> {
-    return this.apiService.saveFilm(tmdbId);
+  saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
+    return this.apiService.saveFilm(tmdbId, filmOrigine);
   }
 
-  exportFilmList() {
-    return this.apiService.exportFilmList();
+  exportFilmList(origine: Origine) {
+    return this.apiService.exportFilmList(origine);
   }
   importFilmList(formdata: FormData): Observable<any> {
     return this.apiService.importFilmList(formdata);
