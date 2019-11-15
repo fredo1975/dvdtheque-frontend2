@@ -74,7 +74,7 @@ export class FilmDetailComponent implements OnInit {
     }
   }
   updateFilm() {
-    if (isNaN(this.film.dvd.annee)) {
+    if (this.film.dvd && isNaN(this.film.dvd.annee)) {
       // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
     }

@@ -3,7 +3,7 @@ import { Film } from './film';
 import { Personne } from './personne';
 import { Genre } from './genre';
 import { Origine } from './enums/origine.enum';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 
 const nonRenseigne = 'Non renseigné';
@@ -22,7 +22,9 @@ export class FilmService {
   loadAll(): Observable<Film[]> {
     return this.apiService.getAllFilms();
   }
-
+  getAllFilmsByOrigine(origine: string) {
+    return this.apiService.getAllFilmsByOrigine(origine);
+  }
   getAllTmdbFilmsByTitre(titre: string) {
     return this.apiService.getAllTmdbFilmsByTitre(titre);
   }
@@ -43,8 +45,16 @@ export class FilmService {
     return this.apiService.getAllActeurs();
   }
 
+  getAllActeursByOrigine(origine: string): Observable<Personne[]> {
+    return this.apiService.getAllActeursByOrigine(origine);
+  }
+
   getAllRealisateurs(): Observable<Personne[]> {
     return this.apiService.getAllRealisateurs();
+  }
+
+  getAllRealisateursByOrigine(origine: string): Observable<Personne[]> {
+    return this.apiService.getAllRealisateursByOrigine(origine);
   }
 
   updateFilm(film: Film): Observable<any> {

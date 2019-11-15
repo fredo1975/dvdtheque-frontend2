@@ -1,10 +1,4 @@
 <div class="container-fluid">
-
-  <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
-    (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)"
-    (rippedChange)="filterOnRipped($event)" (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)">
-  </app-film-search>
-
   <div class="row">
     <div class="col-lg-6 offset-lg-4" *ngIf="filteredFilms">
       <button type="button" class="btn btn-primary" (click)="resetFilter()">Effecer les filtres</button>

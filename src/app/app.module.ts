@@ -19,6 +19,9 @@ import { FilmImportComponent } from './film-import/film-import.component';
 import { JmsStatusPipe } from './pipes/jms-status.pipe';
 import { GenresPipe } from './pipes/genres.pipe';
 import { RealisateursPipe } from './pipes/realisateurs.pipe';
+import { FilmListDvdComponent } from './film-list-dvd/film-list-dvd.component';
+import { FilmListSalleComponent } from './film-list-salle/film-list-salle.component';
+import { FilmListTvComponent } from './film-list-tv/film-list-tv.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -34,7 +37,10 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     FilmImportComponent,
     JmsStatusPipe,
     GenresPipe,
-    RealisateursPipe
+    RealisateursPipe,
+    FilmListDvdComponent,
+    FilmListSalleComponent,
+    FilmListTvComponent
   ],
   imports: [
     BrowserModule,

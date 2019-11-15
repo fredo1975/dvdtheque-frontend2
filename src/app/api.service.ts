@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
 import { Genre } from './genre';
@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.get<Film[]>(environment.apiUrl + '/films');
   }
 
+  getAllFilmsByOrigine(origine: string): Observable<Film[]> {
+    return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine);
+  }
+
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
     return this.http.get<Film[]>(environment.apiUrl + '/films/tmdb/byTitre/' + titre);
   }
@@ -41,12 +45,20 @@ export class ApiService {
     return this.http.get<Personne[]>(environment.apiUrl + '/acteurs');
   }
 
+  getAllActeursByOrigine(origine: string): Observable<Personne[]> {
+    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs/byOrigine/' + origine);
+  }
+
   getAllGenres(): Observable<Genre[]> {
     return this.http.get<Genre[]>(environment.apiUrl + '/films/genres');
   }
 
   getAllRealisateurs(): Observable<Personne[]> {
     return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs');
+  }
+
+  getAllRealisateursByOrigine(origine: string): Observable<Personne[]> {
+    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs/byOrigine/' + origine);
   }
 
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {

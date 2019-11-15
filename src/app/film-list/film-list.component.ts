@@ -4,7 +4,6 @@ import { Film } from '../film';
 import { FilmSearch } from '../film-search';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-film-list',
@@ -12,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./film-list.component.css']
 })
 export class FilmListComponent implements OnInit, OnChanges {
-  private films: Film[];
+  films: Film[];
   filteredFilms: Film[];
   @Input() filmSearch: FilmSearch;
   @Input() realFilmSearch: FilmSearch;
@@ -21,21 +20,28 @@ export class FilmListComponent implements OnInit, OnChanges {
   @Input() rippedFilmSearch: FilmSearch;
   @Input() genreFilmSearch: FilmSearch;
   @Input() vuFilmSearch: FilmSearch;
+  @Input() origine: string;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
   private ascRipDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
-  constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private filmService: FilmService) {
+  }
 
   ngOnInit() {
+    console.log('FilmListComponent ngOnInit origine=' + this.origine);
     this.loading = true;
-    this.getAllFilms().subscribe((data: Film[]) => {
+    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
       this.films = data;
+      console.log(this.films);
       this.filteredFilms = data;
     }
-      , (error) => { console.log(error); }
+      , (error) => {
+        console.log(error);
+      }
       , () => {
         this.loading = false;
       });
@@ -50,6 +56,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   getAllFilms(): Observable<Film[]> {
     return this.filmService.loadAll();
   }
+
   filterOnTitre(titre: string) {
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
@@ -60,8 +67,9 @@ export class FilmListComponent implements OnInit, OnChanges {
     }
   }
   filterOnRealisateur(id: number) {
-    // console.log('FilmListComponent::filterOnRealisateur::id=' + id);
+    console.log('FilmListComponent::filterOnRealisateur::id=' + id);
     this.filteredFilms = [];
+    console.log(this.films);
     for (let i = 0; i < this.films.length; i++) {
       for (let j = 0; j < this.films[i].realisateurs.length; j++) {
         if (this.films[i].realisateurs[j].id === id) {

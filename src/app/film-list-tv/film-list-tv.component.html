@@ -1,0 +1,6 @@
+<app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
+    (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)"
+    (rippedChange)="filterOnRipped($event)" (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)"
+    [origine]="origine">
+</app-film-search>
+<app-film-list [origine]="origine"></app-film-list>
