@@ -32,12 +32,12 @@ export class FilmListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log('FilmListComponent ngOnInit origine=' + this.origine);
+    // console.log('FilmListComponent ngOnInit origine=' + this.origine);
     this.loading = true;
     this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
       this.films = data;
-      console.log(this.films);
       this.filteredFilms = data;
+      console.log(this.filteredFilms);
     }
       , (error) => {
         console.log(error);
@@ -69,7 +69,7 @@ export class FilmListComponent implements OnInit, OnChanges {
   filterOnRealisateur(id: number) {
     console.log('FilmListComponent::filterOnRealisateur::id=' + id);
     this.filteredFilms = [];
-    console.log(this.films);
+    console.log('FilmListComponent::filterOnRealisateur films', this.films);
     for (let i = 0; i < this.films.length; i++) {
       for (let j = 0; j < this.films[i].realisateurs.length; j++) {
         if (this.films[i].realisateurs[j].id === id) {
@@ -202,6 +202,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     });
   }
   private sortDuree() {
+    console.log(this.filteredFilms);
     if (this.ascdureeDateSort) {
       this.filteredFilms.sort((val1, val2) => val1.runtime - val2.runtime);
     } else {

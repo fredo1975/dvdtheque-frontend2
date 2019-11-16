@@ -1,3 +1,7 @@
+<app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
+  (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"
+  (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)" [origine]="origine">
+</app-film-search>
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 offset-lg-4" *ngIf="filteredFilms">
@@ -8,10 +12,10 @@
     <div class="col-lg-2" *ngIf="filteredFilms">
       <a routerLink="" (click)="sort('titre')">Trier par Titre</a>
     </div>
-    <div class="col-lg-2" *ngIf="filteredFilms">
+    <div class="col-lg-2" *ngIf="filteredFilms && origine=='DVD'">
       <a routerLink="" (click)="sort('daterip')">Trier par Date de RIP</a>
     </div>
-    <div class="col-lg-2" *ngIf="filteredFilms">
+    <div class="col-lg-2" *ngIf="filteredFilms && origine=='DVD'">
       <a routerLink="" (click)="sort('dvdformat')">Trier par Format</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">

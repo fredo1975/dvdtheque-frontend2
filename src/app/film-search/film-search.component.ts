@@ -83,7 +83,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.vu = null;
   }
   filterOnRealisateur(event: any) {
-    console.log('event=' + event);
+    console.log('FilmSearchComponent::filterOnRealisateur=', event);
     this.realChange.emit(event);
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;
