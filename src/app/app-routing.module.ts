@@ -10,10 +10,11 @@ import { FilmListSalleComponent } from './film-list-salle/film-list-salle.compon
 import { FilmListTvComponent } from './film-list-tv/film-list-tv.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/filmListDvd', pathMatch: 'full' },
-  { path: 'filmListDvd', component: FilmListDvdComponent },
+  { path: '', redirectTo: '/filmList', pathMatch: 'full' },
+  { path: 'filmList', component: FilmListComponent },
+  /*{ path: 'filmListDvd', component: FilmListDvdComponent },
   { path: 'filmListSalle', component: FilmListSalleComponent },
-  { path: 'filmListTv', component: FilmListTvComponent },
+  { path: 'filmListTv', component: FilmListTvComponent },*/
   { path: 'filmDetail/:id', component: FilmDetailComponent },
   { path: 'filmAdd', component: FilmAddComponent },
   { path: 'filmExport', component: FilmExportComponent },

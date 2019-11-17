@@ -12,11 +12,17 @@ const nonRenseigne = 'Non renseigné';
   providedIn: 'root'
 })
 export class FilmService {
-  films: Observable<Film[]>;
-  private baseUrl: string;
+  private origine: string;
 
   constructor(private apiService: ApiService) {
-    this.baseUrl = 'http://localhost:8083/dvdtheque';
+  }
+
+  setOrigine(origine: string) {
+    this.origine = origine;
+  }
+
+  getOrigine(): string {
+    return this.origine;
   }
 
   loadAll(): Observable<Film[]> {

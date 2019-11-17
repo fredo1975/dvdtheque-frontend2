@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
-import { FilmSearch } from '../film-search';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable } from 'rxjs';
 
@@ -10,44 +9,35 @@ import { Observable } from 'rxjs';
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.css']
 })
-export class FilmListComponent implements OnInit, OnChanges {
+export class FilmListComponent implements OnInit {
   films: Film[];
   filteredFilms: Film[];
-  @Input() filmSearch: FilmSearch;
-  @Input() realFilmSearch: FilmSearch;
-  @Input() anneeFilmSearch: FilmSearch;
-  @Input() acteurFilmSearch: FilmSearch;
-  @Input() rippedFilmSearch: FilmSearch;
-  @Input() genreFilmSearch: FilmSearch;
-  @Input() vuFilmSearch: FilmSearch;
-  @Input() origine: string;
+  // @Input() origine: string;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
   private loading = false;
   private ascRipDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
-
+  private origine: string;
   constructor(private filmService: FilmService) {
+    // console.log('FilmListComponent constructor origine=' + this.origine);
+    this.origine = 'DVD';
   }
 
   ngOnInit() {
-    // console.log('FilmListComponent ngOnInit origine=' + this.origine);
-    this.loading = true;
-    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
-      this.films = data;
-      this.filteredFilms = data;
-      console.log(this.filteredFilms);
+    console.log('FilmListComponent ngOnInit origine=' + this.origine);
+    // const origineRetrieved = this.filmService.getOrigine();
+    console.log('FilmListComponent ngOnInit origineRetrieved=' + this.filmService.getOrigine());
+    console.log('FilmListComponent ngOnInit origineRetrieved=' + this.filmService.getOrigine());
+
+    if (!this.filmService.getOrigine()) {
+      this.filterOnOrigine(this.origine);
+    } else {
+      this.filterOnOrigine(this.filmService.getOrigine());
     }
-      , (error) => {
-        console.log(error);
-      }
-      , () => {
-        this.loading = false;
-      });
   }
 
-  ngOnChanges() { }
   resetFilter() {
     this.filmSearchComponent.resetFilter();
     this.filteredFilms = this.films;
@@ -67,6 +57,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     }
   }
   filterOnRealisateur(id: number) {
+    // console.log('FilmListComponent::filterOnRealisateur::id', event);
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
       for (let j = 0; j < this.films[i].realisateurs.length; j++) {
@@ -121,6 +112,26 @@ export class FilmListComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  filterOnOrigine(origineEvent: any) {
+    // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent);
+    this.filmService.setOrigine(origineEvent);
+    this.origine = origineEvent;
+    this.loading = true;
+    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
+      this.films = data;
+      this.filteredFilms = data;
+      // console.log(this.filteredFilms);
+    }
+      , (error) => {
+        console.log(error);
+      }
+      , () => {
+        this.loading = false;
+      });
+    this.filmSearchComponent.refreshPersonnes(origineEvent);
+  }
+
   filterOnVu(event: string) {
     if (event === 'tous') {
       this.filteredFilms = this.films;
@@ -199,7 +210,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     });
   }
   private sortDuree() {
-    console.log(this.filteredFilms);
+    // console.log(this.filteredFilms);
     if (this.ascdureeDateSort) {
       this.filteredFilms.sort((val1, val2) => val1.runtime - val2.runtime);
     } else {

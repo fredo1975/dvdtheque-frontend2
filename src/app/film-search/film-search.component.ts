@@ -1,8 +1,11 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { FilmService } from '../film.service';
 import { Personne } from '../personne';
 import { Genre } from '../genre';
 import { FilmSearch } from '../film-search';
+import { Origine } from '../enums/origine.enum';
+
 @Component({
   selector: 'app-film-search',
   templateUrl: './film-search.component.html',
@@ -24,13 +27,14 @@ export class FilmSearchComponent implements OnInit {
   @Output() rippedChange = new EventEmitter<string>();
   @Output() genreChange = new EventEmitter<string>();
   @Output() vuChange = new EventEmitter<string>();
+  @Output() origineChange = new EventEmitter<any>();
   @Input() origine: string;
-
+  private origines: string[];
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
     const genre = '';
-    this.filmSearch = new FilmSearch('', 0, false, real, act1, '', false);
+    this.filmSearch = new FilmSearch('', 0, false, real, act1, genre, false, Origine.DVD);
   }
 
   ngOnInit() {
@@ -45,6 +49,33 @@ export class FilmSearchComponent implements OnInit {
       });
     this.loadingAllRealisateurs = true;
     this.filmService.getAllRealisateursByOrigine(this.origine).subscribe((data: Personne[]) => {
+      this.realisateurs = data;
+    }
+      , (error) => { console.log('an error occured when fetching all realisateurs'); }
+      , () => {
+        this.loadingAllRealisateurs = false;
+      });
+    this.loadingAllGenres = true;
+    this.filmService.getAllGenres().subscribe((data: Genre[]) => {
+      this.genres = data;
+    }
+      , (error) => { console.log('an error occured when fetching all genres'); }
+      , () => {
+        this.loadingAllGenres = false;
+      });
+    this.origines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.TV], Origine[Origine.TOUS]];
+  }
+
+  refreshPersonnes(origine: Origine) {
+    this.filmService.getAllActeursByOrigine(origine.toString()).subscribe((data: Personne[]) => {
+      this.acteurs = data;
+    }
+      , (error) => { console.log('an error occured when fetching all acteurs'); }
+      , () => {
+        this.loadingAllActeurs = false;
+      });
+    this.loadingAllRealisateurs = true;
+    this.filmService.getAllRealisateursByOrigine(origine.toString()).subscribe((data: Personne[]) => {
       this.realisateurs = data;
     }
       , (error) => { console.log('an error occured when fetching all realisateurs'); }
@@ -82,7 +113,7 @@ export class FilmSearchComponent implements OnInit {
     this.filmSearch.vu = null;
   }
   filterOnRealisateur(event: any) {
-    // console.log('FilmSearchComponent::filterOnRealisateur=', event);
+    // console.log('FilmSearchComponent::filterOnRealisateur::event', event);
     this.realChange.emit(event);
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;
@@ -134,6 +165,16 @@ export class FilmSearchComponent implements OnInit {
   filterOnVu(event: any) {
     // console.log('event.target.value=' + event);
     this.vuChange.emit(event);
+    this.filmSearch.realisateur = null;
+    this.filmSearch.annee = null;
+    this.filmSearch.titre = null;
+    this.filmSearch.acteur = null;
+    this.filmSearch.genre = null;
+  }
+  filterOnOrigine(event: any) {
+    // console.log('FilmSearchComponent::filterOnOrigine event', event);
+    this.origineChange.emit(event);
+    this.filmSearch.vu = null;
     this.filmSearch.realisateur = null;
     this.filmSearch.annee = null;
     this.filmSearch.titre = null;

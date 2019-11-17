@@ -12,6 +12,15 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-lg-1">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="origine">Origine</label>
+        <select class="form-control" [(ngModel)]="filmSearch.origine" (ngModelChange)="filterOnOrigine($event)">
+          <option *ngFor="let origine of origines" [ngValue]="origine">{{origine}}
+          </option>
+        </select>
+      </div>
+    </div>
     <div class="col-lg-2">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="titre">Titre</label>
@@ -38,7 +47,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-1">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="annee">Année</label>
         <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)"
