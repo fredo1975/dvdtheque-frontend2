@@ -95,7 +95,7 @@ export class FilmListComponent implements OnInit {
       this.filteredFilms = [];
       const ripped = event === 'ripped' ? true : false;
       for (let i = 0; i < this.films.length; i++) {
-        if (this.films[i].dvd.ripped === ripped) {
+        if (this.films[i].dvd && this.films[i].dvd.ripped === ripped) {
           this.filteredFilms.push(this.films[i]);
         }
       }
@@ -170,13 +170,13 @@ export class FilmListComponent implements OnInit {
     const temp: any[] = [];
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
-      if (this.filteredFilms[i].dvd.dateRip) {
+      if (this.filteredFilms[i].dvd && this.filteredFilms[i].dvd.dateRip) {
         temp.push(this.filteredFilms[i]);
       }
     }
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
-      if (new Date(this.filteredFilms[i].dvd.dateRip).getTime() === 0) {
+      if (this.filteredFilms[i].dvd && new Date(this.filteredFilms[i].dvd.dateRip).getTime() === 0) {
         temp.push(this.filteredFilms[i]);
       }
     }
