@@ -12,7 +12,6 @@ export class FilmListTvComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('FilmListTvComponent ngOnInit origine=' + this.origine);
   }
 
 }

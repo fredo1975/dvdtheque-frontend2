@@ -34,7 +34,6 @@ export class FilmSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('FilmSearchComponent ngOnInit origine=' + this.origine);
     this.loadingAllActeurs = true;
     this.annees = this.filmService.getAnneesSelect();
     this.filmService.getAllActeursByOrigine(this.origine).subscribe((data: Personne[]) => {

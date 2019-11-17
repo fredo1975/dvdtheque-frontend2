@@ -67,9 +67,7 @@ export class FilmListComponent implements OnInit, OnChanges {
     }
   }
   filterOnRealisateur(id: number) {
-    console.log('FilmListComponent::filterOnRealisateur::id=' + id);
     this.filteredFilms = [];
-    console.log('FilmListComponent::filterOnRealisateur films', this.films);
     for (let i = 0; i < this.films.length; i++) {
       for (let j = 0; j < this.films[i].realisateurs.length; j++) {
         if (this.films[i].realisateurs[j].id === id) {
@@ -100,7 +98,6 @@ export class FilmListComponent implements OnInit, OnChanges {
   }
   filterOnRipped(event: string) {
     // console.log('FilmListComponent::filterOnRipped::event=' + event);
-    console.log('FilmListComponent::filterOnRipped::this.films=' + this.films);
     if (event === 'tous') {
       this.filteredFilms = this.films;
     } else {
