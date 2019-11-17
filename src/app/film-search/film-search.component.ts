@@ -29,7 +29,7 @@ export class FilmSearchComponent implements OnInit {
   @Output() vuChange = new EventEmitter<string>();
   @Output() origineChange = new EventEmitter<any>();
   @Input() origine: string;
-  private origines: string[];
+  origines: string[];
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');

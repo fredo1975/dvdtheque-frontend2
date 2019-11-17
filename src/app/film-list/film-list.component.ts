@@ -19,7 +19,7 @@ export class FilmListComponent implements OnInit {
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
-  private origine: string;
+  origine: string;
   constructor(private filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
     this.origine = 'DVD';
