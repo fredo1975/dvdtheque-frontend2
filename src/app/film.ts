@@ -1,7 +1,7 @@
 import { Personne } from './personne';
 import { Dvd } from './dvd';
 import { Genre } from './genre';
-
+import { Origine } from './enums/origine.enum';
 export class Film {
 
     constructor(public id: number,
@@ -17,6 +17,7 @@ export class Film {
         public alreadyInDvdtheque: boolean,
         public tmdbId: number,
         public runtime: number,
-        public homepage: string) {
+        public homepage: string,
+        public origine: Origine) {
     }
 }

@@ -4,6 +4,8 @@ import { Personne } from '../personne';
 import { FilmService } from '../film.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DvdFormat } from '../dvd-format.enum';
+import { Dvd } from '../dvd';
+import { Origine } from '../enums/origine.enum';
 
 @Component({
   selector: 'app-film-detail',
@@ -80,8 +82,9 @@ export class FilmDetailComponent implements OnInit {
     }
     this.loading = true;
     this.buttonDisabled = true;
-    return this.filmService.updateFilm(this.film).subscribe(obs => {
-      // console.log('film with id : ' + this.film.id + ' updated');
+    return this.filmService.updateFilm(this.film).subscribe(f => {
+      // console.log('film with id : ' + f.id + ' updated');
+      this.film = f;
     }
       , (error) => { console.log(error); }
       , () => {
@@ -90,6 +93,32 @@ export class FilmDetailComponent implements OnInit {
         this.updated = true;
       });
   }
+
+  buildFilmWithDvd(film: Film): Film {
+    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, format: DvdFormat.DVD }
+    // console.log('buildFilmWithDvd', JSON.stringify(dvd));
+    // tslint:disable-next-line:max-line-length
+    return new Film(film.id, film.titre, film.titreO, film.annee, film.vu, film.realisateurs, film.acteurs, film.genres,
+      // tslint:disable-next-line:max-line-length
+      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.runtime, film.homepage, Origine.DVD);
+  }
+
+  transformFilmEnSalleIntoDvd() {
+    this.loading = true;
+    this.buttonDisabled = true;
+    const film: Film = this.buildFilmWithDvd(this.film);
+    // console.log('transformFilmEnSalleIntoDvd', film);
+    return this.filmService.updateFilm(film).subscribe(f => {
+      this.film = f;
+    }
+      , (error) => { console.log(error); }
+      , () => {
+        this.loading = false;
+        this.buttonDisabled = false;
+        this.updated = true;
+      });
+  }
+
   doReplaceFilm(filmEmitted: Film) {
     // console.log('filmEmitted with id : ' + filmEmitted.id + '  emitted');
     this.film = filmEmitted;

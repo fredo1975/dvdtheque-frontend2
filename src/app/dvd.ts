@@ -8,8 +8,8 @@ export class Dvd {
     ripped: boolean;
     dateRip: Date;
     format: DvdFormat;
-    constructor(id: number,
-        annee: number,
+
+    constructor(annee: number,
         zone: string,
         edition: string,
         ripped: boolean,
@@ -18,7 +18,6 @@ export class Dvd {
     }
     public static fromJson(json: Object): Dvd {
         return new Dvd(
-            json['id'],
             json['annee'],
             json['zone'],
             json['edition'],

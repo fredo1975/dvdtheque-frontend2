@@ -154,13 +154,16 @@
 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-3">
                             <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
                                 modifications</button>
                         </div>
+                        <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
+                            <button type="button" class="btn btn-primary"
+                                (click)="transformFilmEnSalleIntoDvd()">Transformer en DVD</button>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
