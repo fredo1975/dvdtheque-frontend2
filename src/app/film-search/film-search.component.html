@@ -14,9 +14,10 @@
   <div class="row">
     <div class="col-lg-1">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="origine">Origine</label>
-        <select class="form-control" [(ngModel)]="filmSearch.origine" (ngModelChange)="filterOnOrigine($event)">
-          <option *ngFor="let origine of origines" [ngValue]="origine">{{origine}}
+        <label htmlFor="origine">Origine :</label>
+        <select class="form-control" [(ngModel)]="origine" (ngModelChange)="filterOnOrigine($event)">
+          <option *ngFor="let origine of origines" [ngValue]="origine" [selected]="filmSearch.origine === origine">
+            {{origine}}
           </option>
         </select>
       </div>

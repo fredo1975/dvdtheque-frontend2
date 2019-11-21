@@ -22,15 +22,13 @@ export class FilmListComponent implements OnInit {
   origine: string;
   constructor(private filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
-    this.origine = 'DVD';
   }
 
   ngOnInit() {
-    console.log('FilmListComponent ngOnInit origine=' + this.origine);
+    this.origine = 'DVD';
+    console.log('FilmListComponent ngOnInit origine ', this.origine);
     // const origineRetrieved = this.filmService.getOrigine();
-    console.log('FilmListComponent ngOnInit origineRetrieved=' + this.filmService.getOrigine());
-    console.log('FilmListComponent ngOnInit origineRetrieved=' + this.filmService.getOrigine());
-
+    console.log('FilmListComponent ngOnInit origineRetrieved ', this.filmService.getOrigine());
     if (!this.filmService.getOrigine()) {
       this.filterOnOrigine(this.origine);
     } else {
