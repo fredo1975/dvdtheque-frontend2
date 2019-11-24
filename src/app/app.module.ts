@@ -19,6 +19,7 @@ import { FilmImportComponent } from './film-import/film-import.component';
 import { JmsStatusPipe } from './pipes/jms-status.pipe';
 import { GenresPipe } from './pipes/genres.pipe';
 import { RealisateursPipe } from './pipes/realisateurs.pipe';
+import { FilmAdminComponent } from './film-admin/film-admin.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -35,6 +36,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     JmsStatusPipe,
     GenresPipe,
     RealisateursPipe,
+    FilmAdminComponent,
   ],
   imports: [
     BrowserModule,

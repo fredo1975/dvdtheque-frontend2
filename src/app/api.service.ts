@@ -84,6 +84,12 @@ export class ApiService {
     return this.http.put<Film>(environment.apiUrl + '/films/tmdb/' + tmdbId, film, httpOptions);
   }
 
+  removeFilm(id: number): Observable<Film> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put<Film>(environment.apiUrl + '/films/remove/' + id, httpOptions);
+  }
+
   importFilmList(formdata: FormData): Observable<any> {
     const url = '/films/import';
     console.log('importFilmList');

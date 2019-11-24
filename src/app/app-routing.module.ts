@@ -5,6 +5,7 @@ import { FilmAddComponent } from './film-add/film-add.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { FilmExportComponent } from './film-export/film-export.component';
 import { FilmImportComponent } from './film-import/film-import.component';
+import { FilmAdminComponent } from './film-admin/film-admin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/filmList', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'filmDetail/:id', component: FilmDetailComponent },
   { path: 'filmAdd', component: FilmAddComponent },
   { path: 'filmExport', component: FilmExportComponent },
-  { path: 'filmImport', component: FilmImportComponent }
+  { path: 'filmImport', component: FilmImportComponent },
+  { path: 'filmAdmin', component: FilmAdminComponent }
 ];
 
 @NgModule({

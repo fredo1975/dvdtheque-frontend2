@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
@@ -14,13 +14,13 @@ export class FilmListComponent implements OnInit {
   filteredFilms: Film[];
   // @Input() origine: string;
   @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
-  private loading = false;
+  loading = false;
   private ascRipDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
   origine: string;
-  constructor(private filmService: FilmService) {
+  constructor(protected filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
   }
 
