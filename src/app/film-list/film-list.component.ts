@@ -13,7 +13,7 @@ export class FilmListComponent implements OnInit {
   films: Film[];
   filteredFilms: Film[];
   // @Input() origine: string;
-  @ViewChild(FilmSearchComponent) filmSearchComponent: FilmSearchComponent;
+  @ViewChild(FilmSearchComponent, { static: true }) filmSearchComponent: FilmSearchComponent;
   loading = false;
   private ascRipDateSort = true;
   private ascdureeDateSort = false;

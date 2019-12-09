@@ -15,7 +15,7 @@ import { JmsStatus } from '../jms-status.enum';
   styleUrls: ['./film-import.component.css']
 })
 export class FilmImportComponent implements OnInit, OnDestroy {
-  @ViewChild('fileInput') inputEl: ElementRef;
+  @ViewChild('fileInput', { static: true }) inputEl: ElementRef;
   loading = false;
   loadingStatus = false;
   buttonDisabled = false;

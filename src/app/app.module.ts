@@ -20,6 +20,7 @@ import { JmsStatusPipe } from './pipes/jms-status.pipe';
 import { GenresPipe } from './pipes/genres.pipe';
 import { RealisateursPipe } from './pipes/realisateurs.pipe';
 import { FilmAdminComponent } from './film-admin/film-admin.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -43,6 +44,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
