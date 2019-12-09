@@ -26,9 +26,9 @@ export class FilmListComponent implements OnInit {
 
   ngOnInit() {
     this.origine = 'DVD';
-    console.log('FilmListComponent ngOnInit origine ', this.origine);
+    // console.log('FilmListComponent ngOnInit origine ', this.origine);
     // const origineRetrieved = this.filmService.getOrigine();
-    console.log('FilmListComponent ngOnInit origineRetrieved ', this.filmService.getOrigine());
+    // console.log('FilmListComponent ngOnInit origineRetrieved ', this.filmService.getOrigine());
     if (!this.filmService.getOrigine()) {
       this.filterOnOrigine(this.origine);
     } else {
@@ -111,6 +111,25 @@ export class FilmListComponent implements OnInit {
     }
   }
 
+  newFilterOnOrigine(origineEvent: any) {
+    // console.log('FilmListComponent::newFilterOnOrigine::origineEvent', origineEvent);
+    this.filmService.setOrigine(origineEvent);
+    this.origine = origineEvent;
+    this.loading = true;
+    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
+      this.films = data;
+      this.filteredFilms = data;
+      // console.log(this.filteredFilms);
+    }
+      , (error) => {
+        console.log(error);
+      }
+      , () => {
+        this.loading = false;
+      });
+    this.filmSearchComponent.refreshPersonnes(origineEvent);
+  }
+
   filterOnOrigine(origineEvent: any) {
     // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent);
     this.filmService.setOrigine(origineEvent);
@@ -142,6 +161,25 @@ export class FilmListComponent implements OnInit {
         }
       }
     }
+  }
+
+  newFilterOnVu(event: string): Observable<null> {
+    // console.log('FilmListComponent:newFilterOnVu');
+    const observable: Observable<null> = new Observable(observer => {
+      if (event === 'tous') {
+        this.filteredFilms = this.films;
+      } else {
+        this.filteredFilms = [];
+        const vu = event === 'vu' ? true : false;
+        for (let i = 0; i < this.films.length; i++) {
+          if (this.films[i].vu === vu) {
+            this.filteredFilms.push(this.films[i]);
+          }
+        }
+      }
+      observer.complete();
+    });
+    return observable;
   }
   sort(sortParam: string) {
     // alert(sortParam);
