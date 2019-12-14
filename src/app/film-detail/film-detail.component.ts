@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Film } from '../film';
 import { Personne } from '../personne';
 import { FilmService } from '../film.service';
@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DvdFormat } from '../dvd-format.enum';
 import { Dvd } from '../dvd';
 import { Origine } from '../enums/origine.enum';
+import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-film-detail',
@@ -13,8 +15,6 @@ import { Origine } from '../enums/origine.enum';
   styleUrls: ['./film-detail.component.css']
 })
 export class FilmDetailComponent implements OnInit {
-  // @Input() film: Film;
-  // @ViewChild('select') selectElRef;
   @Input() film: Film;
   @Input() replacedFilm: Film;
   private realisateurs: Personne[];
@@ -27,6 +27,7 @@ export class FilmDetailComponent implements OnInit {
   private updated = false;
   loading = false;
   buttonDisabled = false;
+  private dateSortie: NgbDateStruct;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
   }
 
@@ -80,6 +81,18 @@ export class FilmDetailComponent implements OnInit {
       // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
     }
+    if (this.film.dvd) {
+      // console.log('this.film.dvd.annee is nan');
+      this.film.dvd.annee = 0;
+    }
+    console.log('this.dateSortie', this.dateSortie);
+    if (this.dateSortie) {
+      const day = this.dateSortie.day;
+      const month = this.dateSortie.month - 1;
+      const year = this.dateSortie.year;
+      this.film.dvd.dateSortie = new Date(year, month, day);
+      console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
+    }
     this.loading = true;
     this.buttonDisabled = true;
     return this.filmService.updateFilm(this.film).subscribe(f => {
@@ -95,10 +108,11 @@ export class FilmDetailComponent implements OnInit {
   }
 
   buildFilmWithDvd(film: Film): Film {
-    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, format: DvdFormat.DVD }
+    // tslint:disable-next-line:max-line-length
+    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: null, format: DvdFormat.DVD }
     // console.log('buildFilmWithDvd', JSON.stringify(dvd));
     // tslint:disable-next-line:max-line-length
-    return new Film(film.id, film.titre, film.titreO, film.annee, film.vu, film.realisateurs, film.acteurs, film.genres,
+    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.vu, film.realisateurs, film.acteurs, film.genres,
       // tslint:disable-next-line:max-line-length
       dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.runtime, film.homepage, Origine.DVD);
   }

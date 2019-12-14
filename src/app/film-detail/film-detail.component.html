@@ -25,25 +25,25 @@
             <div class="column details">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-1"><label>Titre : </label></div>
-                        <div class="col-sm-11"><b>{{film.titre | uppercase}}</b></div>
+                        <div class="col-sm-2"><label>Titre : </label></div>
+                        <div class="col-sm-10"><b>{{film.titre | uppercase}}</b></div>
 
-                        <div class="col-sm-1"><label>Titre Original : </label></div>
-                        <div class="col-sm-11"><b>{{film.titreO | uppercase}}</b></div>
+                        <div class="col-sm-2"><label>Titre Original : </label></div>
+                        <div class="col-sm-10"><b>{{film.titreO | uppercase}}</b></div>
 
-                        <div class="col-sm-1"><label>Année de sortie : </label></div>
-                        <div class="col-sm-11"><b>{{film.annee}}</b></div>
+                        <div class="col-sm-2"><label>Date de sortie : </label></div>
+                        <div class="col-sm-10"><b>{{film.dateSortie | date: 'dd/MM/yyyy'}}</b></div>
 
-                        <div class="col-sm-1"><label>Réalisateur : </label></div>
-                        <div class="col-sm-11">
+                        <div class="col-sm-2"><label>Réalisateur : </label></div>
+                        <div class="col-sm-10">
                             <b>{{film.realisateurs | realisateurs}} &nbsp;</b>
                         </div>
-                        <div class="col-sm-1"><label>Genres : </label></div>
-                        <div class="col-sm-11">
+                        <div class="col-sm-2"><label>Genres : </label></div>
+                        <div class="col-sm-10">
                             <b>{{film.genres | genres}} &nbsp;</b>
                         </div>
-                        <div class="col-sm-1"><label>Durée : </label></div>
-                        <div class="col-sm-11"><b>{{film.runtime}} minutes</b></div>
+                        <div class="col-sm-2"><label>Durée : </label></div>
+                        <div class="col-sm-10"><b>{{film.runtime}} minutes</b></div>
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -76,6 +76,13 @@
                     </div>
                 </div>
                 &nbsp;
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-2"><label>TMDB ID : </label></div>
+                        <div class="col-sm-10"><b>{{film.tmdbId}}</b></div>
+                    </div>
+                </div>
+                &nbsp;
                 <div class="container-fluid" *ngIf="film.dvd">
                     <div class="row">
                         <div class="col-sm-2">
@@ -88,6 +95,7 @@
                                 </select>
                             </div>
                         </div>
+                        <!--
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label htmlFor="annee">Année DVD</label>
@@ -97,6 +105,7 @@
                                 </select>
                             </div>
                         </div>
+                        -->
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label htmlFor="annee">Format DVD</label>
@@ -109,17 +118,31 @@
                         </div>
                     </div>
                 </div>
-                &nbsp;
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-1"><label>TMDB ID : </label></div>
-                        <div class="col-sm-11"><b>{{film.tmdbId}}</b></div>
+                        <div class="col-sm-2"><label>Date de sortie en DVD : </label></div>
+                        <div class="col-sm-2" *ngIf="film.dvd.dateSortie">{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}
+                        </div>
+                        <div class="col-sm-5">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
+                                            [(ngModel)]="dateSortie" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                type="button"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 &nbsp;
                 <div class="container-fluid" *ngIf="film.dvd">
                     <div class="row">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <label><input type="checkbox" [(checked)]="film.dvd.ripped"
                                         (change)="setRippedSelected($event.target,film)" /> Ripped</label>
@@ -129,7 +152,7 @@
                         <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.dvd.ripped">
                             <div class="form-group">
                                 <label>Rippé le : </label>
-                                <b>{{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
+                                <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ export class Dvd {
     edition: string;
     ripped: boolean;
     dateRip: Date;
+    dateSortie: Date;
     format: DvdFormat;
 
     constructor(annee: number,
@@ -14,6 +15,7 @@ export class Dvd {
         edition: string,
         ripped: boolean,
         dateRip: Date,
+        dateSortie: Date,
         format: DvdFormat) {
     }
     public static fromJson(json: Object): Dvd {
@@ -23,6 +25,7 @@ export class Dvd {
             json['edition'],
             json['ripped'],
             json['dateRip'],
+            json['dateSortie'],
             json['format']);
     }
 }
