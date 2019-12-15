@@ -17,6 +17,7 @@ export class Film {
         public posterPath: string,
         public alreadyInDvdtheque: boolean,
         public tmdbId: number,
+        public overview: string,
         public runtime: number,
         public homepage: string,
         public origine: Origine) {
