@@ -16,13 +16,13 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
     if (confir) {
       this.buttonDisabled = true;
       this.loading = true;
-      console.log('id=', id);
+      // console.log('id=', id);
       this.filmService.removeFilm(id).subscribe(obs => {
         console.log('film with id : ' + id + ' removed');
       }
         , (error) => { console.log(error); this.buttonDisabled = false; }
         , () => {
-          console.log('removeFilm Fini !');
+          // console.log('removeFilm Fini !');
           this.buttonDisabled = false;
           this.loading = false;
           this.filterOnOrigine(this.origine);
