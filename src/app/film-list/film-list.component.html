@@ -59,10 +59,10 @@
                 <div class="col-sm-12">
                   Durée : {{film.runtime}}
                 </div>
-                <div class="col-sm-12" *ngIf="film.dvd">
+                <div class="col-sm-12" *ngIf="film.origine == 'DVD'">
                   {{film.dvd.format}}
                 </div>
-                <div class="col-sm-12" *ngIf="film.dvd">Rippé :
+                <div class=" col-sm-12" *ngIf="film.dvd">Rippé :
                   <span *ngIf="film.dvd.ripped">
                     <img src="assets/img/ok.png" class="img ripped">
                   </span>

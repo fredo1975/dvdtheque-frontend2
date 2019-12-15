@@ -118,10 +118,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
+                <div class="container-fluid" *ngIf="film.origine != 'TV'">
                     <div class="row">
                         <div class="col-sm-2"><label>Date de sortie en DVD : </label></div>
-                        <div class="col-sm-2" *ngIf="film.dvd.dateSortie">{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}
+                        <div class="col-sm-2" *ngIf="film.dvd && film.dvd.dateSortie">
+                            <b>{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}</b>
                         </div>
                         <div class="col-sm-5">
                             <form class="form-inline">

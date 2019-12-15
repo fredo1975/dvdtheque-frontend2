@@ -90,7 +90,10 @@ export class FilmDetailComponent implements OnInit {
       const day = this.dateSortie.day;
       const month = this.dateSortie.month - 1;
       const year = this.dateSortie.year;
-      this.film.dvd.dateSortie = new Date(year, month, day);
+      // const dvd = new Dvd(year, '1', 'edition', false, null, new Date(year, month, day), DvdFormat.DVD);
+      // tslint:disable-next-line:max-line-length
+      const dvd = { id: null, annee: year, zone: '1', edition: 'edition', ripped: false, dateRip: null, dateSortie: new Date(year, month, day), format: DvdFormat.DVD };
+      this.film.dvd = dvd;
       console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
     }
     this.loading = true;
@@ -109,7 +112,7 @@ export class FilmDetailComponent implements OnInit {
 
   buildFilmWithDvd(film: Film): Film {
     // tslint:disable-next-line:max-line-length
-    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: null, format: DvdFormat.DVD }
+    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: this.film.dvd.dateSortie, format: DvdFormat.DVD }
     // console.log('buildFilmWithDvd', JSON.stringify(dvd));
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.vu, film.realisateurs, film.acteurs, film.genres,
