@@ -18,8 +18,9 @@ const tmdbId = 100;
 const runtime = 120;
 const genres: Genre[] = [new Genre(1, 'genre', 1)];
 const homepage = 'spider-man';
+const overview = 'overview';
 const dateSortie: Date = new Date();
 export const FILMS: Film[] = [
   // tslint:disable-next-line:max-line-length
-  new Film(1, titre, titre, _annee, dateSortie, true, real, act, genres, dvd, posterPath, alreadyInDvdtheque, tmdbId, runtime, homepage, Origine.DVD),
+  new Film(1, titre, titre, _annee, dateSortie, true, real, act, genres, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, Origine.DVD),
 ];

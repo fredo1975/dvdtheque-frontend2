@@ -117,7 +117,7 @@ export class FilmDetailComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.vu, film.realisateurs, film.acteurs, film.genres,
       // tslint:disable-next-line:max-line-length
-      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.runtime, film.homepage, Origine.DVD);
+      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD);
   }
 
   transformFilmEnSalleIntoDvd() {
