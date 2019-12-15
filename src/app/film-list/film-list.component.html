@@ -62,7 +62,7 @@
                 <div class="col-sm-12" *ngIf="film.origine == 'DVD'">
                   {{film.dvd.format}}
                 </div>
-                <div class=" col-sm-12" *ngIf="film.dvd">Rippé :
+                <div class=" col-sm-12" *ngIf="film.origine == 'DVD'">Rippé :
                   <span *ngIf="film.dvd.ripped">
                     <img src="assets/img/ok.png" class="img ripped">
                   </span>
