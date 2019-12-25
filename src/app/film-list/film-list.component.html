@@ -22,6 +22,9 @@
     <div class="col-lg-2" *ngIf="filteredFilms">
       <a routerLink="" (click)="sort('duree')">Trier par Durée (min)</a>
     </div>
+    <div class="col-lg-2" *ngIf="filteredFilms && origine=='EN_SALLE'">
+      <a routerLink="" (click)="sort('dateSortieEnSalle')">Trier par Date de sortie en DVD</a>
+    </div>
   </div>
   <div class="row">
     <div class="col-lg-12" *ngIf="filteredFilms">

@@ -3,6 +3,7 @@ import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable } from 'rxjs';
+import { Origine } from '../enums/origine.enum';
 
 @Component({
   selector: 'app-film-list',
@@ -16,6 +17,7 @@ export class FilmListComponent implements OnInit {
   @ViewChild(FilmSearchComponent, { static: true }) filmSearchComponent: FilmSearchComponent;
   loading = false;
   private ascRipDateSort = true;
+  private ascSortieEnSalleDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
@@ -200,7 +202,45 @@ export class FilmListComponent implements OnInit {
       this.sortDvdFormat();
       this.ascDvdFormatSort = !this.ascDvdFormatSort;
     }
+    if (sortParam === 'dateSortieEnSalle') {
+      this.sortSortieEnSalleDate();
+      this.ascSortieEnSalleDateSort = !this.ascSortieEnSalleDateSort;
+    }
   }
+  private sortSortieEnSalleDate() {
+    // elements with daterip null at the end
+    const temp: any[] = [];
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (this.filteredFilms[i].dvd.dateSortie) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (new Date(this.filteredFilms[i].dvd.dateSortie).getTime() === 0) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    this.filteredFilms = temp;
+    // tslint:disable-next-line:max-line-length
+    this.filteredFilms.sort((val1, val2) => {
+      if (val1.dvd.dateSortie && val2.dvd.dateSortie) {
+        if (this.ascSortieEnSalleDateSort) {
+          return new Date(val1.dvd.dateSortie).getTime() - new Date(val2.dvd.dateSortie).getTime();
+        } else {
+          return new Date(val2.dvd.dateSortie).getTime() - new Date(val1.dvd.dateSortie).getTime();
+        }
+      } else if (new Date(val1.dvd.dateSortie).getTime() === 0 && val2.dvd.dateSortie) {
+        return new Date(val2.dvd.dateSortie).getTime();
+      } else if (val1.dvd.dateSortie && new Date(val2.dvd.dateSortie).getTime() === 0) {
+        return new Date(val1.dvd.dateSortie).getTime();
+      } else {
+        return 0;
+      }
+    });
+  }
+
   private sortDateRip() {
     // elements with daterip null at the end
     const temp: any[] = [];
