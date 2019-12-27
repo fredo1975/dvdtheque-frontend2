@@ -3,7 +3,6 @@ import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable } from 'rxjs';
-import { Origine } from '../enums/origine.enum';
 
 @Component({
   selector: 'app-film-list',
@@ -113,34 +112,15 @@ export class FilmListComponent implements OnInit {
     }
   }
 
-  newFilterOnOrigine(origineEvent: any) {
-    // console.log('FilmListComponent::newFilterOnOrigine::origineEvent', origineEvent);
-    this.filmService.setOrigine(origineEvent);
-    this.origine = origineEvent;
-    this.loading = true;
-    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
-      this.films = data;
-      this.filteredFilms = data;
-      // console.log(this.filteredFilms);
-    }
-      , (error) => {
-        console.log(error);
-      }
-      , () => {
-        this.loading = false;
-      });
-    this.filmSearchComponent.refreshPersonnes(origineEvent);
-  }
-
   filterOnOrigine(origineEvent: any) {
+    const start = new Date().getTime();
     // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent);
     this.filmService.setOrigine(origineEvent);
     this.origine = origineEvent;
     this.loading = true;
     this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
-      this.films = data;
-      this.filteredFilms = data;
-      // console.log(this.filteredFilms);
+      this.films = [...data];
+      this.filteredFilms = [...data];
     }
       , (error) => {
         console.log(error);
@@ -165,24 +145,6 @@ export class FilmListComponent implements OnInit {
     }
   }
 
-  newFilterOnVu(event: string): Observable<null> {
-    // console.log('FilmListComponent:newFilterOnVu');
-    const observable: Observable<null> = new Observable(observer => {
-      if (event === 'tous') {
-        this.filteredFilms = this.films;
-      } else {
-        this.filteredFilms = [];
-        const vu = event === 'vu' ? true : false;
-        for (let i = 0; i < this.films.length; i++) {
-          if (this.films[i].vu === vu) {
-            this.filteredFilms.push(this.films[i]);
-          }
-        }
-      }
-      observer.complete();
-    });
-    return observable;
-  }
   sort(sortParam: string) {
     // alert(sortParam);
     if (sortParam === 'daterip') {
@@ -203,40 +165,37 @@ export class FilmListComponent implements OnInit {
       this.ascDvdFormatSort = !this.ascDvdFormatSort;
     }
     if (sortParam === 'dateSortieEnSalle') {
+      console.log('dateSortieEnSalle');
       this.sortSortieEnSalleDate();
       this.ascSortieEnSalleDateSort = !this.ascSortieEnSalleDateSort;
     }
   }
   private sortSortieEnSalleDate() {
-    // elements with daterip null at the end
+    // elements with dateSortie null at the end
     const temp: any[] = [];
+    console.log('sortSortieEnSalleDate');
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
-      if (this.filteredFilms[i].dvd.dateSortie) {
+      if (this.filteredFilms[i].dvd && this.filteredFilms[i].dvd.dateSortie) {
         temp.push(this.filteredFilms[i]);
       }
     }
+
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
-      if (new Date(this.filteredFilms[i].dvd.dateSortie).getTime() === 0) {
+      if (!this.filteredFilms[i].dvd) {
         temp.push(this.filteredFilms[i]);
       }
     }
-    this.filteredFilms = temp;
+    this.filteredFilms = [...temp];
     // tslint:disable-next-line:max-line-length
     this.filteredFilms.sort((val1, val2) => {
-      if (val1.dvd.dateSortie && val2.dvd.dateSortie) {
+      if (val1.dvd && val2.dvd && val1.dvd.dateSortie && val2.dvd.dateSortie) {
         if (this.ascSortieEnSalleDateSort) {
           return new Date(val1.dvd.dateSortie).getTime() - new Date(val2.dvd.dateSortie).getTime();
         } else {
           return new Date(val2.dvd.dateSortie).getTime() - new Date(val1.dvd.dateSortie).getTime();
         }
-      } else if (new Date(val1.dvd.dateSortie).getTime() === 0 && val2.dvd.dateSortie) {
-        return new Date(val2.dvd.dateSortie).getTime();
-      } else if (val1.dvd.dateSortie && new Date(val2.dvd.dateSortie).getTime() === 0) {
-        return new Date(val1.dvd.dateSortie).getTime();
-      } else {
-        return 0;
       }
     });
   }
@@ -265,12 +224,6 @@ export class FilmListComponent implements OnInit {
         } else {
           return new Date(val2.dvd.dateRip).getTime() - new Date(val1.dvd.dateRip).getTime();
         }
-      } else if (new Date(val1.dvd.dateRip).getTime() === 0 && val2.dvd.dateRip) {
-        return new Date(val2.dvd.dateRip).getTime();
-      } else if (val1.dvd.dateRip && new Date(val2.dvd.dateRip).getTime() === 0) {
-        return new Date(val1.dvd.dateRip).getTime();
-      } else {
-        return 0;
       }
     });
   }

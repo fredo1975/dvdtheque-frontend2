@@ -28,7 +28,7 @@ export class FilmService {
   loadAll(): Observable<Film[]> {
     return this.apiService.getAllFilms();
   }
-  getAllFilmsByOrigine(origine: string) {
+  getAllFilmsByOrigine(origine: string): Observable<Film[]> {
     return this.apiService.getAllFilmsByOrigine(origine);
   }
   getAllTmdbFilmsByTitre(titre: string) {
