@@ -87,7 +87,7 @@ export class FilmDetailComponent implements OnInit {
       this.film.dvd.annee = 0;
     }
     console.log('this.dateSortie', this.dateSortie);
-    if (this.dateSortie) {
+    if (this.dateSortie && this.film.dvd) {
       const day = this.dateSortie.day;
       const month = this.dateSortie.month - 1;
       const year = this.dateSortie.year;
@@ -105,7 +105,7 @@ export class FilmDetailComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       const dvd = { id: null, annee: year, zone: '1', edition: 'edition', ripped: false, dateRip: null, dateSortie: new Date(year, month, day), format: DvdFormat.DVD };
       this.film.dateInsertion = new Date(year, month, day);
-      console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
+      console.log('this.film.dateInsertion', this.film.dateInsertion);
     }
     this.loading = true;
     this.buttonDisabled = true;
