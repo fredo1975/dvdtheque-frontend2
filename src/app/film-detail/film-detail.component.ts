@@ -103,7 +103,6 @@ export class FilmDetailComponent implements OnInit {
       const year = this.dateInsertion.year;
       // const dvd = new Dvd(year, '1', 'edition', false, null, new Date(year, month, day), DvdFormat.DVD);
       // tslint:disable-next-line:max-line-length
-      const dvd = { id: null, annee: year, zone: '1', edition: 'edition', ripped: false, dateRip: null, dateSortie: new Date(year, month, day), format: DvdFormat.DVD };
       this.film.dateInsertion = new Date(year, month, day);
       console.log('this.film.dateInsertion', this.film.dateInsertion);
     }
