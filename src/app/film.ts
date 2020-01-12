@@ -9,6 +9,7 @@ export class Film {
         public titreO: string,
         public annee: number,
         public dateSortie: Date,
+        public dateInsertion: Date,
         public vu: boolean,
         public realisateurs: Personne[],
         public acteurs: Personne[],

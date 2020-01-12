@@ -1,7 +1,8 @@
 <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
   (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"
   (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)" [origine]="origine"
-  (origineChange)="filterOnOrigine($event)">
+  (origineChange)="filterOnOrigine($event)" [displayType]="displayType"
+  (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 <div class="container-fluid">
   <div class="row">
@@ -65,6 +66,11 @@
                 <div class="col-sm-12" *ngIf="film.origine == 'DVD'">
                   {{film.dvd.format}}
                 </div>
+                <div class="col-sm-12">Ajouté le :
+                  <span>
+                    {{film.dateInsertion | date:'dd/MM/yy'}}
+                  </span>
+                </div>
                 <div class=" col-sm-12" *ngIf="film.origine == 'DVD'">Rippé :
                   <span *ngIf="film.dvd.ripped">
                     <img src="assets/img/ok.png" class="img ripped">
@@ -73,17 +79,17 @@
                     <img src="assets/img/ko.png" class="img ripped">
                   </span>
                 </div>
+                <div class="col-sm-12" *ngIf="film.dvd && film.dvd.dateRip">Rippé le :
+                  <span>
+                    {{film.dvd.dateRip | date:'dd/MM/yy'}}
+                  </span>
+                </div>
                 <div class="col-sm-12">Vu :
                   <span *ngIf="film.vu">
                     <img src="assets/img/ok.png" class="img ripped">
                   </span>
                   <span *ngIf="!film.vu">
                     <img src="assets/img/ko.png" class="img ripped">
-                  </span>
-                </div>
-                <div class="col-sm-12" *ngIf="film.dvd && film.dvd.dateRip">Rippé le :
-                  <span>
-                    {{film.dvd.dateRip | date:'dd/MM/yy'}}
                   </span>
                 </div>
               </div>

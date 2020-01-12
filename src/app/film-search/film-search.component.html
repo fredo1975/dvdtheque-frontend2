@@ -14,6 +14,17 @@
   <div class="row">
     <div class="col-lg-1">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="displayType">Type d'affichage :</label>
+        <select class="form-control" [(ngModel)]="displayType" (ngModelChange)="filterOnDisplayType($event)">
+          <option *ngFor="let displayType of displayTypes" [ngValue]="displayType"
+            [selected]="filmSearch.displayType === displayType">
+            {{displayType}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-1">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="origine">Origine :</label>
         <select class="form-control" [(ngModel)]="origine" (ngModelChange)="filterOnOrigine($event)">
           <option *ngFor="let origine of origines" [ngValue]="origine" [selected]="filmSearch.origine === origine">
@@ -57,7 +68,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-1">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="genre">Categorie</label>
         <select class="form-control" [(ngModel)]="filmSearch.genre" (ngModelChange)="filterOnGenre($event)"

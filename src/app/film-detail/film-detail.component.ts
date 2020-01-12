@@ -28,6 +28,7 @@ export class FilmDetailComponent implements OnInit {
   loading = false;
   buttonDisabled = false;
   private dateSortie: NgbDateStruct;
+  private dateInsertion: NgbDateStruct;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
   }
 
@@ -96,6 +97,16 @@ export class FilmDetailComponent implements OnInit {
       this.film.dvd = dvd;
       console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
     }
+    if (this.dateInsertion) {
+      const day = this.dateInsertion.day;
+      const month = this.dateInsertion.month - 1;
+      const year = this.dateInsertion.year;
+      // const dvd = new Dvd(year, '1', 'edition', false, null, new Date(year, month, day), DvdFormat.DVD);
+      // tslint:disable-next-line:max-line-length
+      const dvd = { id: null, annee: year, zone: '1', edition: 'edition', ripped: false, dateRip: null, dateSortie: new Date(year, month, day), format: DvdFormat.DVD };
+      this.film.dateInsertion = new Date(year, month, day);
+      console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
+    }
     this.loading = true;
     this.buttonDisabled = true;
     return this.filmService.updateFilm(this.film).subscribe(f => {
@@ -115,7 +126,7 @@ export class FilmDetailComponent implements OnInit {
     const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: this.film.dvd.dateSortie, format: DvdFormat.DVD }
     // console.log('buildFilmWithDvd', JSON.stringify(dvd));
     // tslint:disable-next-line:max-line-length
-    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.vu, film.realisateurs, film.acteurs, film.genres,
+    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.dateInsertion, film.vu, film.realisateurs, film.acteurs, film.genres,
       // tslint:disable-next-line:max-line-length
       dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD);
   }

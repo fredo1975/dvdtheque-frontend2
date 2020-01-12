@@ -1,7 +1,8 @@
 <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
   (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"
   (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)" [origine]="origine"
-  (origineChange)="filterOnOrigine($event)">
+  (origineChange)="filterOnOrigine($event)" [displayType]="displayType"
+  (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 
 <div class="col-lg-8 offset-lg-4" *ngIf="!filteredFilms">

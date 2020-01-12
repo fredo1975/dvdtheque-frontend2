@@ -13,12 +13,20 @@ const nonRenseigne = 'Non renseigné';
 })
 export class FilmService {
   private origine: string;
-
+  private displayType: string;
   constructor(private apiService: ApiService) {
   }
 
   setOrigine(origine: string) {
     this.origine = origine;
+  }
+
+  setDisplayType(displayType: string) {
+    this.displayType = displayType;
+  }
+
+  getDisplayType() {
+    return this.displayType;
   }
 
   getOrigine(): string {
@@ -28,8 +36,8 @@ export class FilmService {
   loadAll(): Observable<Film[]> {
     return this.apiService.getAllFilms();
   }
-  getAllFilmsByOrigine(origine: string): Observable<Film[]> {
-    return this.apiService.getAllFilmsByOrigine(origine);
+  getAllFilmsByOrigine(origine: string, displayType: string): Observable<Film[]> {
+    return this.apiService.getAllFilmsByOrigine(origine, displayType);
   }
   getAllTmdbFilmsByTitre(titre: string) {
     return this.apiService.getAllTmdbFilmsByTitre(titre);
@@ -51,16 +59,16 @@ export class FilmService {
     return this.apiService.getAllActeurs();
   }
 
-  getAllActeursByOrigine(origine: string): Observable<Personne[]> {
-    return this.apiService.getAllActeursByOrigine(origine);
+  getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
+    return this.apiService.getAllActeursByOrigine(origine, displayType);
   }
 
   getAllRealisateurs(): Observable<Personne[]> {
     return this.apiService.getAllRealisateurs();
   }
 
-  getAllRealisateursByOrigine(origine: string): Observable<Personne[]> {
-    return this.apiService.getAllRealisateursByOrigine(origine);
+  getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
+    return this.apiService.getAllRealisateursByOrigine(origine, displayType);
   }
 
   updateFilm(film: Film): Observable<any> {

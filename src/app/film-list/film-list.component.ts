@@ -21,20 +21,29 @@ export class FilmListComponent implements OnInit {
   private asctitreSort = false;
   private ascDvdFormatSort = false;
   origine: string;
+  displayType: string;
   constructor(protected filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
   }
 
   ngOnInit() {
     this.origine = 'DVD';
+    this.displayType = 'LAST_ADDED';
+    if (!this.filmService.getOrigine()) {
+      this.filmService.setOrigine(this.origine);
+    } else {
+      this.origine = this.filmService.getOrigine();
+    }
+    if (!this.filmService.getDisplayType()) {
+      this.filmService.setDisplayType(this.displayType);
+    } else {
+      this.displayType = this.filmService.getDisplayType();
+    }
+
     // console.log('FilmListComponent ngOnInit origine ', this.origine);
     // const origineRetrieved = this.filmService.getOrigine();
     // console.log('FilmListComponent ngOnInit origineRetrieved ', this.filmService.getOrigine());
-    if (!this.filmService.getOrigine()) {
-      this.filterOnOrigine(this.origine);
-    } else {
-      this.filterOnOrigine(this.filmService.getOrigine());
-    }
+    this.filterOnOrigine(this.filmService.getOrigine());
   }
 
   resetFilter() {
@@ -111,14 +120,11 @@ export class FilmListComponent implements OnInit {
       }
     }
   }
-
-  filterOnOrigine(origineEvent: any) {
-    const start = new Date().getTime();
-    // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent);
-    this.filmService.setOrigine(origineEvent);
-    this.origine = origineEvent;
+  filterOnDisplayType(displayTypeEvent: any) {
+    // console.log('FilmListComponent::filterOnDisplayType::displayTypeEvent', displayTypeEvent, this.filmService.getOrigine());
+    this.filmService.setDisplayType(displayTypeEvent);
     this.loading = true;
-    this.filmService.getAllFilmsByOrigine(this.origine).subscribe((data: Film[]) => {
+    this.filmService.getAllFilmsByOrigine(this.filmService.getOrigine(), displayTypeEvent).subscribe((data: Film[]) => {
       this.films = [...data];
       this.filteredFilms = [...data];
     }
@@ -128,7 +134,23 @@ export class FilmListComponent implements OnInit {
       , () => {
         this.loading = false;
       });
-    this.filmSearchComponent.refreshPersonnes(origineEvent);
+    this.filmSearchComponent.refreshPersonnes(this.filmService.getOrigine(), displayTypeEvent);
+  }
+  filterOnOrigine(origineEvent: any) {
+    // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent, this.filmService.getDisplayType());
+    this.filmService.setOrigine(origineEvent);
+    this.loading = true;
+    this.filmService.getAllFilmsByOrigine(origineEvent, this.filmService.getDisplayType()).subscribe((data: Film[]) => {
+      this.films = [...data];
+      this.filteredFilms = [...data];
+    }
+      , (error) => {
+        console.log(error);
+      }
+      , () => {
+        this.loading = false;
+      });
+    this.filmSearchComponent.refreshPersonnes(origineEvent, this.filmService.getDisplayType());
   }
 
   filterOnVu(event: string) {

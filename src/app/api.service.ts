@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Film } from './film';
 import { Personne } from './personne';
 import { Genre } from './genre';
 import { Origine } from './enums/origine.enum';
-
 import { environment } from '../environments/environment';
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -21,12 +21,19 @@ export class ApiService {
 
   constructor(protected http: HttpClient) { }
 
+  private createdisplayTypeParam(displayType: string): HttpParams {
+    let params = new HttpParams();
+    params = params.append('displayType', displayType);
+    return params;
+  }
+
   getAllFilms(): Observable<Film[]> {
     return this.http.get<Film[]>(environment.apiUrl + '/films');
   }
 
-  getAllFilmsByOrigine(origine: string): Observable<Film[]> {
-    return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine);
+  getAllFilmsByOrigine(origine: string, displayType: string): Observable<Film[]> {
+    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine, { params: params });
   }
 
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
@@ -45,8 +52,10 @@ export class ApiService {
     return this.http.get<Personne[]>(environment.apiUrl + '/acteurs');
   }
 
-  getAllActeursByOrigine(origine: string): Observable<Personne[]> {
-    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs/byOrigine/' + origine);
+  getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
+    // console.log('ApiService::getAllActeursByOrigine::displayType', displayType, origine);
+    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs/byOrigine/' + origine, { params: params });
   }
 
   getAllGenres(): Observable<Genre[]> {
@@ -57,8 +66,10 @@ export class ApiService {
     return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs');
   }
 
-  getAllRealisateursByOrigine(origine: string): Observable<Personne[]> {
-    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs/byOrigine/' + origine);
+  getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
+    // console.log('ApiService::getAllRealisateursByOrigine::displayType', displayType, origine);
+    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs/byOrigine/' + origine, { params: params });
   }
 
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
