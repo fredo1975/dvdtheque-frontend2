@@ -16,6 +16,7 @@ export class FilmListComponent implements OnInit {
   @ViewChild(FilmSearchComponent, { static: true }) filmSearchComponent: FilmSearchComponent;
   loading = false;
   private ascRipDateSort = true;
+  private ascRipDateInsertion = true;
   private ascSortieEnSalleDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
@@ -173,6 +174,10 @@ export class FilmListComponent implements OnInit {
       this.sortDateRip();
       this.ascRipDateSort = !this.ascRipDateSort;
     }
+    if (sortParam === 'dateInsertion') {
+      this.sortDateInsertion();
+      this.ascRipDateInsertion = !this.ascRipDateInsertion;
+    }
     if (sortParam === 'titre') {
       // this.filteredFilms.sort((val1, val2) => val1.titre - val2.titre);
       this.sortTitre();
@@ -221,7 +226,33 @@ export class FilmListComponent implements OnInit {
       }
     });
   }
-
+  private sortDateInsertion() {
+    // elements with dateInsertion null at the end
+    const temp: any[] = [];
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (this.filteredFilms[i].dateInsertion) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (new Date(this.filteredFilms[i].dateInsertion).getTime() === 0) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    this.filteredFilms = temp;
+    // tslint:disable-next-line:max-line-length
+    this.filteredFilms.sort((val1, val2) => {
+      if (val1.dateInsertion && val2.dateInsertion) {
+        if (this.ascRipDateInsertion) {
+          return new Date(val1.dateInsertion).getTime() - new Date(val2.dateInsertion).getTime();
+        } else {
+          return new Date(val2.dateInsertion).getTime() - new Date(val1.dateInsertion).getTime();
+        }
+      }
+    });
+  }
   private sortDateRip() {
     // elements with daterip null at the end
     const temp: any[] = [];
