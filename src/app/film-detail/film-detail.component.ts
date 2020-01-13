@@ -87,7 +87,7 @@ export class FilmDetailComponent implements OnInit {
       this.film.dvd.annee = 0;
     }
     console.log('this.dateSortie', this.dateSortie);
-    if (this.dateSortie && this.film.dvd) {
+    if (this.dateSortie) {
       const day = this.dateSortie.day;
       const month = this.dateSortie.month - 1;
       const year = this.dateSortie.year;

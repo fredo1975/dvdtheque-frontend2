@@ -84,6 +84,11 @@
                     {{film.dvd.dateRip | date:'dd/MM/yy'}}
                   </span>
                 </div>
+                <div class="col-sm-12" *ngIf="film.dvd && film.origine == 'EN_SALLE'">Sortie DVD :
+                  <span>
+                    {{film.dvd.dateSortie | date:'dd/MM/yy'}}
+                  </span>
+                </div>
                 <div class="col-sm-12">Vu :
                   <span *ngIf="film.vu">
                     <img src="assets/img/ok.png" class="img ripped">
