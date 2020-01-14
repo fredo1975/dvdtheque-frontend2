@@ -38,7 +38,7 @@ export class FilmSearchComponent implements OnInit {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
     const genre = '';
-    this.filmSearch = new FilmSearch('', 0, false, real, act1, genre, false, Origine.DVD, FilmDisplayType.LAST_ADDED);
+    this.filmSearch = new FilmSearch('', 0, false, real, act1, genre, false, Origine.DVD, FilmDisplayType.DERNIERS_AJOUTS);
   }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class FilmSearchComponent implements OnInit {
       });
     this.origines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.TV], Origine[Origine.TOUS]];
     // tslint:disable-next-line:max-line-length
-    this.displayTypes = [FilmDisplayType[FilmDisplayType.LAST_ADDED], FilmDisplayType[FilmDisplayType.ALL], FilmDisplayType[FilmDisplayType.LAST_NOT_SEEN_ADDED]];
+    this.displayTypes = [FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS], FilmDisplayType[FilmDisplayType.TOUS], FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS_NON_VUS]];
   }
 
   refreshPersonnes(origine: string, displayType: string) {
