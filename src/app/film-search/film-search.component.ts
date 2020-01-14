@@ -69,7 +69,8 @@ export class FilmSearchComponent implements OnInit {
         this.loadingAllGenres = false;
       });
     this.origines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.TV], Origine[Origine.TOUS]];
-    this.displayTypes = [FilmDisplayType[FilmDisplayType.LAST_ADDED], FilmDisplayType[FilmDisplayType.ALL]];
+    // tslint:disable-next-line:max-line-length
+    this.displayTypes = [FilmDisplayType[FilmDisplayType.LAST_ADDED], FilmDisplayType[FilmDisplayType.ALL], FilmDisplayType[FilmDisplayType.LAST_NOT_SEEN_ADDED]];
   }
 
   refreshPersonnes(origine: string, displayType: string) {
