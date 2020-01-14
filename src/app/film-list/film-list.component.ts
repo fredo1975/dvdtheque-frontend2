@@ -29,7 +29,7 @@ export class FilmListComponent implements OnInit {
 
   ngOnInit() {
     this.origine = 'DVD';
-    this.displayType = 'LAST_ADDED';
+    this.displayType = 'DERNIERS_AJOUTS';
     if (!this.filmService.getOrigine()) {
       this.filmService.setOrigine(this.origine);
     } else {
