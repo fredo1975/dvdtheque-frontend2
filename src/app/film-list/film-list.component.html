@@ -14,10 +14,10 @@
     <div class="col-lg-2" *ngIf="filteredFilms">
       <a routerLink="" (click)="sort('titre')">Trier par Titre</a>
     </div>
-    <div class="col-lg-2" *ngIf="filteredFilms && origine=='DVD'">
+    <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
       <a routerLink="" (click)="sort('daterip')">Trier par Date de RIP</a>
     </div>
-    <div class="col-lg-2" *ngIf="filteredFilms && origine=='DVD'">
+    <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
       <a routerLink="" (click)="sort('dvdformat')">Trier par Format</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">
@@ -26,8 +26,11 @@
     <div class="col-lg-2" *ngIf="filteredFilms">
       <a routerLink="" (click)="sort('dateInsertion')">Trier par Date d'ajout</a>
     </div>
-    <div class="col-lg-2" *ngIf="filteredFilms && origine=='EN_SALLE'">
-      <a routerLink="" (click)="sort('dateSortieEnSalle')">Trier par Date de sortie en DVD</a>
+    <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
+      <a routerLink="" (click)="sort('dateSortieEnSalle')">Trier par Date de sortie</a>
+    </div>
+    <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
+      <a routerLink="" (click)="sort('dateSortieEnDvd')">Trier par Date de sortie en DVD</a>
     </div>
   </div>
   <div class="row">

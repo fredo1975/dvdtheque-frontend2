@@ -18,6 +18,7 @@ export class FilmListComponent implements OnInit {
   private ascRipDateSort = true;
   private ascRipDateInsertion = true;
   private ascSortieEnSalleDateSort = true;
+  private ascSortieEnDvdDateSort = true;
   private ascdureeDateSort = false;
   private asctitreSort = false;
   private ascDvdFormatSort = false;
@@ -192,15 +193,21 @@ export class FilmListComponent implements OnInit {
       this.ascDvdFormatSort = !this.ascDvdFormatSort;
     }
     if (sortParam === 'dateSortieEnSalle') {
-      console.log('dateSortieEnSalle');
+      // console.log('dateSortieEnSalle');
       this.sortSortieEnSalleDate();
       this.ascSortieEnSalleDateSort = !this.ascSortieEnSalleDateSort;
     }
+    if (sortParam === 'dateSortieEnDvd') {
+      console.log('dateSortieEnDvd');
+      this.sortSortieEnDvdDate();
+      this.ascSortieEnSalleDateSort = !this.ascSortieEnSalleDateSort;
+    }
   }
-  private sortSortieEnSalleDate() {
+
+  private sortSortieEnDvdDate() {
     // elements with dateSortie null at the end
     const temp: any[] = [];
-    console.log('sortSortieEnSalleDate');
+    console.log('sortSortieEnDvdDate');
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
       if (this.filteredFilms[i].dvd && this.filteredFilms[i].dvd.dateSortie) {
@@ -210,7 +217,7 @@ export class FilmListComponent implements OnInit {
 
     // tslint:disable-next-line:forin
     for (const i in this.filteredFilms) {
-      if (!this.filteredFilms[i].dvd) {
+      if (this.filteredFilms[i].dvd && !this.filteredFilms[i].dvd.dateSortie) {
         temp.push(this.filteredFilms[i]);
       }
     }
@@ -218,10 +225,39 @@ export class FilmListComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.filteredFilms.sort((val1, val2) => {
       if (val1.dvd && val2.dvd && val1.dvd.dateSortie && val2.dvd.dateSortie) {
-        if (this.ascSortieEnSalleDateSort) {
+        if (this.ascSortieEnDvdDateSort) {
           return new Date(val1.dvd.dateSortie).getTime() - new Date(val2.dvd.dateSortie).getTime();
         } else {
           return new Date(val2.dvd.dateSortie).getTime() - new Date(val1.dvd.dateSortie).getTime();
+        }
+      }
+    });
+  }
+  private sortSortieEnSalleDate() {
+    // elements with dateSortie null at the end
+    const temp: any[] = [];
+    console.log('sortSortieEnSalleDate');
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (this.filteredFilms[i] && this.filteredFilms[i].dateSortie) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+
+    // tslint:disable-next-line:forin
+    for (const i in this.filteredFilms) {
+      if (!this.filteredFilms[i].dateSortie) {
+        temp.push(this.filteredFilms[i]);
+      }
+    }
+    this.filteredFilms = [...temp];
+    // tslint:disable-next-line:max-line-length
+    this.filteredFilms.sort((val1, val2) => {
+      if (val1.dateSortie && val2.dateSortie) {
+        if (this.ascSortieEnSalleDateSort) {
+          return new Date(val1.dateSortie).getTime() - new Date(val2.dateSortie).getTime();
+        } else {
+          return new Date(val2.dateSortie).getTime() - new Date(val1.dateSortie).getTime();
         }
       }
     });
