@@ -34,6 +34,8 @@ export class FilmSearchComponent implements OnInit {
   @Input() displayType: string;
   origines: string[];
   displayTypes: string[];
+  realisateursLength: Number;
+  acteursLength: Number;
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
@@ -42,15 +44,16 @@ export class FilmSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    // onsole.log('FilmSearchComponent::ngOnInit', this.origine, this.displayType);
+    console.log('FilmSearchComponent::ngOnInit', this.filmService.getOrigine(), this.filmService.getDisplayType());
+    /*
     this.loadingAllActeurs = true;
-    this.annees = this.filmService.getAnneesSelect();
     this.filmService.getAllActeursByOrigine(this.origine, this.displayType).subscribe((data: Personne[]) => {
       this.acteurs = data;
     }
       , (error) => { console.log('an error occured when fetching all acteurs'); }
       , () => {
         this.loadingAllActeurs = false;
+        this.acteursLength = this.acteurs.length;
       });
     this.loadingAllRealisateurs = true;
     this.filmService.getAllRealisateursByOrigine(this.origine, this.displayType).subscribe((data: Personne[]) => {
@@ -59,6 +62,7 @@ export class FilmSearchComponent implements OnInit {
       , (error) => { console.log('an error occured when fetching all realisateurs'); }
       , () => {
         this.loadingAllRealisateurs = false;
+        this.realisateursLength = this.realisateurs.length;
       });
     this.loadingAllGenres = true;
     this.filmService.getAllGenres().subscribe((data: Genre[]) => {
@@ -67,18 +71,24 @@ export class FilmSearchComponent implements OnInit {
       , (error) => { console.log('an error occured when fetching all genres'); }
       , () => {
         this.loadingAllGenres = false;
-      });
+      });*/
+    this.annees = this.filmService.getAnneesSelect();
     this.origines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.TV], Origine[Origine.TOUS]];
     // tslint:disable-next-line:max-line-length
     this.displayTypes = [FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS], FilmDisplayType[FilmDisplayType.TOUS], FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS_NON_VUS]];
   }
 
+  getRealisateursLength(): Number {
+    return this.realisateurs.length;
+  }
   refreshPersonnes(origine: string, displayType: string) {
+    console.log('FilmSearchComponent::refreshPersonnes', origine, displayType);
     this.filmService.getAllActeursByOrigine(origine.toString(), displayType.toString()).subscribe((data: Personne[]) => {
       this.acteurs = data;
     }
       , (error) => { console.log('an error occured when fetching all acteurs'); }
       , () => {
+        this.acteursLength = this.acteurs.length;
         this.loadingAllActeurs = false;
       });
     this.loadingAllRealisateurs = true;
@@ -87,6 +97,7 @@ export class FilmSearchComponent implements OnInit {
     }
       , (error) => { console.log('an error occured when fetching all realisateurs'); }
       , () => {
+        this.realisateursLength = this.realisateurs.length;
         this.loadingAllRealisateurs = false;
       });
     this.loadingAllGenres = true;

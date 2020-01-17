@@ -31,7 +31,7 @@ export class ApiService {
     return this.http.get<Film[]>(environment.apiUrl + '/films');
   }
 
-  getAllFilmsByOrigine(origine: string, displayType: string): Observable<Film[]> {
+  getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
     const params: HttpParams = this.createdisplayTypeParam(displayType);
     return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine, { params: params });
   }
