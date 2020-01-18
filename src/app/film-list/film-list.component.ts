@@ -3,6 +3,8 @@ import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { Observable } from 'rxjs';
+import { Personne } from '../personne';
+import { Genre } from '../genre';
 
 @Component({
   selector: 'app-film-list',
@@ -11,10 +13,18 @@ import { Observable } from 'rxjs';
 })
 export class FilmListComponent implements OnInit {
   films: Film[];
+  realisateurs: Personne[];
+  acteurs: Personne[];
+  genres: Genre[];
+  realisateursLength: Number;
+  acteursLength: Number;
   filteredFilms: Film[];
   // @Input() origine: string;
   @ViewChild(FilmSearchComponent, { static: true }) filmSearchComponent: FilmSearchComponent;
   loading = false;
+  loadingAllRealisateurs = false;
+  loadingAllActeurs = false;
+  loadingAllGenres = false;
   private ascRipDateSort = true;
   private ascRipDateInsertion = true;
   private ascSortieEnSalleDateSort = true;
@@ -122,11 +132,9 @@ export class FilmListComponent implements OnInit {
       }
     }
   }
-  filterOnDisplayType(displayTypeEvent: any) {
-    // console.log('FilmListComponent::filterOnDisplayType::displayTypeEvent', displayTypeEvent, this.filmService.getOrigine());
-    this.filmService.setDisplayType(displayTypeEvent);
+  private filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
     this.loading = true;
-    this.filmService.getAllFilmsByOrigineAndDisplayType(this.filmService.getOrigine(), displayTypeEvent).subscribe((data: Film[]) => {
+    this.filmService.getAllFilmsByOrigineAndDisplayType(origineEvent, displayTypeEvent).subscribe((data: Film[]) => {
       this.films = [...data];
       this.filteredFilms = [...data];
     }
@@ -134,25 +142,46 @@ export class FilmListComponent implements OnInit {
         console.log(error);
       }
       , () => {
-        this.filmSearchComponent.refreshPersonnes(this.filmService.getOrigine(), displayTypeEvent);
         this.loading = false;
       });
+    this.loadingAllRealisateurs = true;
+    this.filmService.getAllRealisateursByOrigine(origineEvent, displayTypeEvent).subscribe((data: Personne[]) => {
+      this.realisateurs = data;
+    }
+      , (error) => { console.log('an error occured when fetching all realisateurs'); }
+      , () => {
+        this.realisateursLength = this.realisateurs.length;
+        this.loadingAllRealisateurs = false;
+      });
+    this.loadingAllActeurs = true;
+    this.filmService.getAllActeursByOrigine(origineEvent, displayTypeEvent).subscribe((data: Personne[]) => {
+      this.acteurs = data;
+    }
+      , (error) => { console.log('an error occured when fetching all acteurs'); }
+      , () => {
+        this.acteursLength = this.acteurs.length;
+        this.loadingAllActeurs = false;
+      });
+
+    this.filmService.getAllGenres().subscribe((data: Genre[]) => {
+      this.genres = data;
+    }
+      , (error) => { console.log('an error occured when fetching all genres'); }
+      , () => {
+        this.loadingAllGenres = false;
+      });
+  }
+  filterOnDisplayType(displayTypeEvent: any) {
+    // console.log('FilmListComponent::filterOnDisplayType::displayTypeEvent', displayTypeEvent, this.filmService.getOrigine());
+    this.filmService.setDisplayType(displayTypeEvent);
+    this.loading = true;
+    this.filterOnDisplayTypeAndOrigine(displayTypeEvent, this.filmService.getOrigine());
   }
   filterOnOrigine(origineEvent: any) {
     // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent, this.filmService.getDisplayType());
     this.filmService.setOrigine(origineEvent);
     this.loading = true;
-    this.filmService.getAllFilmsByOrigineAndDisplayType(origineEvent, this.filmService.getDisplayType()).subscribe((data: Film[]) => {
-      this.films = [...data];
-      this.filteredFilms = [...data];
-    }
-      , (error) => {
-        console.log(error);
-      }
-      , () => {
-        this.filmSearchComponent.refreshPersonnes(origineEvent, this.filmService.getDisplayType());
-        this.loading = false;
-      });
+    this.filterOnDisplayTypeAndOrigine(this.filmService.getDisplayType(), origineEvent);
   }
 
   filterOnVu(event: string) {

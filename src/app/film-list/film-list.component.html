@@ -1,8 +1,10 @@
 <app-film-search (filterChange)="filterOnTitre($event)" (realChange)="filterOnRealisateur($event)"
   (anneeChange)="filterOnAnnee($event)" (acteurChange)="filterOnActeur($event)" (rippedChange)="filterOnRipped($event)"
   (genreChange)="filterOnGenre($event)" (vuChange)="filterOnVu($event)" [origine]="origine"
-  (origineChange)="filterOnOrigine($event)" [displayType]="displayType"
-  (displayTypeChange)="filterOnDisplayType($event)">
+  (origineChange)="filterOnOrigine($event)" [displayType]="displayType" [realisateurs]="realisateurs"
+  [loadingAllRealisateurs]="loadingAllRealisateurs" [loadingAllActeurs]="loadingAllActeurs"
+  [acteursLength]="acteursLength" [realisateursLength]="realisateursLength" [loadingAllGenres]="loadingAllGenres"
+  [genres]="genres" [acteurs]="acteurs" (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 <div class="container-fluid">
   <div class="row">
