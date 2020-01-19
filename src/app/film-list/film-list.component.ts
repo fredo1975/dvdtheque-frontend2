@@ -2,9 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
-import { Observable } from 'rxjs';
-import { Personne } from '../personne';
-import { Genre } from '../genre';
+import { FilmListParam } from '../interfaces/film-list-param';
 
 @Component({
   selector: 'app-film-list',
@@ -13,18 +11,10 @@ import { Genre } from '../genre';
 })
 export class FilmListComponent implements OnInit {
   films: Film[];
-  realisateurs: Personne[];
-  acteurs: Personne[];
-  genres: Genre[];
-  realisateursLength: Number;
-  acteursLength: Number;
+  filmListParam: FilmListParam;
   filteredFilms: Film[];
-  // @Input() origine: string;
   @ViewChild(FilmSearchComponent, { static: true }) filmSearchComponent: FilmSearchComponent;
   loading = false;
-  loadingAllRealisateurs = false;
-  loadingAllActeurs = false;
-  loadingAllGenres = false;
   private ascRipDateSort = true;
   private ascRipDateInsertion = true;
   private ascSortieEnSalleDateSort = true;
@@ -61,10 +51,6 @@ export class FilmListComponent implements OnInit {
   resetFilter() {
     this.filmSearchComponent.resetFilter();
     this.filteredFilms = this.films;
-  }
-
-  getAllFilms(): Observable<Film[]> {
-    return this.filmService.loadAll();
   }
 
   filterOnTitre(titre: string) {
@@ -134,41 +120,17 @@ export class FilmListComponent implements OnInit {
   }
   private filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
     this.loading = true;
-    this.filmService.getAllFilmsByOrigineAndDisplayType(origineEvent, displayTypeEvent).subscribe((data: Film[]) => {
-      this.films = [...data];
-      this.filteredFilms = [...data];
+    this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent).subscribe((data: FilmListParam) => {
+      this.films = [...data.films];
+      this.filteredFilms = [...data.films];
+      // tslint:disable-next-line:max-line-length
+      this.filmListParam = { realisateurs: data.realisateurs, acteurs: data.acteurs, films: data.films, genres: data.genres, realisateursLength: data.realisateursLength, acteursLength: data.acteursLength };
     }
       , (error) => {
         console.log(error);
       }
       , () => {
         this.loading = false;
-      });
-    this.loadingAllRealisateurs = true;
-    this.filmService.getAllRealisateursByOrigine(origineEvent, displayTypeEvent).subscribe((data: Personne[]) => {
-      this.realisateurs = data;
-    }
-      , (error) => { console.log('an error occured when fetching all realisateurs'); }
-      , () => {
-        this.realisateursLength = this.realisateurs.length;
-        this.loadingAllRealisateurs = false;
-      });
-    this.loadingAllActeurs = true;
-    this.filmService.getAllActeursByOrigine(origineEvent, displayTypeEvent).subscribe((data: Personne[]) => {
-      this.acteurs = data;
-    }
-      , (error) => { console.log('an error occured when fetching all acteurs'); }
-      , () => {
-        this.acteursLength = this.acteurs.length;
-        this.loadingAllActeurs = false;
-      });
-
-    this.filmService.getAllGenres().subscribe((data: Genre[]) => {
-      this.genres = data;
-    }
-      , (error) => { console.log('an error occured when fetching all genres'); }
-      , () => {
-        this.loadingAllGenres = false;
       });
   }
   filterOnDisplayType(displayTypeEvent: any) {
@@ -180,7 +142,6 @@ export class FilmListComponent implements OnInit {
   filterOnOrigine(origineEvent: any) {
     // console.log('FilmListComponent::filterOnOrigine::origineEvent', origineEvent, this.filmService.getDisplayType());
     this.filmService.setOrigine(origineEvent);
-    this.loading = true;
     this.filterOnDisplayTypeAndOrigine(this.filmService.getDisplayType(), origineEvent);
   }
 

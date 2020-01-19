@@ -6,6 +6,7 @@ import { Genre } from '../genre';
 import { FilmSearch } from '../film-search';
 import { Origine } from '../enums/origine.enum';
 import { FilmDisplayType } from '../enums/film-display-type.enum';
+import { FilmListParam } from '../interfaces/film-list-param';
 
 @Component({
   selector: 'app-film-search',
@@ -14,13 +15,7 @@ import { FilmDisplayType } from '../enums/film-display-type.enum';
 })
 export class FilmSearchComponent implements OnInit {
   annees: number[];
-  @Input() realisateurs: Personne[];
-  @Input() acteurs: Personne[];
-  @Input() genres: Genre[];
   filmSearch: FilmSearch;
-  @Input() loadingAllRealisateurs = false;
-  @Input() loadingAllActeurs = false;
-  @Input() loadingAllGenres = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() realChange = new EventEmitter<number>();
   @Output() anneeChange = new EventEmitter<number>();
@@ -31,11 +26,11 @@ export class FilmSearchComponent implements OnInit {
   @Output() origineChange = new EventEmitter<any>();
   @Output() displayTypeChange = new EventEmitter<any>();
   @Input() origine: string;
+  @Input() loading: boolean;
   @Input() displayType: string;
+  @Input() filmListParam: FilmListParam;
   origines: string[];
   displayTypes: string[];
-  @Input() realisateursLength: Number;
-  @Input() acteursLength: Number;
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');
@@ -51,9 +46,6 @@ export class FilmSearchComponent implements OnInit {
     this.displayTypes = [FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS], FilmDisplayType[FilmDisplayType.TOUS], FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS_NON_VUS]];
   }
 
-  getRealisateursLength(): Number {
-    return this.realisateurs.length;
-  }
   resetFilter() {
     this.filmSearch.titre = null;
     this.filmSearch.realisateur = null;

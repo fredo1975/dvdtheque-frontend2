@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-8 offset-lg-4">
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div class="spinner-grow text-muted" *ngIf="loadingAllActeurs && loadingAllRealisateurs"></div>
-      <div *ngIf="loadingAllActeurs && loadingAllRealisateurs">chargement des acteurs et des réalisateurs</div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div *ngIf="loading">chargement des acteurs et des réalisateurs</div>
     </div>
   </div>
   <div class="row">
@@ -41,22 +41,22 @@
         <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control" (keyup)="findTitre($event)" />
       </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.realisateurs">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="realisateur">Réalisateur : {{realisateursLength}}</label>
+        <label htmlFor="realisateur">Réalisateur : {{filmListParam.realisateursLength}}</label>
         <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)"
           allowClear="true">
-          <option *ngFor="let real of realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}}
+          <option *ngFor="let real of filmListParam.realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}}
             {{real.nom | uppercase}}</option>
         </select>
       </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.acteurs">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="acteur">Acteur : {{acteursLength}}</label>
+        <label htmlFor="acteur">Acteur : {{filmListParam.acteursLength}}</label>
         <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)"
           allowClear="true">
-          <option *ngFor="let acteur of acteurs" [ngValue]="acteur">{{acteur.prenom | uppercase}}
+          <option *ngFor="let acteur of filmListParam.acteurs" [ngValue]="acteur">{{acteur.prenom | uppercase}}
             {{acteur.nom | uppercase}}</option>
         </select>
       </div>
@@ -70,12 +70,12 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1" *ngIf="filmListParam && filmListParam.genres">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="genre">Categorie</label>
         <select class="form-control" [(ngModel)]="filmSearch.genre" (ngModelChange)="filterOnGenre($event)"
           allowClear="true">
-          <option *ngFor="let genre of genres" [ngValue]="genre.name">{{genre.name}}</option>
+          <option *ngFor="let genre of filmListParam.genres" [ngValue]="genre.name">{{genre.name}}</option>
         </select>
       </div>
     </div>

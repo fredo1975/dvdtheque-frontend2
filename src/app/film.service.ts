@@ -5,6 +5,7 @@ import { Genre } from './genre';
 import { Origine } from './enums/origine.enum';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { FilmListParam } from './interfaces/film-list-param';
 
 const nonRenseigne = 'Non renseigné';
 
@@ -32,10 +33,10 @@ export class FilmService {
   getOrigine(): string {
     return this.origine;
   }
-
-  loadAll(): Observable<Film[]> {
-    return this.apiService.getAllFilms();
+  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
+    return this.apiService.findFilmListParamByFilmDisplayTypeParam(origine, displayType);
   }
+
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
     return this.apiService.getAllFilmsByOrigineAndDisplayType(origine, displayType);
   }
@@ -47,24 +48,12 @@ export class FilmService {
     return this.apiService.getFilm(id);
   }
 
-  getAllPersonnes(): Observable<Personne[]> {
-    return this.apiService.getAllPersonnes();
-  }
-
   getAllGenres(): Observable<Genre[]> {
     return this.apiService.getAllGenres();
   }
 
-  getAllActeurs(): Observable<Personne[]> {
-    return this.apiService.getAllActeurs();
-  }
-
   getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     return this.apiService.getAllActeursByOrigine(origine, displayType);
-  }
-
-  getAllRealisateurs(): Observable<Personne[]> {
-    return this.apiService.getAllRealisateurs();
   }
 
   getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
@@ -92,10 +81,6 @@ export class FilmService {
   }
   importFilmList(formdata: FormData): Observable<any> {
     return this.apiService.importFilmList(formdata);
-  }
-  getFilmPosterName(titre: string): string {
-    const regex = / /gi;
-    return titre.replace(regex, '_');
   }
 
   getAnneesSelect = () => {

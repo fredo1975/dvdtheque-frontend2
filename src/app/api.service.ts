@@ -7,6 +7,7 @@ import { Personne } from './personne';
 import { Genre } from './genre';
 import { Origine } from './enums/origine.enum';
 import { environment } from '../environments/environment';
+import { FilmListParam } from './interfaces/film-list-param';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,8 +28,9 @@ export class ApiService {
     return params;
   }
 
-  getAllFilms(): Observable<Film[]> {
-    return this.http.get<Film[]>(environment.apiUrl + '/films');
+  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
+    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    return this.http.get<FilmListParam>(environment.apiUrl + '/filmListParam/byOrigine/' + origine, { params: params });
   }
 
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
@@ -44,14 +46,6 @@ export class ApiService {
     return this.http.get<Film>(environment.apiUrl + '/films/byId/' + id);
   }
 
-  getAllPersonnes(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(environment.apiUrl + '/personnes');
-  }
-
-  getAllActeurs(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs');
-  }
-
   getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllActeursByOrigine::displayType', displayType, origine);
     const params: HttpParams = this.createdisplayTypeParam(displayType);
@@ -60,10 +54,6 @@ export class ApiService {
 
   getAllGenres(): Observable<Genre[]> {
     return this.http.get<Genre[]>(environment.apiUrl + '/films/genres');
-  }
-
-  getAllRealisateurs(): Observable<Personne[]> {
-    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs');
   }
 
   getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
