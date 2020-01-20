@@ -25,7 +25,7 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
           // console.log('removeFilm Fini !');
           this.buttonDisabled = false;
           this.loading = false;
-          this.filterOnOrigine(this.origine);
+          this.filterOnDisplayTypeAndOrigine(this.filmService.getOrigine(), this.filmService.getDisplayType());
         });
     }
   }

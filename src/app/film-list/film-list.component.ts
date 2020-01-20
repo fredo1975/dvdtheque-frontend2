@@ -118,7 +118,7 @@ export class FilmListComponent implements OnInit {
       }
     }
   }
-  private filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
+  protected filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
     this.loading = true;
     this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent).subscribe((data: FilmListParam) => {
       this.films = [...data.films];
