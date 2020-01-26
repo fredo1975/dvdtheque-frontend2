@@ -25,6 +25,7 @@ export class FilmDetailComponent implements OnInit {
   private zonesList: number[];
   private newActeurSet: Personne[];
   private updated = false;
+  private critiquesPresseExist = true;
   loading = false;
   buttonDisabled = false;
   private dateSortie: NgbDateStruct;
@@ -42,6 +43,12 @@ export class FilmDetailComponent implements OnInit {
       , () => {
         this.loading = false;
         this.buttonDisabled = false;
+        if (this.film.critiquesPresse && this.film.critiquesPresse.length > 0) {
+          console.log('ngOnInit this.film.critiquesPresse');
+        } else {
+          console.log('ngOnInit !! this.film.critiquesPresse');
+          this.critiquesPresseExist = false;
+        }
       });
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
@@ -125,7 +132,7 @@ export class FilmDetailComponent implements OnInit {
     const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: this.film.dvd.dateSortie, format: DvdFormat.DVD }
     // console.log('buildFilmWithDvd', JSON.stringify(dvd));
     // tslint:disable-next-line:max-line-length
-    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, film.dateInsertion, film.vu, film.realisateurs, film.acteurs, film.genres,
+    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateurs, film.acteurs, film.critiquesPresse, film.genres,
       // tslint:disable-next-line:max-line-length
       dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD);
   }

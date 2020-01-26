@@ -2,6 +2,7 @@ import { Personne } from './personne';
 import { Dvd } from './dvd';
 import { Genre } from './genre';
 import { Origine } from './enums/origine.enum';
+import { CritiquesPresse } from './interfaces/critiques-presse';
 export class Film {
 
     constructor(public id: number,
@@ -13,6 +14,7 @@ export class Film {
         public vu: boolean,
         public realisateurs: Personne[],
         public acteurs: Personne[],
+        public critiquesPresse: CritiquesPresse[],
         public genres: Genre[],
         public dvd: Dvd,
         public posterPath: string,

@@ -213,6 +213,26 @@
                 </div>
             </div>
         </div>
+
+
+        <span *ngIf="critiquesPresseExist">&nbsp;</span>
+        <div class="container-fluid" *ngIf="critiquesPresseExist">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-5">
+                    <h2>Critiques Presse</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" *ngFor="let critiquePresse of film.critiquesPresse">
+                <div class="col-sm-2"><b> {{critiquePresse.nomSource}} </b></div>
+                <div class="col-sm-1"><label>Note : {{critiquePresse.note}}</label></div>
+                <div class="col-sm-9">
+                    {{critiquePresse.critique}}
+                </div>
+                <span>&nbsp;</span>
+            </div>
+        </div>
         <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
     </div>
 </div>
