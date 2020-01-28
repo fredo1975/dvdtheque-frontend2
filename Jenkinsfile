@@ -1,5 +1,5 @@
 pipeline {
-    agent slave01
+  agent {slave01}
     stages{
 		stage('Clone repository') {
 			steps {
