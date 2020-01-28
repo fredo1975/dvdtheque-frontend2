@@ -1,5 +1,5 @@
 pipeline {
-  agent label
+  agent { label 'slave01' }
     stages{
 		stage('Clone repository') {
 			steps {
