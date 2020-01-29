@@ -1,4 +1,9 @@
 pipeline {
+	environment {
+		app
+		PROD_SERVER_IP = "192.168.1.106"
+		DEV_SERVER_IP = "192.168.1.101"
+	}
     agent { label 'slave01' }
     stages{
 		stage('Clone repository') {
