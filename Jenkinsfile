@@ -20,12 +20,18 @@ pipeline {
 					* docker build on the command line */
 					def app
 					app = docker.build("fredo1975/dvdtheque", "--build-arg arg=$APP_ENV .")
+					/* Finally, we'll push the image with two tags:
+					* First, the incremental build number from Jenkins
+					* Second, the 'latest' tag.
+					* Pushing multiple tags is cheap, as all the layers are reused. */
+					docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+					app.push("latest")
 				}
 			}
 		}
+		/*
 		stage('Test image') {
-			/* Ideally, we would run a test framework against our image.
-			 * For this example, we're using a Volkswagen-type approach ;-) */
+			
 			steps {
 				script {
 					app.inside {
@@ -35,10 +41,7 @@ pipeline {
 			}
 		}
 		stage('Push image') {
-			/* Finally, we'll push the image with two tags:
-			 * First, the incremental build number from Jenkins
-			 * Second, the 'latest' tag.
-			 * Pushing multiple tags is cheap, as all the layers are reused. */
+			
 			 steps {
 				script {
 					docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
@@ -47,6 +50,7 @@ pipeline {
 				}
 			}
 		}
+		*/
 		stage('Remote stop container') {
 			steps {
 				script {
