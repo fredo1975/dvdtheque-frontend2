@@ -1,6 +1,5 @@
 pipeline {
 	environment {
-		app
 		PROD_SERVER_IP = "192.168.1.106"
 		DEV_SERVER_IP = "192.168.1.101"
 	}
@@ -9,9 +8,6 @@ pipeline {
 		stage('Clone repository') {
 			steps {
 				script {
-					def app
-					def PROD_SERVER_IP = "192.168.1.106"
-					def DEV_SERVER_IP = "192.168.1.101"
 					/* Let's make sure we have the repository cloned to our workspace */
 					checkout scm
 				}
@@ -54,8 +50,6 @@ pipeline {
 		stage('Remote stop container') {
 			steps {
 				script {
-					def DEV_SERVER_IP = "192.168.1.101"
-					def PROD_SERVER_IP = "192.168.1.106"
 					sh "echo APP_ENV=$APP_ENV"
 					sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 					if("${APP_ENV}" == "dev"){
@@ -69,8 +63,6 @@ pipeline {
 		stage('remote remove container') {
 			steps {
 				script {
-					def DEV_SERVER_IP = "192.168.1.101"
-					def PROD_SERVER_IP = "192.168.1.106"
 					if("${APP_ENV}" == "dev"){
 						sh "ssh jenkins@$DEV_SERVER_IP docker rm dvdtheque-frontend"
 					}else if ("${APP_ENV}" == "production") {
@@ -82,8 +74,6 @@ pipeline {
 		stage('docker login dockhub registry') {
 			steps {
 				script {
-					def DEV_SERVER_IP = "192.168.1.101"
-					def PROD_SERVER_IP = "192.168.1.106"
 					if("${APP_ENV}" == "dev"){
 						sh "ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
 						sh "ssh jenkins@$DEV_SERVER_IP docker pull fredo1975/dvdtheque:latest"
@@ -97,8 +87,6 @@ pipeline {
 		stage('docker run container') {
 			steps {
 				script {
-					def DEV_SERVER_IP = "192.168.1.101"
-					def PROD_SERVER_IP = "192.168.1.106"
 					if("${APP_ENV}" == "dev"){
 						sh "ssh jenkins@$DEV_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest"
 					 }else if ("${APP_ENV}" == "production") {
@@ -110,8 +98,6 @@ pipeline {
 		stage('docker ps -a') {
 			steps {
 				script {
-					def DEV_SERVER_IP = "192.168.1.101"
-					def PROD_SERVER_IP = "192.168.1.106"
 					 if("${APP_ENV}" == "dev"){
 						sh "ssh jenkins@$DEV_SERVER_IP docker ps -a"
 					}else if ("${APP_ENV}" == "production") {
