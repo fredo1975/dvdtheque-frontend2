@@ -93,8 +93,8 @@ export class FilmDetailComponent implements OnInit {
       // console.log('this.film.dvd.annee is nan');
       this.film.dvd.annee = 0;
     }
-    console.log('this.dateSortie', this.dateSortie);
     if (this.dateSortie) {
+      // console.log('this.dateSortie', this.dateSortie);
       const day = this.dateSortie.day;
       const month = this.dateSortie.month - 1;
       const year = this.dateSortie.year;
@@ -129,6 +129,7 @@ export class FilmDetailComponent implements OnInit {
 
   buildFilmWithDvd(film: Film): Film {
     let dateSortieDvd: any = null;
+    // console.log('this.film.dvd', JSON.stringify(this.film.dvd));
     if (this.film.dvd && this.film.dvd.dateSortie) {
       dateSortieDvd = this.film.dvd.dateSortie;
     } else {
