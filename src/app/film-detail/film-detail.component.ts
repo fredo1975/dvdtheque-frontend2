@@ -44,9 +44,9 @@ export class FilmDetailComponent implements OnInit {
         this.loading = false;
         this.buttonDisabled = false;
         if (this.film.critiquesPresse && this.film.critiquesPresse.length > 0) {
-          console.log('ngOnInit this.film.critiquesPresse');
+          // console.log('ngOnInit this.film.critiquesPresse');
         } else {
-          console.log('ngOnInit !! this.film.critiquesPresse');
+          // console.log('ngOnInit !! this.film.critiquesPresse');
           this.critiquesPresseExist = false;
         }
       });
@@ -102,16 +102,15 @@ export class FilmDetailComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       const dvd = { id: null, annee: year, zone: '2', edition: 'edition', ripped: false, dateRip: null, dateSortie: new Date(year, month, day), format: DvdFormat.DVD };
       this.film.dvd = dvd;
-      console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
+      // console.log('this.film.dvd.dateSortie', this.film.dvd.dateSortie);
     }
     if (this.dateInsertion) {
       const day = this.dateInsertion.day;
       const month = this.dateInsertion.month - 1;
       const year = this.dateInsertion.year;
-      // const dvd = new Dvd(year, '1', 'edition', false, null, new Date(year, month, day), DvdFormat.DVD);
       // tslint:disable-next-line:max-line-length
       this.film.dateInsertion = new Date(year, month, day);
-      console.log('this.film.dateInsertion', this.film.dateInsertion);
+      // console.log('this.film.dateInsertion', this.film.dateInsertion);
     }
     this.loading = true;
     this.buttonDisabled = true;

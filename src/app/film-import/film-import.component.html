@@ -12,14 +12,14 @@
         <button class="btn btn-primary" [disabled]="buttonDisabled" type="submit">Importer</button>
       </form>
     </div>
-    <div class="col-lg-8 offset-lg-5">
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
-      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+    <div class="col-lg-8 offset-lg-5" *ngIf="loading">
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
+      <div class="spinner-grow text-muted"></div>
     </div>
 
     <div class="col-lg-8" *ngIf="loadingStatus">

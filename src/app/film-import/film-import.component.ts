@@ -60,7 +60,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.buttonDisabled = false;
         this.loading = false;
         const end = new Date().getTime();
-        this.time = end - start;
+        // this.time = end - start;
         // console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       });
   }
@@ -68,6 +68,12 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private subscribeTopic() {
     // Subscribe to its stream (to listen on messages)
     this.messagingService.stream().subscribe((message: Message) => {
+      if (this.buttonDisabled === false) {
+        this.buttonDisabled = true;
+      }
+      if (this.loading === false) {
+        this.loading = true;
+      }
       const jmsStatusMessage: JmsStatusMessage<any> = JmsStatusMessage.fromJson(JSON.parse(message.body));
       if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.FILE_ITEM_READER_COMPLETED.toString()) {
         this.messageHistory.splice(1, 1);
@@ -75,6 +81,17 @@ export class FilmImportComponent implements OnInit, OnDestroy {
       } else if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.FILM_CSV_LINE_MAPPER_COMPLETED.toString()) {
         this.messageHistory.splice(2, 1);
         this.messageHistory.splice(2, 0, jmsStatusMessage);
+        // tslint:disable-next-line:max-line-length
+      } else if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_COMPLETED_SUCCESS.toString() || JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_COMPLETED_ERROR.toString()) {
+        console.log('subscribeTopic end', JSON.parse(message.body));
+        this.buttonDisabled = false;
+        this.loading = false;
+        this.time = jmsStatusMessage.getTiming();
+        // this.messageHistory.splice(0);
+        this.messageHistory.unshift(jmsStatusMessage);
+      } else if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_INIT.toString()) {
+        this.messageHistory = [];
+        this.messageHistory.unshift(jmsStatusMessage);
       } else {
         if (jmsStatusMessage.getStatusValue() === 1) {
           this.messageHistory.shift();
@@ -82,7 +99,16 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.messageHistory.unshift(jmsStatusMessage);
       }
       this.loadingStatus = true;
-    });
+    }, (error) => {
+      console.log(error);
+      this.buttonDisabled = false;
+      this.loadingStatus = false;
+    }
+      , () => {
+        console.log('subscribeTopic end');
+        this.buttonDisabled = false;
+        this.loadingStatus = false;
+      });
   }
 
   loadFile(event) {

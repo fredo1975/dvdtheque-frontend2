@@ -20,4 +20,7 @@ export class JmsStatusMessage<T> {
     public getStatus(): JmsStatus {
         return this.status;
     }
+    public getTiming(): number {
+        return this.timing;
+    }
 }
