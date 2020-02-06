@@ -28,6 +28,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   messageHistory: JmsStatusMessage<any>[];
   state = 'NOT CONNECTED';
   time = 0;
+  completedStatus: string;
   constructor(private filmService: FilmService) {
     this.messageHistory = [];
   }
@@ -87,11 +88,15 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.buttonDisabled = false;
         this.loading = false;
         this.time = jmsStatusMessage.getTiming();
-        // this.messageHistory.splice(0);
-        this.messageHistory.unshift(jmsStatusMessage);
+        // this.messageHistory.unshift(jmsStatusMessage);
+        if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_COMPLETED_SUCCESS.toString()) {
+          this.completedStatus = 'OK';
+        } else {
+          this.completedStatus = 'KO';
+        }
       } else if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_INIT.toString()) {
-        this.messageHistory = [];
-        this.messageHistory.unshift(jmsStatusMessage);
+        /*this.messageHistory = [];
+        this.messageHistory.unshift(jmsStatusMessage);*/
       } else {
         if (jmsStatusMessage.getStatusValue() === 1) {
           this.messageHistory.shift();
