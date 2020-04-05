@@ -159,6 +159,36 @@ export class FilmDetailComponent implements OnInit {
       });
   }
 
+  buildFilmWithGooglePlay(film: Film): Film {
+    let dateSortieDvd: any = null;
+    // console.log('this.film.dvd', JSON.stringify(this.film.dvd));
+    if (this.film.dvd && this.film.dvd.dateSortie) {
+      dateSortieDvd = this.film.dvd.dateSortie;
+    } else {
+      dateSortieDvd = null;
+    }
+    // console.log('buildFilmWithGooglePlay', JSON.stringify(dvd));
+    // tslint:disable-next-line:max-line-length
+    return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateurs, film.acteurs, film.critiquesPresse, film.genres,
+      // tslint:disable-next-line:max-line-length
+      null, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.GOOGLE_PLAY);
+  }
+  transformFilmEnSalleIntoGooglePlay() {
+    this.loading = true;
+    this.buttonDisabled = true;
+    const film: Film = this.buildFilmWithGooglePlay(this.film);
+    // console.log('transformFilmEnSalleIntoDvd', film);
+    return this.filmService.updateFilm(film).subscribe(f => {
+      this.film = f;
+    }
+      , (error) => { console.log(error); }
+      , () => {
+        this.loading = false;
+        this.buttonDisabled = false;
+        this.updated = true;
+      });
+  }
+
   doReplaceFilm(filmEmitted: Film) {
     // console.log('filmEmitted with id : ' + filmEmitted.id + '  emitted');
     this.film = filmEmitted;
