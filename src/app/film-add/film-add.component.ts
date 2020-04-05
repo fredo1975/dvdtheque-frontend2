@@ -21,7 +21,7 @@ export class FilmAddComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
   ngOnInit() {
-    this.filmOrigines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.PRET], Origine[Origine.TV]];
+    this.filmOrigines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.GOOGLE_PLAY], Origine[Origine.TV]];
   }
   resetTmdbFilm() {
     this.tmdbFilms = null;

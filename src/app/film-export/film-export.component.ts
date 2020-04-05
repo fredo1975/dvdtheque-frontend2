@@ -21,7 +21,7 @@ export class FilmExportComponent implements OnInit {
   }
   ngOnInit() {
     // tslint:disable-next-line:max-line-length
-    this.filmOrigines = [Origine[Origine.TOUS], Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.PRET], Origine[Origine.TV]];
+    this.filmOrigines = [Origine[Origine.TOUS], Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.GOOGLE_PLAY], Origine[Origine.TV]];
   }
 
   exportFilmList() {
