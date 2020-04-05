@@ -30,10 +30,10 @@ pipeline {
 					sh "echo APP_ENV=$APP_ENV"
 					sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 					if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP sudo rm -rf dvdtheque-frontend/"
+						sh "ssh jenkins@$DEV_SERVER_IP sudo rm -rf /var/www/dvdtheque-frontend/"
 						sh "ssh jenkins@$DEV_SERVER_IP sudo cp -r dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
 					}else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP sudo rm -rf dvdtheque-frontend/"
+						sh "ssh jenkins@$PROD_SERVER_IP sudo rm -rf /var/www/dvdtheque-frontend/"
 						sh "ssh jenkins@$PROD_SERVER_IP sudo cp -r dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
 					}
 				}
