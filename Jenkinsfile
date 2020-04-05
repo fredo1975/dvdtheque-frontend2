@@ -3,7 +3,8 @@ pipeline {
 		PROD_SERVER_IP = "192.168.1.106"
 		DEV_SERVER_IP = "192.168.1.100"
 	}
-    agent { label 'slave01' }
+    //agent { label 'slave01' }
+	agent any
     stages{
 		stage('Clone repository') {
 			steps {
