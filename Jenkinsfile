@@ -32,10 +32,10 @@ pipeline {
 					sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 					if("${APP_ENV}" == "dev"){
 						sh "ssh jenkins@$DEV_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
-						sh "ssh jenkins@$DEV_SERVER_IP cp -r dist/dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
+						sh "scp -r dist/dvdtheque-frontend/ ssh jenkins@$DEV_SERVER_IP /var/www/dvdtheque-frontend/"
 					}else if ("${APP_ENV}" == "production") {
 						sh "ssh jenkins@$PROD_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
-						sh "ssh jenkins@$PROD_SERVER_IP cp -r dist/dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
+						sh "scp -r dist/dvdtheque-frontend/ ssh jenkins@$PROD_SERVER_IP /var/www/dvdtheque-frontend/"
 					}
 				}
 			}
