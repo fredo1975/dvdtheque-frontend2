@@ -17,7 +17,7 @@ pipeline {
 			steps {
 				script {
 					if("${APP_ENV}" == "dev"){
-						sh "ng update"
+						sh "sudo npm install -D @schematics/angular @angular-devkit/core @angular-devkit/schematics"
 						sh "ng build -c=dev --verbose"
 					}else if ("${APP_ENV}" == "production") {
 						sh "ng build -c=production --verbose"
