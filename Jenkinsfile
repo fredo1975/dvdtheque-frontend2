@@ -1,9 +1,9 @@
 pipeline {
 	environment {
 		PROD_SERVER_IP = "192.168.1.106"
-		DEV_SERVER_IP = "192.168.1.101"
+		DEV_SERVER_IP = "192.168.1.100"
 	}
-    agent { label 'slave01' }
+    //agent { label 'slave01' }
     stages{
 		stage('Clone repository') {
 			steps {
@@ -13,103 +13,50 @@ pipeline {
 				}
 			}
 		}
-		stage('Build image') {
+		stage('Build') {
 			steps {
 				script {
-					/* This builds the actual image; synonymous to
-					* docker build on the command line */
-					def app
-					app = docker.build("fredo1975/dvdtheque", "--build-arg arg=$APP_ENV .")
-					app.inside {
-						sh 'echo "Tests passed"'
-					}
-					/* Finally, we'll push the image with two tags:
-					* First, the incremental build number from Jenkins
-					* Second, the 'latest' tag.
-					* Pushing multiple tags is cheap, as all the layers are reused. */
-					docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-						app.push("latest")
+					if("${APP_ENV}" == "dev"){
+						sh "ng build -c=dev --verbose"
+					}else if ("${APP_ENV}" == "production") {
+						sh "ng build -c=production --verbose"
 					}
 				}
 			}
 		}
-		/*
-		stage('Test image') {
-			
-			steps {
-				script {
-					app.inside {
-						sh 'echo "Tests passed"'
-					}
-				}
-			}
-		}
-		stage('Push image') {
-			
-			 steps {
-				script {
-					docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-					app.push("latest")
-					}
-				}
-			}
-		}
-		*/
-		stage('Remote stop container') {
+		stage('Copying binaries') {
 			steps {
 				script {
 					sh "echo APP_ENV=$APP_ENV"
 					sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
 					if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP docker stop dvdtheque-frontend"
+						sh "ssh jenkins@$DEV_SERVER_IP sudo rm -rf dvdtheque-frontend/"
+						sh "ssh jenkins@$DEV_SERVER_IP sudo cp -r dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
 					}else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP docker stop dvdtheque-frontend"
+						sh "ssh jenkins@$PROD_SERVER_IP sudo rm -rf dvdtheque-frontend/"
+						sh "ssh jenkins@$PROD_SERVER_IP sudo cp -r dvdtheque-frontend/* /var/www/dvdtheque-frontend/"
 					}
 				}
 			}
 		}
-		stage('remote remove container') {
+		stage('remote stop nginx') {
 			steps {
 				script {
 					if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP docker rm dvdtheque-frontend"
+						sh "ssh jenkins@$DEV_SERVER_IP sudo systemctl stop nginx.service"
 					}else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP docker rm dvdtheque-frontend"
+						sh "ssh jenkins@$PROD_SERVER_IP sudo systemctl stop nginx.service"
 					}
 				}
 			}
 		}
-		stage('docker login dockhub registry') {
+		stage('remote start nginx') {
 			steps {
 				script {
 					if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
-						sh "ssh jenkins@$DEV_SERVER_IP docker pull fredo1975/dvdtheque:latest"
+						sh "ssh jenkins@$DEV_SERVER_IP sudo systemctl start nginx.service"
 					}else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP docker login -u fredo1975 -p docker1975 https://registry-1.docker.io/v2/"
-						sh "ssh jenkins@$PROD_SERVER_IP docker pull fredo1975/dvdtheque:latest"
-					}
-				}
-			}
-		}
-		stage('docker run container') {
-			steps {
-				script {
-					if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest"
-					 }else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP docker run --name dvdtheque-frontend -d -p 80:80 fredo1975/dvdtheque:latest"
-					}
-				}
-			}
-		}
-		stage('docker ps -a') {
-			steps {
-				script {
-					 if("${APP_ENV}" == "dev"){
-						sh "ssh jenkins@$DEV_SERVER_IP docker ps -a"
-					}else if ("${APP_ENV}" == "production") {
-						sh "ssh jenkins@$PROD_SERVER_IP docker ps -a"
+						sh "ssh jenkins@$PROD_SERVER_IP sudo systemctl start nginx.service"
 					}
 				}
 			}

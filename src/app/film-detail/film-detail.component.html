@@ -209,6 +209,10 @@
                             <button type="button" class="btn btn-primary"
                                 (click)="transformFilmEnSalleIntoDvd()">Transformer en DVD</button>
                         </div>
+                        <div class="col-sm-3" *ngIf="film.origine=='GOOGLE_PLAY'">
+                            <button type="button" class="btn btn-primary"
+                                (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
+                        </div>
                     </div>
                 </div>
             </div>
