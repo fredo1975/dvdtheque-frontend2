@@ -51,60 +51,26 @@
     <div class="col-lg-12">Nombre de films : {{filteredFilms.length}}</div>
   </div>
   <div class="row">
-    <div class="column card" *ngFor="let film of filteredFilms">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="column card info-poster">
-            <a routerLink="/filmDetail/{{film.id}}">
-              <img src="{{film.posterPath}}" alt="" width="300" />
-            </a>
-          </div>
-          <div class="column card info-details">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12">
-                  {{film.annee}}
-                </div>
-                <div class="col-sm-12">
-                  Durée : {{film.runtime}}
-                </div>
-                <div class="col-sm-12" *ngIf="film.origine == 'DVD'">
-                  {{film.dvd.format}}
-                </div>
-                <div class="col-sm-12">Ajouté le :
-                  <span>
-                    {{film.dateInsertion | date:'dd/MM/yy'}}
-                  </span>
-                </div>
-                <div class=" col-sm-12" *ngIf="film.origine == 'DVD'">Rippé :
-                  <span *ngIf="film.dvd.ripped">
-                    <img src="assets/img/ok.png" class="img ripped">
-                  </span>
-                  <span *ngIf="!film.dvd.ripped">
-                    <img src="assets/img/ko.png" class="img ripped">
-                  </span>
-                </div>
-                <div class="col-sm-12" *ngIf="film.dvd && film.dvd.dateRip">Rippé le :
-                  <span>
-                    {{film.dvd.dateRip | date:'dd/MM/yy'}}
-                  </span>
-                </div>
-                <div class="col-sm-12" *ngIf="film.dvd && film.origine == 'EN_SALLE'">Sortie DVD :
-                  <span>
-                    {{film.dvd.dateSortie | date:'dd/MM/yy'}}
-                  </span>
-                </div>
-                <div class="col-sm-12">Vu :
-                  <span *ngIf="film.vu">
-                    <img src="assets/img/ok.png" class="img ripped">
-                  </span>
-                  <span *ngIf="!film.vu">
-                    <img src="assets/img/ko.png" class="img ripped">
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+
+    <div class="col-sm-2" *ngFor="let film of filteredFilms">
+
+      <div class="card ">
+        <a routerLink="/filmDetail/{{film.id}}">
+          <img class="card-img-top" src="{{film.posterPath}}" alt="" />
+        </a>
+        <div class="card-body">
+          <span class="card-text">Durée : {{film.runtime}}</span><br />
+          <span class="card-text">{{film.origine}}</span> &nbsp;
+          <span class="card-text" *ngIf="film.origine == 'DVD' && film.dvd.ripped">Rippé : &nbsp;<img
+              src="assets/img/ok.png" class="img ripped"><br />
+          </span>
+          <span class="card-text" *ngIf="film.origine == 'DVD' && !film.dvd.ripped">Rippé : &nbsp;<img
+              src="assets/img/ok.png" class="img ripped"><br />
+          </span>
+          <span class="card-text" *ngIf="film.origine != 'DVD'"><br />
+          </span>
+          <span class="card-text" *ngIf="film.vu">Vu : &nbsp;<img src="assets/img/ok.png" class="img ripped"></span>
+          <span class="card-text" *ngIf="!film.vu">Vu : &nbsp;<img src="assets/img/ko.png" class="img ripped"></span>
         </div>
       </div>
     </div>
