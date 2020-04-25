@@ -1,38 +1,3 @@
-/*
-.column {
-    float: left;
-    padding: 0px;
-  }
-
-  .column.card {
-    width: 25%;
-    border:none;
-  }
-
-  .column.card.info-poster {
-    width: 65%;
-    border:none;
-  }
-  .column.card.info-details {
-    width: 35%;
-    border:none;
-  }
-
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  
-  @media screen and (max-width: 600px) {
-    .column.card, .column.card.info-poster, .column.card.info-details {
-      width: 100%;
-    }
-  }
-*/
-
-
 * {
   box-sizing: border-box;
 }
