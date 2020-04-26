@@ -38,7 +38,7 @@
                     <span class="row"><span class="col">Genres : <b>{{film.genres | genres}} &nbsp;</b></span></span>
                     <span class="row"><span class="col">Durée : <b>{{film.runtime}} minutes</b></span></span>
 
-                    <span class="row" *ngIf="film.origine=='EN_SALLE'">
+                    <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'">
                         <div class="col-sm-2">Date de sortie en DVD : </div>
                         <div class="col-sm-1" *ngIf="film.dvd && film.dvd.dateSortie">
                             <b>{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}</b>
