@@ -69,6 +69,7 @@ img {
     content: "";
     display: table;
     clear: both;
+    padding-bottom: 5px;
   }
   
   /* Style the counter cards */

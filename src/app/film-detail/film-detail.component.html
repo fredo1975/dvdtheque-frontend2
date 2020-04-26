@@ -1,7 +1,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-7 offset-md-5">
-            <h2>Modification d'un Film</h2>
             <div *ngIf="!film || loading">
                 <div *ngIf="!filteredFilms">
                     <div class="col-lg-6">
@@ -38,7 +37,7 @@
                     <span class="row"><span class="col">Durée : <b>{{film.runtime}} minutes</b></span></span>
 
                     <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'">
-                        <div class="col-sm-2">Date de sortie en DVD : </div>
+                        <div class="col-sm-1">Sortie en DVD : </div>
                         <div class="col-sm-1" *ngIf="film.dvd && film.dvd.dateSortie">
                             <b>{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}</b>
                         </div>
@@ -93,7 +92,7 @@
                     <div class="card-header">DVDTHEQUE </div>
                     <div class="card-body">
                         <div class="row" *ngIf="film.dvd">
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <div class="form-group">
                                     <label htmlFor="zone_dvd">Zone DVD</label>
                                     <select class="form-control" [(ngModel)]="film.dvd.zone">
@@ -104,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <div class="form-group">
                                     <label htmlFor="annee">Format DVD</label>
                                     <select class="form-control" [(ngModel)]="film.dvd.format">
@@ -116,8 +115,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="film.dvd && film.dvd.dateRip && film.dvd.ripped">
-                            <div class="col-sm-2">
+                        <div class="row" *ngIf="film.origine=='DVD'">
+                            <div class="col-sm-1">
                                 <div class="form-group">
                                     <label><input type="checkbox" [(checked)]="film.dvd.ripped"
                                             (change)="setRippedSelected($event.target,film)" /> Ripped</label>
@@ -140,11 +139,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2"><label>Date d'ajout : </label></div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1"><label>Ajouté le : </label></div>
+                            <div class="col-sm-1">
                                 <b>{{film.dateInsertion | date: 'dd/MM/yyyy'}}</b>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-2">
                                 <form class="form-inline">
                                     <div class="form-group">
                                         <div class="input-group">
@@ -169,43 +168,37 @@
                     </div>
                 </div>
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
-                                modifications</button>
-                        </div>
-                        <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
-                            <button type="button" class="btn btn-primary"
-                                (click)="transformFilmEnSalleIntoDvd()">Transformer en
-                                DVD</button>
-                        </div>
-                        <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
-                            <button type="button" class="btn btn-primary"
-                                (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
+                <div class="row">
+                    <div class="col-sm-3 offset-sm-3">
+                        <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
+                            modifications</button>
+                    </div>
+                    <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
+                        <button type="button" class="btn btn-primary"
+                            (click)="transformFilmEnSalleIntoDvd()">Transformer en
+                            DVD</button>
+                    </div>
+                    <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
+                        <button type="button" class="btn btn-primary"
+                            (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
+                    </div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header">Critiques Presse </div>
+                    <div class="card-body">
+                        <span *ngIf="critiquesPresseExist">&nbsp;</span>
+
+                        <div class="row" *ngFor="let critiquePresse of film.critiquesPresse">
+                            <div class="col-sm-1"><b> {{critiquePresse.nomSource}} </b></div>
+                            <div class="col-sm-1"><label>Note : {{critiquePresse.note}}</label></div>
+                            <div class="col-sm-10">
+                                {{critiquePresse.critique}}
+                            </div>
+                            <span>&nbsp;</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <span *ngIf="critiquesPresseExist">&nbsp;</span>
-        <div class="container-fluid" *ngIf="critiquesPresseExist">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-5">
-                    <h2>Critiques Presse</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row" *ngFor="let critiquePresse of film.critiquesPresse">
-                <div class="col-sm-2"><b> {{critiquePresse.nomSource}} </b></div>
-                <div class="col-sm-1"><label>Note : {{critiquePresse.note}}</label></div>
-                <div class="col-sm-9">
-                    {{critiquePresse.critique}}
-                </div>
-                <span>&nbsp;</span>
             </div>
         </div>
         <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
