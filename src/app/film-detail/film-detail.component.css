@@ -1,3 +1,4 @@
+/*
 img {
     float: left;
     border: 1px;
@@ -8,13 +9,9 @@ img {
     float: left;
     padding: 5px;
   }
-  
-  /* Left and right column */
   .column.poster {
     width: 25%;
   }
-  
-  /* Middle column */
   .column.details {
     width: 75%;
   }
@@ -23,8 +20,6 @@ img {
     padding: 15px;
     width: 100%;
   }
-
-  /* Clear floats after the columns */
   .row:after {
     content: "";
     display: table;
@@ -35,17 +30,76 @@ img {
   .col-sm-2 {
     max-width: 100%
   }
-  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
     .column.side, .column.middle {
       width: 100%;
     }
   }
-
+*/
   button.calendar, button.calendar:active {
     width: 2.75rem;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
     background-repeat: no-repeat;
     background-size: 23px;
     background-position: center;
+  }
+
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Float four columns side by side */
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+  
+  .column.poster {
+    width: 25%;
+  }
+  .column.details {
+    width: 55%;
+  }
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Style the counter cards */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 10px;
+    padding-top: 15px;
+    background-color: #f1f1f1;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+  
+  img.ripped {
+    width: 15px;
+    height: auto;
+  }
+
+  img.acteurs {
+    padding-left: 20px;
+    width: 150px;
   }

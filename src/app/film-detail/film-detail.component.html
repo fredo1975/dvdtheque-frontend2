@@ -23,174 +23,141 @@
                 <img src="{{film.posterPath}}" alt="" width="100%" />
             </div>
             <div class="column details">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-2"><label>Titre : </label></div>
-                        <div class="col-sm-10"><b>{{film.titre | uppercase}}</b></div>
+                <div class="card ">
+                    <span class="row"><span class="col">Titre : <b>{{film.titre | uppercase}}</b></span></span>
 
-                        <div class="col-sm-2"><label>Titre Original : </label></div>
-                        <div class="col-sm-10"><b>{{film.titreO | uppercase}}</b></div>
 
-                        <div class="col-sm-2"><label>Date de sortie : </label></div>
-                        <div class="col-sm-10"><b>{{film.dateSortie | date: 'dd/MM/yyyy'}}</b></div>
+                    <span class="row"><span class="col">Titre Original :
+                            <b>{{film.titreO | uppercase}}</b></span></span>
 
-                        <div class="col-sm-2"><label>Réalisateur : </label></div>
-                        <div class="col-sm-10">
-                            <b>{{film.realisateurs | realisateurs}} &nbsp;</b>
-                        </div>
-                        <div class="col-sm-2"><label>Genres : </label></div>
-                        <div class="col-sm-10">
-                            <b>{{film.genres | genres}} &nbsp;</b>
-                        </div>
-                        <div class="col-sm-2"><label>Durée : </label></div>
-                        <div class="col-sm-10"><b>{{film.runtime}} minutes</b></div>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12"><label>Acteurs</label></div>
-                        <div class="col-sm-2" *ngFor="let act of film.acteurs">
-                            <div class="col-sm-2">
-                                <b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b>
-                            </div>
-                            <div class="col-sm-1">
-                                <img src="{{act.profilePath}}" width="100" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <span class="row"><span class="col">Date de sortie :
+                            <b>{{film.dateSortie | date: 'dd/MM/yyyy'}}</b></span></span>
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12"><label>Résumé</label></div>
-                        <div class="col-sm-12"><b>{{film.overview}}</b></div>
-                    </div>
-                </div>
-                &nbsp;
-                <div class="container-fluid" *ngIf="film.homepage">
-                    <div class="row">
-                        <div class="col-sm-2"><label>Home Page : </label></div>
-                        <div class="col-sm-10">
-                            <a href="{{film.homepage}}">{{film.homepage}}</a>
-                        </div>
-                    </div>
-                </div>
-                &nbsp;
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-2"><label>TMDB ID : </label></div>
-                        <div class="col-sm-10"><b>{{film.tmdbId}}</b></div>
-                    </div>
-                </div>
-                &nbsp;
-                <div class="container-fluid" *ngIf="film.dvd && film.origine === 'DVD'">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label htmlFor="zone_dvd">Zone DVD</label>
-                                <select class="form-control" [(ngModel)]="film.dvd.zone">
-                                    <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone"
-                                        [ngValue]="zone">
-                                        {{zone}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!--
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label htmlFor="annee">Année DVD</label>
-                                <select class="form-control" [(ngModel)]="film.dvd.annee">
-                                    <option *ngFor="let anneeDvd of annees" [selected]="anneeDvd === film.dvd.annee"
-                                        [ngValue]="anneeDvd">{{anneeDvd}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        -->
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label htmlFor="annee">Format DVD</label>
-                                <select class="form-control" [(ngModel)]="film.dvd.format">
-                                    <option *ngFor="let dvdFormat of dvdFormats"
-                                        [selected]="dvdFormat === film.dvd.format" [ngValue]="dvdFormat">{{dvdFormat}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-fluid" *ngIf="film.origine != 'TV'">
-                    <div class="row">
-                        <div class="col-sm-2"><label>Date de sortie en DVD : </label></div>
-                        <div class="col-sm-2" *ngIf="film.dvd && film.dvd.dateSortie">
+                    <span class="row"><span class="col">Réalisateur : <b>{{film.realisateurs | realisateurs}}
+                                &nbsp;</b></span></span>
+                    <span class="row"><span class="col">Genres : <b>{{film.genres | genres}} &nbsp;</b></span></span>
+                    <span class="row"><span class="col">Durée : <b>{{film.runtime}} minutes</b></span></span>
+
+                    <span class="row" *ngIf="film.origine=='EN_SALLE'">
+                        <div class="col-sm-2">Date de sortie en DVD : </div>
+                        <div class="col-sm-1" *ngIf="film.dvd && film.dvd.dateSortie">
                             <b>{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}</b>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-2">
                             <form class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
-                                            [(ngModel)]="dateSortie" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                type="button"></button>
-                                        </div>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
+                                        [(ngModel)]="dateSortie" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                            type="button"></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </span>
                 </div>
-                &nbsp;
-                <div class="container-fluid" *ngIf="film.origine === 'DVD'">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label><input type="checkbox" [(checked)]="film.dvd.ripped"
-                                        (change)="setRippedSelected($event.target,film)" /> Ripped</label>
 
-                            </div>
-                        </div>
-                        <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.dvd.ripped">
-                            <div class="form-group">
-                                <label>Rippé le : </label>
-                                <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
+                <div class="card ">
+                    <div class="card-header">Résumé </div>
+                    <div class="card-body"><b>{{film.overview}}</b></div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header">Acteurs </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div *ngFor="let act of film.acteurs">
+                                <span class="col">
+                                    <b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b><br /><img class="acteurs"
+                                        *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
+                                        src="{{act.profilePath}}" />
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label><input type="checkbox" [(checked)]="film.vu"
-                                        (change)="setVuSelected($event.target,film)" /> Vu</label>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card " *ngIf="film.homepage">
+                    <div class="card-header">Home Page </div>
+                    <div class="card-body"><a href="{{film.homepage}}">{{film.homepage}}</a></div>
                 </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-2"><label>Date d'ajout : </label></div>
-                        <div class="col-sm-2">
-                            <b>{{film.dateInsertion | date: 'dd/MM/yyyy'}}</b>
-                        </div>
-                        <div class="col-sm-5">
-                            <form class="form-inline">
+                <div class="card ">
+                    <div class="card-header">TMDB </div>
+                    <div class="card-body">ID : <b>{{film.tmdbId}}</b></div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header">DVDTHEQUE </div>
+                    <div class="card-body">
+                        <div class="row" *ngIf="film.dvd">
+                            <div class="col-sm-2">
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
-                                            [(ngModel)]="dateInsertion" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                type="button"></button>
+                                    <label htmlFor="zone_dvd">Zone DVD</label>
+                                    <select class="form-control" [(ngModel)]="film.dvd.zone">
+                                        <option *ngFor="let zone of zonesList" [selected]="zone === film.dvd.zone"
+                                            [ngValue]="zone">
+                                            {{zone}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label htmlFor="annee">Format DVD</label>
+                                    <select class="form-control" [(ngModel)]="film.dvd.format">
+                                        <option *ngFor="let dvdFormat of dvdFormats"
+                                            [selected]="dvdFormat === film.dvd.format" [ngValue]="dvdFormat">
+                                            {{dvdFormat}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="film.dvd && film.dvd.dateRip && film.dvd.ripped">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label><input type="checkbox" [(checked)]="film.dvd.ripped"
+                                            (change)="setRippedSelected($event.target,film)" /> Ripped</label>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.dvd.ripped">
+                                <div class="form-group">
+                                    <label>Rippé le : </label>
+                                    <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <div class="form-group">
+                                    <label><input type="checkbox" [(checked)]="film.vu"
+                                            (change)="setVuSelected($event.target,film)" /> Vu</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><label>Date d'ajout : </label></div>
+                            <div class="col-sm-2">
+                                <b>{{film.dateInsertion | date: 'dd/MM/yyyy'}}</b>
+                            </div>
+                            <div class="col-sm-5">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
+                                                [(ngModel)]="dateInsertion" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                    type="button"></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                &nbsp;
                 <div class="container-fluid">
                     <div class="row">
                         <div *ngIf="updated" class="col-lg-12">
@@ -207,7 +174,8 @@
                         </div>
                         <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
                             <button type="button" class="btn btn-primary"
-                                (click)="transformFilmEnSalleIntoDvd()">Transformer en DVD</button>
+                                (click)="transformFilmEnSalleIntoDvd()">Transformer en
+                                DVD</button>
                         </div>
                         <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
                             <button type="button" class="btn btn-primary"
