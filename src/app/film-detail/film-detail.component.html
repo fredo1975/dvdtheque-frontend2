@@ -19,13 +19,12 @@
     </div>
     <div *ngIf="film && !loading">
         <div class="row">
-            <div class="column poster">
-                <img src="{{film.posterPath}}" alt="" width="100%" />
+            <div class="col-sm-3">
+                <img src="{{film.posterPath}}" alt="" />
             </div>
-            <div class="column details">
+            <div class="col-sm-9">
                 <div class="card ">
                     <span class="row"><span class="col">Titre : <b>{{film.titre | uppercase}}</b></span></span>
-
 
                     <span class="row"><span class="col">Titre Original :
                             <b>{{film.titreO | uppercase}}</b></span></span>
@@ -68,11 +67,15 @@
                     <div class="card-body">
                         <div class="row">
                             <div *ngFor="let act of film.acteurs">
-                                <span class="col">
-                                    <b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b><br /><img class="acteurs"
-                                        *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
-                                        src="{{act.profilePath}}" />
-                                </span>
+                                <div class="col">
+                                    <div class="content">
+                                        <img class="acteurs"
+                                            *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
+                                            src="{{act.profilePath}}" />
+                                        <p><b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b></p>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

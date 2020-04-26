@@ -60,12 +60,7 @@ img {
     padding: 0 10px;
   }
   
-  .column.poster {
-    width: 25%;
-  }
-  .column.details {
-    width: 55%;
-  }
+  
   /* Remove extra left and right margins, due to padding in columns */
   .row {margin: 0 -5px;}
   
@@ -94,12 +89,14 @@ img {
     }
   }
   
+  img {
+    width: 100%;
+  }
   img.ripped {
     width: 15px;
     height: auto;
   }
 
   img.acteurs {
-    padding-left: 20px;
     width: 150px;
   }
