@@ -160,9 +160,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
+                <div class="container-fluid" *ngIf="updated">
                     <div class="row">
-                        <div *ngIf="updated" class="col-lg-12">
+                        <div class="col-lg-12">
                             <p><b>Film modifié</b></p>
                         </div>
                     </div>
@@ -184,10 +184,9 @@
                     </div>
                 </div>
 
-                <div class="card ">
+                <div class="card" *ngIf="critiquesPresseExist">
                     <div class="card-header">Critiques Presse </div>
                     <div class="card-body">
-                        <span *ngIf="critiquesPresseExist">&nbsp;</span>
 
                         <div class="row" *ngFor="let critiquePresse of film.critiquesPresse">
                             <div class="col-sm-1"><b> {{critiquePresse.nomSource}} </b></div>
