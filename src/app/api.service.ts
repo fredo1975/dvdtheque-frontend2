@@ -85,6 +85,12 @@ export class ApiService {
     return this.http.put<Film>(environment.apiUrl + '/films/tmdb/' + tmdbId, film, httpOptions);
   }
 
+  retrieveFilmImage(id: number): Observable<Film> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put<Film>(environment.apiUrl + '/films/retrieveImage/' + id, httpOptions);
+  }
+
   removeFilm(id: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

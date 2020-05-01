@@ -30,4 +30,24 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
         });
     }
   }
+
+  retrieveFilmImage(id: number) {
+    const confir = confirm('Sûr ?');
+    if (confir) {
+      this.buttonDisabled = true;
+      this.loading = true;
+      // console.log('id=', id);
+      this.filmService.retrieveFilmImage(id).subscribe(obs => {
+        console.log('image retrieved for film with id : ' + id);
+      }
+        , (error) => { console.log(error); this.buttonDisabled = false; }
+        , () => {
+          // console.log('removeFilm Fini !');
+          this.buttonDisabled = false;
+          this.loading = false;
+          // console.log('fremoveFilm', this.filmService.getOrigine(), this.filmService.getDisplayType());
+          this.filterOnDisplayTypeAndOrigine(this.filmService.getDisplayType(), this.filmService.getOrigine());
+        });
+    }
+  }
 }

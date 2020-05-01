@@ -72,6 +72,10 @@ export class FilmService {
     return this.apiService.removeFilm(id);
   }
 
+  retrieveFilmImage(id: number): Observable<any> {
+    return this.apiService.retrieveFilmImage(id);
+  }
+
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
     return this.apiService.saveFilm(tmdbId, filmOrigine);
   }
