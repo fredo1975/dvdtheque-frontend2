@@ -76,6 +76,10 @@ export class FilmService {
     return this.apiService.retrieveFilmImage(id);
   }
 
+  cleanAllCaches(): Observable<any> {
+    return this.apiService.cleanAllCaches();
+  }
+
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
     return this.apiService.saveFilm(tmdbId, filmOrigine);
   }

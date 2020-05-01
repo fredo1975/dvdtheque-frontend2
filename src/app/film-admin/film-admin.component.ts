@@ -50,4 +50,23 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
         });
     }
   }
+  cleanAllCaches() {
+    const confir = confirm('Sûr ?');
+    if (confir) {
+      this.buttonDisabled = true;
+      this.loading = true;
+      // console.log('id=', id);
+      this.filmService.cleanAllCaches().subscribe(obs => {
+        console.log('caches cleaned');
+      }
+        , (error) => { console.log(error); this.buttonDisabled = false; }
+        , () => {
+          // console.log('removeFilm Fini !');
+          this.buttonDisabled = false;
+          this.loading = false;
+          // console.log('fremoveFilm', this.filmService.getOrigine(), this.filmService.getDisplayType());
+          this.filterOnDisplayTypeAndOrigine(this.filmService.getDisplayType(), this.filmService.getOrigine());
+        });
+    }
+  }
 }
