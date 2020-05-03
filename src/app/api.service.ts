@@ -91,6 +91,12 @@ export class ApiService {
     return this.http.put<Film>(environment.apiUrl + '/films/retrieveImage/' + id, httpOptions);
   }
 
+  retrieveAllFilmImages(): Observable<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put<any>(environment.apiUrl + '/films/retrieveAllImages/', httpOptions);
+  }
+
   cleanAllCaches(): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

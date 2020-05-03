@@ -18,10 +18,14 @@
 <div class="container-fluid" *ngIf="filteredFilms">
   <div class="row">
     <div class="col-lg-1 offset-lg-4" *ngIf="filteredFilms">
-      <button type="button" class="btn btn-primary" (click)="resetFilter()">Effecer les filtres</button>
+      <button type="button" class="btn btn-primary" (click)="resetFilter()">Effacer les filtres</button>
     </div>
     <div class="col-lg-1">
       <button type="button" class="btn btn-primary" (click)="cleanAllCaches()">Vider les caches</button>
+    </div>
+    <div class="col-lg-2">
+      <button class="btn btn-primary" (click)="retrieveAllFilmImages()" [disabled]="buttonDisabled">Trouver
+        les posters et images manquantes</button>
     </div>
   </div>
   <div class="row">
