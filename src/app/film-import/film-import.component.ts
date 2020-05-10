@@ -55,14 +55,14 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.loadingStatus = false;
         const end = new Date().getTime();
         this.time = end - start;
-        // console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
+        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       }
       , () => {
         this.buttonDisabled = false;
         this.loading = false;
         const end = new Date().getTime();
         // this.time = end - start;
-        // console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
+        console.log('Call to importFilmList took ' + this.time / 1000 + ' seconds.');
       });
   }
 
@@ -76,6 +76,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.loading = true;
       }
       const jmsStatusMessage: JmsStatusMessage<any> = JmsStatusMessage.fromJson(JSON.parse(message.body));
+      console.log('subscribeTopic end', jmsStatusMessage);
       if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.FILE_ITEM_READER_COMPLETED.toString()) {
         this.messageHistory.splice(1, 1);
         this.messageHistory.splice(1, 0, jmsStatusMessage);

@@ -137,7 +137,7 @@ export class FilmDetailComponent implements OnInit {
       dateSortieDvd = null;
     }
     // tslint:disable-next-line:max-line-length
-    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: dateSortieDvd, format: DvdFormat.DVD }
+    const dvd: Dvd = { id: null, annee: this.film.annee, zone: '2', edition: '', ripped: false, dateRip: null, dateSortie: dateSortieDvd, format: DvdFormat.DVD };
     // console.log('buildFilmWithDvd', JSON.stringify(dvd));
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateurs, film.acteurs, film.critiquesPresse, film.genres,
