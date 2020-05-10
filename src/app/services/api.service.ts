@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Film } from './film';
-import { Personne } from './personne';
-import { Genre } from './genre';
-import { Origine } from './enums/origine.enum';
-import { environment } from '../environments/environment';
-import { FilmListParam } from './interfaces/film-list-param';
+import { Film } from '../model/film';
+import { Personne } from '../model/personne';
+import { Genre } from '../model/genre';
+import { Origine } from '../model/origine.enum';
+import { environment } from '../../environments/environment';
+import { FilmListParam } from '../model/film-list-param';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,6 +15,9 @@ const httpOptions = {
   })
 };
 const encodedAuth = window.localStorage.getItem('encodedAuth');
+@Injectable({
+  providedIn: 'root'
+})
 @Injectable({
   providedIn: 'root'
 })

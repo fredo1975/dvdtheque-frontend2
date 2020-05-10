@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FilmService } from '../film.service';
-import { Film } from '../film';
+import { FilmService } from '../services/film.service';
+import { Film } from '../model/film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
-import { FilmListParam } from '../interfaces/film-list-param';
+import { FilmListParam } from '../model/film-list-param';
 
 @Component({
   selector: 'app-film-list',

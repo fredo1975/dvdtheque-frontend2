@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilmListComponent } from '../film-list/film-list.component';
-import { Film } from '../film';
+import { Film } from '../model/film';
 
 @Component({
   selector: 'app-film-admin',

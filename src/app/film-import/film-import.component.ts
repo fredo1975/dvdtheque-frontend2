@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FilmService } from '../film.service';
+import { FilmService } from '../services/film.service';
 import { FormGroup } from '@angular/forms';
 import * as Stomp from 'stompjs';
 import { Message } from 'stompjs';
 import { environment } from '../../environments/environment';
-import { MessagingService } from './../messaging.service';
+import { MessagingService } from '../services/messaging.service';
 import { StompState } from '@stomp/ng2-stompjs';
-import { JmsStatusMessage } from '../jms-status-message';
-import { JmsStatus } from '../jms-status.enum';
+import { JmsStatusMessage } from '../model/jms-status-message';
+import { JmsStatus } from '../model/jms-status.enum';
 
 @Component({
   selector: 'app-film-import',

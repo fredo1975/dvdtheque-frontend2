@@ -1,12 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { FilmService } from '../film.service';
-import { Personne } from '../personne';
-import { Genre } from '../genre';
-import { FilmSearch } from '../film-search';
-import { Origine } from '../enums/origine.enum';
-import { FilmDisplayType } from '../enums/film-display-type.enum';
-import { FilmListParam } from '../interfaces/film-list-param';
+import { FilmService } from '../services/film.service';
+import { Personne } from '../model/personne';
+import { FilmSearch } from '../model/film-search';
+import { Origine } from '../model/origine.enum';
+import { FilmDisplayType } from '../model/film-display-type.enum';
+import { FilmListParam } from '../model/film-list-param';
 
 @Component({
   selector: 'app-film-search',

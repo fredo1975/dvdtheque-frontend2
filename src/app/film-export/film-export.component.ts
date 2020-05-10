@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from '../film.service';
+import { FilmService } from '../services/film.service';
 import * as FileSaver from 'file-saver';
-import { Origine } from '../enums/origine.enum';
+import { Origine } from '../model/origine.enum';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const EXCEL_EXTENSION = '.xlsx';

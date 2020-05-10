@@ -14,7 +14,7 @@ import { FilmExportComponent } from './film-export/film-export.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
-import { ErrorInterceptorService } from './error-interceptor.service';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { FilmImportComponent } from './film-import/film-import.component';
 import { JmsStatusPipe } from './pipes/jms-status.pipe';
 import { GenresPipe } from './pipes/genres.pipe';

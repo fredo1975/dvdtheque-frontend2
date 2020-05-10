@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Film } from '../film';
-import { Personne } from '../personne';
-import { FilmService } from '../film.service';
+import { Film } from '../model/film';
+import { Personne } from '../model/personne';
+import { FilmService } from '../services/film.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DvdFormat } from '../dvd-format.enum';
-import { Dvd } from '../dvd';
-import { Origine } from '../enums/origine.enum';
-import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { isNumber } from 'util';
+import { DvdFormat } from '../model/dvd-format.enum';
+import { Dvd } from '../model/dvd';
+import { Origine } from '../model/origine.enum';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-film-detail',

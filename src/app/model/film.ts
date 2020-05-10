@@ -1,8 +1,8 @@
 import { Personne } from './personne';
 import { Dvd } from './dvd';
 import { Genre } from './genre';
-import { Origine } from './enums/origine.enum';
-import { CritiquesPresse } from './interfaces/critiques-presse';
+import { Origine } from './origine.enum';
+import { CritiquesPresse } from './critiques-presse';
 export class Film {
 
     constructor(public id: number,

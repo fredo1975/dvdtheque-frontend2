@@ -5,14 +5,14 @@
   [loading]="loading" (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 
-<div class="col-lg-8 offset-lg-4">
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
-  <div class="spinner-grow text-muted" *ngIf="loading"></div>
+<div class="col-lg-8 offset-lg-4" *ngIf="loading">
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
+  <div class="spinner-grow text-muted"></div>
 </div>
 
 <div class="container-fluid" *ngIf="filteredFilms">
@@ -28,7 +28,7 @@
         les posters et profils manquants</button>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="filteredFilms">
     <div class="col-lg-8 offset-lg-4">
       <p>Nombre de films : {{filteredFilms.length}}</p>
     </div>

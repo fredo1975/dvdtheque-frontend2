@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilmService } from '../film.service';
-import { Film } from '../film';
+import { FilmService } from '../services/film.service';
+import { Film } from '../model/film';
 
 @Component({
   selector: 'app-film-tmdb-search',
@@ -29,12 +29,12 @@ export class FilmTmdbSearchComponent implements OnInit {
       this.tmdbFilms = data;
       // console.log(this.tmdbFilms);
     }
-    , (error) => {console.log(error); this.buttonDisabled = false; }
-    , () => {
-      // console.log('serachTmdbFilm Fini !');
-      this.buttonDisabled = false;
-      this.loading = false;
-    });
+      , (error) => { console.log(error); this.buttonDisabled = false; }
+      , () => {
+        // console.log('serachTmdbFilm Fini !');
+        this.buttonDisabled = false;
+        this.loading = false;
+      });
   }
   replaceFilm(tmdbId: number) {
     this.buttonDisabled = true;
@@ -45,12 +45,12 @@ export class FilmTmdbSearchComponent implements OnInit {
       this.film = filmUpdated;
       this.tmdbFilms = null;
     }
-    , (error) => {console.log(error); }
-    , () => {
-      // console.log('replaceFilm Fini !');
-      this.buttonDisabled = false;
-      this.replacedFilm.emit(this.film);
-      this.loading = false;
-    });
+      , (error) => { console.log(error); }
+      , () => {
+        // console.log('replaceFilm Fini !');
+        this.buttonDisabled = false;
+        this.replacedFilm.emit(this.film);
+        this.loading = false;
+      });
   }
 }

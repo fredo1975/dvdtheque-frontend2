@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from '../film.service';
-import { Film } from '../film';
+import { FilmService } from '../services/film.service';
+import { Film } from '../model/film';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Origine } from '../enums/origine.enum';
+import { Origine } from '../model/origine.enum';
 
 @Component({
   selector: 'app-film-add',

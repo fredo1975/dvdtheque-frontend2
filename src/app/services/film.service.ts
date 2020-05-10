@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Film } from './film';
-import { Personne } from './personne';
-import { Genre } from './genre';
-import { Origine } from './enums/origine.enum';
+import { Film } from '../model/film';
+import { Personne } from '../model/personne';
+import { Genre } from '../model/genre';
+import { Origine } from '../model/origine.enum';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { FilmListParam } from './interfaces/film-list-param';
+import { FilmListParam } from '../model/film-list-param';
 
 const nonRenseigne = 'Non renseigné';
-
 @Injectable({
   providedIn: 'root'
 })
 export class FilmService {
+
   private origine: string;
   private displayType: string;
   constructor(private apiService: ApiService) {

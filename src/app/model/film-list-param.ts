@@ -1,6 +1,6 @@
-import { Personne } from '../personne';
-import { Film } from '../film';
-import { Genre } from '../genre';
+import { Personne } from './personne';
+import { Film } from './film';
+import { Genre } from './genre';
 
 export interface FilmListParam {
     realisateurs: Personne[];

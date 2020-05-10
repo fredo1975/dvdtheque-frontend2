@@ -1,6 +1,6 @@
 import { Personne } from './personne';
-import { Origine } from './enums/origine.enum';
-import { FilmDisplayType } from './enums/film-display-type.enum';
+import { Origine } from './origine.enum';
+import { FilmDisplayType } from './film-display-type.enum';
 
 export class FilmSearch {
     constructor(public titre: string = '',
