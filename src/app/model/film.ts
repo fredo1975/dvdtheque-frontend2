@@ -3,6 +3,7 @@ import { Dvd } from './dvd';
 import { Genre } from './genre';
 import { Origine } from './origine.enum';
 import { CritiquesPresse } from './critiques-presse';
+import { SafeUrl } from '@angular/platform-browser';
 export class Film {
 
     constructor(public id: number,
@@ -18,6 +19,7 @@ export class Film {
         public genres: Genre[],
         public dvd: Dvd,
         public posterPath: string,
+        public poster: SafeUrl,
         public alreadyInDvdtheque: boolean,
         public tmdbId: number,
         public overview: string,

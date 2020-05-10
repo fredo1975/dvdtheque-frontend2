@@ -3,6 +3,7 @@ import { FilmService } from '../services/film.service';
 import { Film } from '../model/film';
 import { FilmSearchComponent } from '../film-search/film-search.component';
 import { FilmListParam } from '../model/film-list-param';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-film-list',
@@ -24,7 +25,7 @@ export class FilmListComponent implements OnInit {
   private ascDvdFormatSort = false;
   origine: string;
   displayType: string;
-  constructor(protected filmService: FilmService) {
+  constructor(protected filmService: FilmService, private sanitizer: DomSanitizer) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
   }
 
@@ -124,6 +125,10 @@ export class FilmListComponent implements OnInit {
     this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent).subscribe((data: FilmListParam) => {
       this.films = [...data.films];
       this.filteredFilms = [...data.films];
+      this.filteredFilms.forEach((element) => {
+        const objectURL = 'data:image/png;base64,' + element.poster;
+        element.poster = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      });
       // tslint:disable-next-line:max-line-length
       this.filmListParam = { realisateurs: data.realisateurs, acteurs: data.acteurs, films: data.films, genres: data.genres, realisateursLength: data.realisateursLength, acteursLength: data.acteursLength };
     }

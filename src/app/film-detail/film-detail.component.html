@@ -19,7 +19,8 @@
     <div *ngIf="film && !loading">
         <div class="row">
             <div class="col-sm-3">
-                <img src="{{film.posterPath}}" alt="" />
+                <!--img src="{{film.posterPath}}" alt="" /-->
+                <img [src]='film.poster'>
             </div>
             <div class="col-sm-9">
                 <div class="card ">

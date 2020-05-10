@@ -7,7 +7,7 @@ import { DvdFormat } from '../model/dvd-format.enum';
 import { Dvd } from '../model/dvd';
 import { Origine } from '../model/origine.enum';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-film-detail',
@@ -30,7 +30,7 @@ export class FilmDetailComponent implements OnInit {
   buttonDisabled = false;
   private dateSortie: NgbDateStruct;
   private dateInsertion: NgbDateStruct;
-  constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
+  constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -38,6 +38,8 @@ export class FilmDetailComponent implements OnInit {
     this.buttonDisabled = true;
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
+      const objectURL = 'data:image/png;base64,' + this.film.poster;
+      this.film.poster = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     }
       , (error) => { console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']); }
       , () => {
@@ -140,7 +142,7 @@ export class FilmDetailComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateurs, film.acteurs, film.critiquesPresse, film.genres,
       // tslint:disable-next-line:max-line-length
-      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD);
+      dvd, film.posterPath, film.poster, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD);
   }
 
   transformFilmEnSalleIntoDvd() {
@@ -171,7 +173,7 @@ export class FilmDetailComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateurs, film.acteurs, film.critiquesPresse, film.genres,
       // tslint:disable-next-line:max-line-length
-      null, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.GOOGLE_PLAY);
+      null, film.posterPath, film.poster, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.GOOGLE_PLAY);
   }
   transformFilmEnSalleIntoGooglePlay() {
     this.loading = true;
