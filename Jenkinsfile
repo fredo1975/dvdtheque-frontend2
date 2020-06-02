@@ -17,6 +17,9 @@ pipeline {
 		stage('Build') {
 			steps {
 				script {
+					sh "npm install"
+					sh "sudo npm install -g npm"
+					sh "sudo npm audit fix"
 					if("${APP_ENV}" == "dev"){
 						sh "ng build -c=dev --verbose"
 					}else if ("${APP_ENV}" == "production") {
