@@ -48,8 +48,7 @@
         <tbody>
           <tr *ngFor="let film of filteredFilms">
             <td>
-              <!--img src="{{film.posterPath}}" alt="" width="200"-->
-              <img [src]='film.poster' width='200'>
+              <img src="{{film.posterPath}}" alt="" width="200" />
             </td>
             <td>
               {{film.titre | uppercase}}

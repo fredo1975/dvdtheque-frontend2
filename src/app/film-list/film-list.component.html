@@ -56,8 +56,7 @@
 
       <div class="card ">
         <a routerLink="/filmDetail/{{film.id}}" title="{{film.titre}}">
-          <!--img class="card-img-top" src="{{film.posterPath}}" /-->
-          <img class="card-img-top" [src]='film.poster'>
+          <img class="card-img-top" src="{{film.posterPath}}" />
         </a>
         <div class="card-body">
           <span class="card-text">Durée : {{film.runtime}}</span><br />

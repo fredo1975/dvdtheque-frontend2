@@ -17,7 +17,6 @@ const critiquesPresseArr = [critiquesPresse,];
 const genre = new Genre(1, 'comedy', 1);
 const genreArray = [genre];
 const posterPath = 'fake';
-const poster = null;
 const dvd = new Dvd(2019, '1', '1', true, new Date(), new Date(), DvdFormat.DVD);
 const alreadyInDvdtheque = false;
 const tmdbId = 100;
@@ -30,13 +29,13 @@ const _origine: Origine = Origine.DVD;
 describe('Film', () => {
   it('should create an instance', () => {
     // tslint:disable-next-line:max-line-length
-    expect(new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, poster, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine)).toBeTruthy();
+    expect(new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine)).toBeTruthy();
   });
 });
 
 it('Film should accept values in the constructor', () => {
   // tslint:disable-next-line:max-line-length
-  const film = new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, poster, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine);
+  const film = new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine);
   expect(film.titre).toEqual(titre);
   expect(film.titreO).toEqual(titre);
   expect(film.dvd.ripped).toEqual(true);
