@@ -20,7 +20,10 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
       this.filmService.removeFilm(id).subscribe(obs => {
         console.log('film with id : ' + id + ' removed');
       }
-        , (error) => { console.log(error); this.buttonDisabled = false; }
+        , (error) => {
+          console.log(error);
+          this.buttonDisabled = false;
+        }
         , () => {
           // console.log('removeFilm Fini !');
           this.buttonDisabled = false;

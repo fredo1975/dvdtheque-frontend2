@@ -17,6 +17,7 @@ export class FilmExportComponent implements OnInit {
   exportResult: any;
   origine: Origine;
   filmOrigines: string[];
+  errorOccured: boolean;
   constructor(private filmService: FilmService) {
   }
   ngOnInit() {
@@ -31,6 +32,7 @@ export class FilmExportComponent implements OnInit {
     }
     this.buttonDisabled = true;
     this.loading = true;
+    this.errorOccured = false;
     const fileName = 'ListeDvdExport';
     this.filmService.exportFilmList(this.origine).subscribe((data: any) => {
       const now = Date.now();
@@ -40,6 +42,7 @@ export class FilmExportComponent implements OnInit {
         console.log(error);
         this.buttonDisabled = false;
         this.loading = false;
+        this.errorOccured = true;
       }
       , () => {
         this.buttonDisabled = false;

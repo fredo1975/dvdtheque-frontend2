@@ -47,6 +47,9 @@
       <div class="spinner-grow text-muted"></div>
     </div>
   </div>
+  <div class="alert alert-danger" *ngIf="errorOccured">
+    <strong>une erreur est survenue</strong>
+  </div>
   <div class="row" *ngIf="filteredFilms">
     <div class="col-lg-12">Nombre de films : {{filteredFilms.length}}</div>
   </div>

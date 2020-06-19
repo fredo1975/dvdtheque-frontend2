@@ -29,6 +29,7 @@ export class FilmSearchComponent implements OnInit {
   @Input() filmListParam: FilmListParam;
   origines: string[];
   displayTypes: string[];
+  errorOccured: boolean;
   constructor(private filmService: FilmService) {
     const real = new Personne(0, '', '', '');
     const act1 = new Personne(0, '', '', '');

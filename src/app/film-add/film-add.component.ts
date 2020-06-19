@@ -17,6 +17,7 @@ export class FilmAddComponent implements OnInit {
   loading = false;
   filmOrigines: string[];
   origine: Origine;
+  errorOccured: boolean;
   constructor(private filmService: FilmService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -35,14 +36,20 @@ export class FilmAddComponent implements OnInit {
     // console.log('this.titre=' + this.titre);
     this.buttonDisabled = true;
     this.loading = true;
+    this.errorOccured = false;
     this.filmService.getAllTmdbFilmsByTitre(this.titre).subscribe((data: Film[]) => {
       this.tmdbFilms = data;
       // console.log(this.tmdbFilms);
     }
-      , (error) => { console.log(error); }
+      , (error) => {
+        this.errorOccured = true;
+        this.loading = false;
+        console.log(error);
+      }
       , () => {
         // console.log('serachTmdbFilm Fini !');
         this.buttonDisabled = false;
+        this.errorOccured = false;
         this.loading = false;
       });
   }
@@ -54,13 +61,17 @@ export class FilmAddComponent implements OnInit {
     }
     this.buttonDisabled = true;
     this.loading = true;
+    this.errorOccured = false;
     // console.log('tmdbId=' + tmdbId + ' film.id=' + this.film.id + ' film.tmdbId=' + this.film.tmdbId);
     this.filmService.saveFilm(tmdbId, this.origine).subscribe((filmSaved: Film) => {
       // console.log('film with id : ' + filmSaved.id + ' - ' + filmSaved.titre + ' saved');
       this.film = filmSaved;
       this.tmdbFilms = null;
     }
-      , (error) => { console.log(error); this.buttonDisabled = false; }
+      , (error) => {
+        this.errorOccured = true;
+        console.log(error); this.buttonDisabled = false;
+      }
       , () => {
         // console.log('saveFilm Fini !');
         this.buttonDisabled = false;

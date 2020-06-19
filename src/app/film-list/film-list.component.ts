@@ -24,6 +24,7 @@ export class FilmListComponent implements OnInit {
   private ascDvdFormatSort = false;
   origine: string;
   displayType: string;
+  errorOccured: boolean;
   constructor(protected filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
   }
@@ -121,6 +122,7 @@ export class FilmListComponent implements OnInit {
   protected filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
     // console.log('FilmListComponent::filterOnDisplayTypeAndOrigine::event=', displayTypeEvent, origineEvent);
     this.loading = true;
+    this.errorOccured = false;
     this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent).subscribe((data: FilmListParam) => {
       this.films = [...data.films];
       this.filteredFilms = [...data.films];
@@ -128,6 +130,8 @@ export class FilmListComponent implements OnInit {
       this.filmListParam = { realisateurs: data.realisateurs, acteurs: data.acteurs, films: data.films, genres: data.genres, realisateursLength: data.realisateursLength, acteursLength: data.acteursLength };
     }
       , (error) => {
+        this.errorOccured = true;
+        this.loading = false;
         console.log(error);
       }
       , () => {

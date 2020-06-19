@@ -28,6 +28,7 @@ export class FilmDetailComponent implements OnInit {
   private critiquesPresseExist = true;
   loading = false;
   buttonDisabled = false;
+  errorOccured = false;
   private dateSortie: NgbDateStruct;
   private dateInsertion: NgbDateStruct;
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
@@ -118,7 +119,11 @@ export class FilmDetailComponent implements OnInit {
       // console.log('film with id : ' + f.id + ' updated');
       this.film = f;
     }
-      , (error) => { console.log(error); }
+      , (error) => {
+        this.errorOccured = true;
+        this.loading = false;
+        console.log(error);
+      }
       , () => {
         this.loading = false;
         this.buttonDisabled = false;
@@ -146,12 +151,16 @@ export class FilmDetailComponent implements OnInit {
   transformFilmEnSalleIntoDvd() {
     this.loading = true;
     this.buttonDisabled = true;
+    this.errorOccured = false;
     const film: Film = this.buildFilmWithDvd(this.film);
     // console.log('transformFilmEnSalleIntoDvd', film);
     return this.filmService.updateFilm(film).subscribe(f => {
       this.film = f;
     }
-      , (error) => { console.log(error); }
+      , (error) => {
+        this.errorOccured = true;
+        console.log(error);
+      }
       , () => {
         this.loading = false;
         this.buttonDisabled = false;
@@ -176,12 +185,16 @@ export class FilmDetailComponent implements OnInit {
   transformFilmEnSalleIntoGooglePlay() {
     this.loading = true;
     this.buttonDisabled = true;
+    this.errorOccured = false;
     const film: Film = this.buildFilmWithGooglePlay(this.film);
     // console.log('transformFilmEnSalleIntoDvd', film);
     return this.filmService.updateFilm(film).subscribe(f => {
       this.film = f;
     }
-      , (error) => { console.log(error); }
+      , (error) => {
+        this.errorOccured = true;
+        console.log(error);
+      }
       , () => {
         this.loading = false;
         this.buttonDisabled = false;
