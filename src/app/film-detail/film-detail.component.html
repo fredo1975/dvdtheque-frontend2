@@ -22,6 +22,9 @@
                 <img src="{{film.posterPath}}" alt="" />
             </div>
             <div class="col-sm-9">
+                <div class="alert alert-success" *ngIf="updated">
+                    <strong>Film modifié</strong>
+                </div>
                 <div class="card ">
                     <span class="row"><span class="col">Titre : <b>{{film.titre | uppercase}}</b></span></span>
 
@@ -157,13 +160,6 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-fluid" *ngIf="updated">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p><b>Film modifié</b></p>
                         </div>
                     </div>
                 </div>
