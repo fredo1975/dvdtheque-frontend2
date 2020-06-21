@@ -11,7 +11,7 @@
       <div *ngIf="loading">chargement des acteurs et des réalisateurs</div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-lg-2">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="displayType">Type d'affichage</label>
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-lg-1">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="origine">Origine</label>
@@ -35,13 +35,13 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2" *ngIf="!loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="titre">Titre</label>
         <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control" (keyup)="findTitre($event)" />
       </div>
     </div>
-    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.realisateurs">
+    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.realisateurs && !loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="realisateur">Réalisateur : {{filmListParam.realisateursLength}}</label>
         <select class="form-control" [(ngModel)]="filmSearch.realisateur" (ngModelChange)="filterOnRealisateur($event)"
@@ -51,7 +51,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.acteurs">
+    <div class="col-lg-2" *ngIf="filmListParam && filmListParam.acteurs && !loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="acteur">Acteur : {{filmListParam.acteursLength}}</label>
         <select class="form-control" [(ngModel)]="filmSearch.acteur" (ngModelChange)="filterOnActeur($event)"
@@ -61,7 +61,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1" *ngIf="!loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="annee">Année</label>
         <select class="form-control" [(ngModel)]="filmSearch.annee" (ngModelChange)="filterOnAnnee($event)"
@@ -70,7 +70,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-1" *ngIf="filmListParam && filmListParam.genres">
+    <div class="col-lg-1" *ngIf="filmListParam && filmListParam.genres && !loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="genre">Categorie</label>
         <select class="form-control" [(ngModel)]="filmSearch.genre" (ngModelChange)="filterOnGenre($event)"
@@ -79,7 +79,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1" *ngIf="!loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="vu">Vu</label>
         <select class="form-control" name="vu" [(ngModel)]="filmSearch.vu" (ngModelChange)="filterOnVu($event)"
@@ -90,7 +90,7 @@
         </select>
       </div>
     </div>
-    <div class="col-lg-1" *ngIf="origine=='DVD'">
+    <div class="col-lg-1" *ngIf="origine=='DVD' && !loading">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="ripped">DVD Rippé</label>
         <select class="form-control" name="ripped" [(ngModel)]="filmSearch.ripped"

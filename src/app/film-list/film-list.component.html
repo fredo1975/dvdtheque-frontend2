@@ -5,12 +5,12 @@
   [loading]="loading" (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-lg-6 offset-lg-4" *ngIf="filteredFilms">
       <button type="button" class="btn btn-primary" (click)="resetFilter()">Effacer les filtres</button>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-lg-2" *ngIf="filteredFilms">
       <a routerLink="" (click)="sort('titre')">Trier par Titre</a>
     </div>
