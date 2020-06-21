@@ -13,25 +13,25 @@
   </div>
   <div class="row">
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('titre')" disabled="*loading">Trier par Titre</a>
+      <a routerLink="" (click)="sort('titre')" disabled="loading">Trier par Titre</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
-      <a routerLink="" (click)="sort('daterip')" disabled="*loading">Trier par Date de RIP</a>
+      <a routerLink="" (click)="sort('daterip')" disabled="loading">Trier par Date de RIP</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
-      <a routerLink="" (click)="sort('dvdformat')" disabled="*loading">Trier par Format</a>
+      <a routerLink="" (click)="sort('dvdformat')" disabled="loading">Trier par Format</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('duree')" disabled="*loading">Trier par Durée (min)</a>
+      <a routerLink="" (click)="sort('duree')" disabled="loading">Trier par Durée (min)</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('dateInsertion')" disabled="*loading">Trier par Date d'ajout</a>
+      <a routerLink="" (click)="sort('dateInsertion')" disabled="loading">Trier par Date d'ajout</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
-      <a routerLink="" (click)="sort('dateSortieEnSalle')" disabled="*loading">Trier par Date de sortie</a>
+      <a routerLink="" (click)="sort('dateSortieEnSalle')" disabled="loading">Trier par Date de sortie</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
-      <a routerLink="" (click)="sort('dateSortieEnDvd')" disabled="*loading">Trier par Date de sortie en DVD</a>
+      <a routerLink="" (click)="sort('dateSortieEnDvd')" disabled="loading">Trier par Date de sortie en DVD</a>
     </div>
   </div>
   <div class="alert alert-danger" *ngIf="errorOccured">
