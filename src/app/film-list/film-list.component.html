@@ -5,37 +5,33 @@
   [loading]="loading" (displayTypeChange)="filterOnDisplayType($event)">
 </app-film-search>
 <div class="container-fluid">
-  <div class="row" *ngIf="!loading">
+  <div class="row">
     <div class="col-lg-6 offset-lg-4" *ngIf="filteredFilms">
-      <button type="button" class="btn btn-primary" (click)="resetFilter()">Effacer les filtres</button>
+      <button type="button" class="btn btn-primary" (click)="resetFilter()">Effacer les
+        filtres</button>
     </div>
   </div>
-  <div class="row" *ngIf="!loading">
+  <div class="row">
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('titre')">Trier par Titre</a>
+      <a routerLink="" (click)="sort('titre')" disabled="*loading">Trier par Titre</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
-      <a routerLink="" (click)="sort('daterip')">Trier par Date de RIP</a>
+      <a routerLink="" (click)="sort('daterip')" disabled="*loading">Trier par Date de RIP</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='DVD'">
-      <a routerLink="" (click)="sort('dvdformat')">Trier par Format</a>
+      <a routerLink="" (click)="sort('dvdformat')" disabled="*loading">Trier par Format</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('duree')">Trier par Durée (min)</a>
+      <a routerLink="" (click)="sort('duree')" disabled="*loading">Trier par Durée (min)</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms">
-      <a routerLink="" (click)="sort('dateInsertion')">Trier par Date d'ajout</a>
+      <a routerLink="" (click)="sort('dateInsertion')" disabled="*loading">Trier par Date d'ajout</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
-      <a routerLink="" (click)="sort('dateSortieEnSalle')">Trier par Date de sortie</a>
+      <a routerLink="" (click)="sort('dateSortieEnSalle')" disabled="*loading">Trier par Date de sortie</a>
     </div>
     <div class="col-lg-2" *ngIf="filteredFilms && filmSearchComponent.origine==='EN_SALLE'">
-      <a routerLink="" (click)="sort('dateSortieEnDvd')">Trier par Date de sortie en DVD</a>
-    </div>
-  </div>
-  <div class="row" *ngIf="!loading">
-    <div class="col-lg-12" *ngIf="filteredFilms">
-      <h3>Liste des Films </h3>
+      <a routerLink="" (click)="sort('dateSortieEnDvd')" disabled="*loading">Trier par Date de sortie en DVD</a>
     </div>
   </div>
   <div class="alert alert-danger" *ngIf="errorOccured">
@@ -44,10 +40,8 @@
   <div class="row" *ngIf="filteredFilms">
     <div class="col-lg-12">Nombre de films : {{filteredFilms.length}}</div>
   </div>
-  <div class="row">
-
+  <div class="row" *ngIf="filteredFilms">
     <div class="col-sm-2" *ngFor="let film of filteredFilms">
-
       <div class="card ">
         <a routerLink="/filmDetail/{{film.id}}" title="{{film.titre}}">
           <img class="card-img-top" src="{{film.posterPath}}" />
