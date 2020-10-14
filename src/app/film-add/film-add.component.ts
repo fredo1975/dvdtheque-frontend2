@@ -44,6 +44,7 @@ export class FilmAddComponent implements OnInit {
       , (error) => {
         this.errorOccured = true;
         this.loading = false;
+        this.buttonDisabled = false;
         console.log(error);
       }
       , () => {
@@ -70,6 +71,7 @@ export class FilmAddComponent implements OnInit {
     }
       , (error) => {
         this.errorOccured = true;
+        this.buttonDisabled = false;
         console.log(error); this.buttonDisabled = false;
       }
       , () => {
