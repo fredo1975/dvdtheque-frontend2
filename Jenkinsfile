@@ -39,7 +39,8 @@ pipeline {
             }
 			steps {
 				script {
-					sh "npm install"
+					// used when new jenkins server to initialize angular-devkit/build-angular
+					//sh "npm install"
 					sh "ng build -c=dev --verbose"
 				}
 			}
