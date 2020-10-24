@@ -81,7 +81,7 @@ pipeline {
 
 private String getGitRevision(){
 	def gitRevision
-	gitRevision = sh script: git rev-parse --short HEAD, returnStdout: true
+	gitRevision = sh script: "git rev-parse --short HEAD", returnStdout: true
 	gitRevision.trim()
 }
 
