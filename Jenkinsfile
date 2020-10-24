@@ -16,6 +16,13 @@ pipeline {
 				GIT_REVISION = getGitRevision()
 				GIT_BRANCH_NAME = getGitBranchName()
 				ARTIFACT_VERSION = getArtifactVersion()
+                sh '''
+                    echo "PROD_SERVER_IP = ${PROD_SERVER_IP}"
+                    echo "DEV_SERVER_IP = ${DEV_SERVER_IP}"
+                    echo "GIT_REVISION = ${GIT_REVISION}"
+					echo "GIT_BRANCH_NAME = ${GIT_BRANCH_NAME}"
+					echo "ARTIFACT_VERSION = ${ARTIFACT_VERSION}"
+                '''
                 sh 'env'
             }
         }
@@ -73,19 +80,19 @@ pipeline {
     }
 }
 
-private String getGitRevision(){
+def getGitRevision(){
 	def gitRevision
 	gitRevision = sh script: "git rev-parse --short HEAD", returnStdout: true
 	gitRevision.trim()
 }
 
-private String getGitBranchName(){
+def getGitBranchName(){
 	def gitBranchName
 	gitBranchName = env.BRANCH_NAME
 	gitBranchName.trim()
 }
 
-private String getArtifactVersion(String gitBranchName,String gitRevision){
+def getArtifactVersion(String gitBranchName,String gitRevision){
 	if(gitBranchName == "develop"){
 		return "develop-${gitRevision}-SNAPSHOT"
 	}
