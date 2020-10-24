@@ -8,7 +8,7 @@ pipeline {
         )*/
 		GIT_REVISION = getGitRevision()
 		GIT_BRANCH_NAME = getGitBranchName()
-		ARTIFACT_VERSION = getArtifactVersion()
+		ARTIFACT_VERSION = getArtifactVersion(GIT_BRANCH_NAME,GIT_REVISION)
 	}
     //agent { label 'slave01' }
 	agent any
