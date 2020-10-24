@@ -6,14 +6,15 @@ pipeline {
                 script: "printf \$(git rev-parse --short HEAD)",
                 returnStdout: true
         )*/
-		GIT_REVISION = getGitRevision()
-		GIT_BRANCH_NAME = getGitBranchName()
-		ARTIFACT_VERSION = getArtifactVersion()
+		
 	}
     //agent { label 'slave01' }
 	agent any
     stages{
 		stage ('Initialize') {
+			GIT_REVISION = getGitRevision()
+			GIT_BRANCH_NAME = getGitBranchName()
+			ARTIFACT_VERSION = getArtifactVersion()
             steps {
                 sh '''
                     echo "PROD_SERVER_IP = ${PROD_SERVER_IP}"
