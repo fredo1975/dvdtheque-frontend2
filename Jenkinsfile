@@ -39,8 +39,7 @@ pipeline {
             }
 			steps {
 				script {
-					// used when new jenkins server to initialize angular-devkit/build-angular
-					//sh "npm install"
+					//sh "npm install --save-dev @angular-devkit/build-angular"
 					sh "ng build -c=dev --verbose"
 				}
 			}
@@ -99,7 +98,8 @@ private String getArtifactVersion(String gitBranchName,String gitRevision){
 		return "develop-${gitRevision}-SNAPSHOT"
 	}
 	if(gitBranchName == "master"){
-		gitTagName = sh script: "git describe --tags --always", returnStdout: true
+		sh script: "git pull", returnStdout: true
+		gitTagName = sh script: "git describe --tags ${gitRevision}", returnStdout: true
 	}
 	return ""
 }
