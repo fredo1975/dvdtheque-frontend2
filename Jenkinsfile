@@ -25,14 +25,6 @@ pipeline {
                 sh 'env'
             }
         }
-		stage('Clone repository') {
-			steps {
-				script {
-					/* Let's make sure we have the repository cloned to our workspace */
-					checkout scm
-				}
-			}
-		}
 		stage('Build for development') {
 			when {
                 branch 'develop'
