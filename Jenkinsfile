@@ -2,10 +2,29 @@ pipeline {
 	environment {
 		PROD_SERVER_IP = "192.168.1.106"
 		DEV_SERVER_IP = "192.168.1.100"
+		/*GIT_COMMIT_SHORT = sh(
+                script: "printf \$(git rev-parse --short HEAD)",
+                returnStdout: true
+        )*/
+		GIT_REVISION = getGitRevision()
+		GIT_BRANCH_NAME = getGitBranchName()
+		ARTIFACT_VERSION = getArtifactVersion()
 	}
     //agent { label 'slave01' }
 	agent any
     stages{
+		stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PROD_SERVER_IP = ${PROD_SERVER_IP}"
+                    echo "DEV_SERVER_IP = ${DEV_SERVER_IP}"
+                    echo "GIT_REVISION = ${GIT_REVISION}"
+					echo "GIT_BRANCH_NAME = ${GIT_BRANCH_NAME}"
+					echo "ARTIFACT_VERSION = ${ARTIFACT_VERSION}"
+                '''
+                sh 'env'
+            }
+        }
 		stage('Clone repository') {
 			steps {
 				script {
@@ -14,32 +33,70 @@ pipeline {
 				}
 			}
 		}
-		stage('Build') {
+		stage('Build for development') {
+			when {
+                branch 'develop'
+            }
 			steps {
 				script {
-					if("${APP_ENV}" == "dev"){
-						sh "ng build -c=dev --verbose"
-					}else if ("${APP_ENV}" == "production") {
-						sh "ng build -c=production --verbose"
-					}
+					sh "ng build -c=dev --verbose"
 				}
 			}
 		}
-		stage('Copying binaries') {
+		stage('Build for production') {
+			when {
+                branch 'master'
+            }
 			steps {
 				script {
-					sh "echo APP_ENV=$APP_ENV"
-					if("${APP_ENV}" == "dev"){
-						sh "echo DEV_SERVER_IP=$DEV_SERVER_IP"
-						sh "ssh jenkins@$DEV_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
-						sh "scp -r dist/dvdtheque-frontend/* jenkins@$DEV_SERVER_IP:/var/www/dvdtheque-frontend"
-					}else if ("${APP_ENV}" == "production") {
-						sh "echo PROD_SERVER_IP=$PROD_SERVER_IP"
-						sh "ssh jenkins@$PROD_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
-						sh "scp -r dist/dvdtheque-frontend/* jenkins@$PROD_SERVER_IP:/var/www/dvdtheque-frontend"
-					}
+					sh "ng build -c=production --verbose"
+				}
+			}
+		}
+		stage('Copying binaries to development') {
+			when {
+                branch 'develop'
+            }
+			steps {
+				script {
+					sh "ssh jenkins@$DEV_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
+					sh "scp -r dist/dvdtheque-frontend/* jenkins@$DEV_SERVER_IP:/var/www/dvdtheque-frontend"
+				}
+			}
+		}
+		stage('Copying binaries to development') {
+			when {
+                branch 'master'
+            }
+			steps {
+				script {
+					sh "echo PROD_SERVER_IP=$PROD_SERVER_IP"
+					sh "ssh jenkins@$PROD_SERVER_IP rm -rf /var/www/dvdtheque-frontend/*"
+					sh "scp -r dist/dvdtheque-frontend/* jenkins@$PROD_SERVER_IP:/var/www/dvdtheque-frontend"
 				}
 			}
 		}
     }
+}
+
+private String getGitRevision(){
+	def gitRevision
+	gitRevision = sh script: git rev-parse --short HEAD, returnStdout: true
+	gitRevision.trim()
+}
+
+private String getGitBranchName(){
+	def gitBranchName
+	gitBranchName = env.BRANCH_NAME
+	gitBranchName.trim()
+}
+
+private String getArtifactVersion(String gitBranchName,String gitRevision){
+	if(gitBranchName == "develop"){
+		return "develop-${gitRevision}-SNAPSHOT"
+	}
+	if(gitBranchName == "master"){
+		gitTagName = sh script: "git describes --tags ${gitRevision}", returnStdout: true
+	}
+	return ""
 }
