@@ -12,10 +12,10 @@ pipeline {
 	agent any
     stages{
 		stage ('Initialize') {
-			GIT_REVISION = getGitRevision()
-			GIT_BRANCH_NAME = getGitBranchName()
-			ARTIFACT_VERSION = getArtifactVersion()
             steps {
+				GIT_REVISION = getGitRevision()
+				GIT_BRANCH_NAME = getGitBranchName()
+				ARTIFACT_VERSION = getArtifactVersion()
                 sh '''
                     echo "PROD_SERVER_IP = ${PROD_SERVER_IP}"
                     echo "DEV_SERVER_IP = ${DEV_SERVER_IP}"
