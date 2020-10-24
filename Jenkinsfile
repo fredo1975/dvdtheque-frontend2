@@ -64,7 +64,7 @@ pipeline {
 				}
 			}
 		}
-		stage('Copying binaries to development') {
+		stage('Copying binaries to production') {
 			when {
                 branch 'master'
             }
