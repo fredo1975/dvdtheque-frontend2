@@ -6,16 +6,15 @@ pipeline {
                 script: "printf \$(git rev-parse --short HEAD)",
                 returnStdout: true
         )*/
-		
+		GIT_REVISION = getGitRevision()
+		GIT_BRANCH_NAME = getGitBranchName()
+		ARTIFACT_VERSION = getArtifactVersion()
 	}
     //agent { label 'slave01' }
 	agent any
     stages{
 		stage ('Initialize') {
             steps {
-				GIT_REVISION = getGitRevision()
-				GIT_BRANCH_NAME = getGitBranchName()
-				ARTIFACT_VERSION = getArtifactVersion()
                 sh '''
                     echo "PROD_SERVER_IP = ${PROD_SERVER_IP}"
                     echo "DEV_SERVER_IP = ${DEV_SERVER_IP}"
@@ -80,19 +79,19 @@ pipeline {
     }
 }
 
-def getGitRevision(){
+private String getGitRevision(){
 	def gitRevision
 	gitRevision = sh script: "git rev-parse --short HEAD", returnStdout: true
 	gitRevision.trim()
 }
 
-def getGitBranchName(){
+private String getGitBranchName(){
 	def gitBranchName
 	gitBranchName = env.BRANCH_NAME
 	gitBranchName.trim()
 }
 
-def getArtifactVersion(String gitBranchName,String gitRevision){
+private String getArtifactVersion(String gitBranchName,String gitRevision){
 	if(gitBranchName == "develop"){
 		return "develop-${gitRevision}-SNAPSHOT"
 	}
