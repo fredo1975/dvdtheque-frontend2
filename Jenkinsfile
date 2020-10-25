@@ -8,7 +8,7 @@ pipeline {
         )*/
 		GIT_REVISION = getGitRevision()
 		GIT_BRANCH_NAME = getGitBranchName()
-		ARTIFACT_VERSION = getArtifactVersion(GIT_BRANCH_NAME,GIT_REVISION)
+		
 	}
     //agent { label 'slave01' }
 	agent any
@@ -50,6 +50,7 @@ pipeline {
             }
 			steps {
 				script {
+					ARTIFACT_VERSION = getArtifactVersion(GIT_BRANCH_NAME,GIT_REVISION)
 					sh "npm install --save-dev @angular-devkit/build-angular"
 					sh "ng build -c=production --verbose"
 				}
