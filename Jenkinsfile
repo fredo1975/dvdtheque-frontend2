@@ -50,6 +50,7 @@ pipeline {
             }
 			steps {
 				script {
+					sh "git pull"
 					ARTIFACT_VERSION = getArtifactVersion(GIT_BRANCH_NAME,GIT_REVISION)
 					sh "npm install --save-dev @angular-devkit/build-angular"
 					sh "ng build -c=production --verbose"
