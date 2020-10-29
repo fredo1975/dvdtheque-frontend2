@@ -99,7 +99,7 @@ private String getArtifactVersion(String gitBranchName,String gitRevision){
 		return "develop-${gitRevision}-SNAPSHOT"
 	}
 	if(gitBranchName == "master"){
-		gitTagName = sh script: "git describe --tags ${gitRevision}", returnStdout: true
+		gitTagName = sh script: "git describe ${gitRevision}", returnStdout: true
 	}
 	return ""
 }
