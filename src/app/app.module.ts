@@ -21,6 +21,7 @@ import { GenresPipe } from './pipes/genres.pipe';
 import { RealisateursPipe } from './pipes/realisateurs.pipe';
 import { FilmAdminComponent } from './film-admin/film-admin.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -38,6 +39,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     GenresPipe,
     RealisateursPipe,
     FilmAdminComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

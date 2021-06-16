@@ -33,36 +33,36 @@ export class ApiService {
 
   findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<FilmListParam>(environment.apiUrl + '/filmListParam/byOrigine/' + origine, { params: params });
+    return this.http.get<FilmListParam>(environment.apiUrl + '/public/films/filmListParam/byOrigine/' + origine, { params: params });
   }
 
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine, { params: params });
+    return this.http.get<Film[]>(environment.apiUrl + '/public/films/byOrigine/' + origine, { params: params });
   }
 
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
-    return this.http.get<Film[]>(environment.apiUrl + '/films/tmdb/byTitre/' + titre);
+    return this.http.get<Film[]>(environment.apiUrl + '/public/films/tmdb/byTitre/' + titre);
   }
 
   getFilm(id: number): Observable<Film> {
-    return this.http.get<Film>(environment.apiUrl + '/films/byId/' + id);
+    return this.http.get<Film>(environment.apiUrl + '/public/films/byId/' + id);
   }
 
   getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllActeursByOrigine::displayType', displayType, origine);
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs/byOrigine/' + origine, { params: params });
+    return this.http.get<Personne[]>(environment.apiUrl + '/public/acteurs/byOrigine/' + origine, { params: params });
   }
 
   getAllGenres(): Observable<Genre[]> {
-    return this.http.get<Genre[]>(environment.apiUrl + '/films/genres');
+    return this.http.get<Genre[]>(environment.apiUrl + '/public/films/genres');
   }
 
   getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllRealisateursByOrigine::displayType', displayType, origine);
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs/byOrigine/' + origine, { params: params });
+    return this.http.get<Personne[]>(environment.apiUrl + '/public/realisateurs/byOrigine/' + origine, { params: params });
   }
 
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
