@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://localhost:8762/dvdtheque',
-  //websocketApiUrl: 'ws://localhost:8762/dvdtheque/websocket',
-  apiUrl: 'http://localhost:8083/dvdtheque',
-  websocketApiUrl: 'ws://localhost:8083/dvdtheque/websocket',
+  apiUrl: 'http://localhost:8762/dvdtheque',
+  websocketApiUrl: 'ws://localhost:8762/dvdtheque/websocket',
+  // apiUrl: 'http://localhost:8083/dvdtheque',
+  // websocketApiUrl: 'ws://localhost:8083/dvdtheque/websocket',
   // apiUrl: 'http://192.168.1.101:8762/dvdtheque',
   // websocketApiUrl: 'ws://192.168.1.101:8762/dvdtheque/websocket'
 };
