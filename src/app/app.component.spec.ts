@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FilmListComponent } from './film-list/film-list.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
@@ -11,9 +11,9 @@ describe('AppComponent', () => {
     { path: 'filmList', component: FilmListComponent },
     { path: 'filmDetail/;id', component: FilmDetailComponent }
   ];
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterModule.forRoot(routes)],
+      imports: [ RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
       declarations: [
         AppComponent, FilmListComponent, FilmDetailComponent, NavbarComponent
       ],
