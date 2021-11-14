@@ -1,12 +1,12 @@
 import { BrowserModule, } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FilmListComponent } from './film-list/film-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FilmDetailComponent } from './film-detail/film-detail.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FilmSearchComponent } from './film-search/film-search.component';
 import { FilmTmdbSearchComponent } from './film-tmdb-search/film-tmdb-search.component';
 import { FilmAddComponent } from './film-add/film-add.component';
@@ -14,13 +14,15 @@ import { FilmExportComponent } from './film-export/film-export.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
-import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { FilmImportComponent } from './film-import/film-import.component';
 import { JmsStatusPipe } from './pipes/jms-status.pipe';
 import { GenresPipe } from './pipes/genres.pipe';
 import { RealisateursPipe } from './pipes/realisateurs.pipe';
 import { FilmAdminComponent } from './film-admin/film-admin.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './init/keycloak-init.factory';
+import { ConfigInitService } from './init/config-init.service';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -45,11 +47,13 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     FormsModule,
     HttpClientModule,
     NgbModule,
+    KeycloakAngularModule,
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptorService,
-    multi: true
+    provide: APP_INITIALIZER,
+    useFactory: initializeKeycloak,
+    multi: true,
+    deps: [KeycloakService, ConfigInitService],
   }],
   bootstrap: [AppComponent]
 })

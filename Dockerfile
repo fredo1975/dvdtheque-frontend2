@@ -1,3 +1,4 @@
+### STAGE 1: Build ###
 FROM node:12.14.1-slim as build-stage
 
 WORKDIR /app
@@ -14,8 +15,11 @@ ENV CONF=${arg}
 
 RUN npm run build -- --output-path=./dist/out --configuration ${CONF}
 
+### STAGE 2: Run ###
 FROM nginx:alpine
 
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+ENTRYPOINT [ "sh", "/replace_placeholders.sh" ]

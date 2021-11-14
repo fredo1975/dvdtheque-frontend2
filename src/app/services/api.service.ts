@@ -18,12 +18,11 @@ const encodedAuth = window.localStorage.getItem('encodedAuth');
 @Injectable({
   providedIn: 'root'
 })
-@Injectable({
-  providedIn: 'root'
-})
 export class ApiService {
 
   constructor(protected http: HttpClient) { }
+
+  private readonly backendUrl = '/dvdtheque'
 
   private createdisplayTypeParam(displayType: string): HttpParams {
     let params = new HttpParams();
@@ -33,42 +32,42 @@ export class ApiService {
 
   findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<FilmListParam>(environment.apiUrl + '/filmListParam/byOrigine/' + origine, { params: params });
+    return this.http.get<FilmListParam>(this.backendUrl + '/filmListParam/byOrigine/' + origine, { params: params });
   }
 
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Film[]>(environment.apiUrl + '/films/byOrigine/' + origine, { params: params });
+    return this.http.get<Film[]>(this.backendUrl + '/films/byOrigine/' + origine, { params: params });
   }
 
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
-    return this.http.get<Film[]>(environment.apiUrl + '/films/tmdb/byTitre/' + titre);
+    return this.http.get<Film[]>(this.backendUrl + '/films/tmdb/byTitre/' + titre);
   }
 
   getFilm(id: number): Observable<Film> {
-    return this.http.get<Film>(environment.apiUrl + '/films/byId/' + id);
+    return this.http.get<Film>(this.backendUrl + '/films/byId/' + id);
   }
 
   getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllActeursByOrigine::displayType', displayType, origine);
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Personne[]>(environment.apiUrl + '/acteurs/byOrigine/' + origine, { params: params });
+    return this.http.get<Personne[]>(this.backendUrl + '/acteurs/byOrigine/' + origine, { params: params });
   }
 
   getAllGenres(): Observable<Genre[]> {
-    return this.http.get<Genre[]>(environment.apiUrl + '/films/genres');
+    return this.http.get<Genre[]>(this.backendUrl + '/films/genres');
   }
 
   getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllRealisateursByOrigine::displayType', displayType, origine);
     const params: HttpParams = this.createdisplayTypeParam(displayType);
-    return this.http.get<Personne[]>(environment.apiUrl + '/realisateurs/byOrigine/' + origine, { params: params });
+    return this.http.get<Personne[]>(this.backendUrl + '/realisateurs/byOrigine/' + origine, { params: params });
   }
 
   saveFilm(tmdbId: number, filmOrigine: Origine): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl + '/films/save/' + tmdbId, filmOrigine, httpOptions).pipe(
+    return this.http.put(this.backendUrl + '/films/save/' + tmdbId, filmOrigine, httpOptions).pipe(
       tap(_ => console.log(`added film id=${tmdbId}`))
     );
   }
@@ -76,8 +75,8 @@ export class ApiService {
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log('apiUr=' + environment.apiUrl + '/films/update/' + film.id);
-    return this.http.put(environment.apiUrl + '/films/update/' + film.id, film, httpOptions).pipe(
+    console.log('apiUr=' + this.backendUrl + '/films/update/' + film.id);
+    return this.http.put(this.backendUrl + '/films/update/' + film.id, film, httpOptions).pipe(
       tap(_ => console.log(`updated film id=${film.id}`))
     );
   }
@@ -85,42 +84,42 @@ export class ApiService {
   replaceFilm(film: Film, tmdbId: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put<Film>(environment.apiUrl + '/films/tmdb/' + tmdbId, film, httpOptions);
+    return this.http.put<Film>(this.backendUrl + '/films/tmdb/' + tmdbId, film, httpOptions);
   }
 
   retrieveFilmImage(id: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put<Film>(environment.apiUrl + '/films/retrieveImage/' + id, httpOptions);
+    return this.http.put<Film>(this.backendUrl + '/films/retrieveImage/' + id, httpOptions);
   }
 
   retrieveAllFilmImages(): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put<any>(environment.apiUrl + '/films/retrieveAllImages/', httpOptions);
+    return this.http.put<any>(this.backendUrl + '/films/retrieveAllImages/', httpOptions);
   }
 
   cleanAllCaches(): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put<any>(environment.apiUrl + '/films/cleanCaches', httpOptions);
+    return this.http.put<any>(this.backendUrl + '/films/cleanCaches', httpOptions);
   }
 
   removeFilm(id: number): Observable<Film> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put<Film>(environment.apiUrl + '/films/remove/' + id, httpOptions);
+    return this.http.put<Film>(this.backendUrl + '/films/remove/' + id, httpOptions);
   }
 
   importFilmList(formdata: FormData): Observable<any> {
     const url = '/films/import';
     console.log('importFilmList');
-    return this.http.post(environment.apiUrl + '/films/import', formdata).pipe(
+    return this.http.post(this.backendUrl + '/films/import', formdata).pipe(
       tap(_ => console.log('importFilmList done')));
   }
 
   exportFilmList(origine: Origine) {
-    return this.http.post(environment.apiUrl + '/films/export', origine, {
+    return this.http.post(this.backendUrl + '/films/export', origine, {
       headers: new HttpHeaders({
         'Authorization': 'Basic ' + encodedAuth,
         'Content-Type': 'application/octet-stream',

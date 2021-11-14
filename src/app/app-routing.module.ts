@@ -6,15 +6,16 @@ import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { FilmExportComponent } from './film-export/film-export.component';
 import { FilmImportComponent } from './film-import/film-import.component';
 import { FilmAdminComponent } from './film-admin/film-admin.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/filmList', pathMatch: 'full' },
-  { path: 'filmList', component: FilmListComponent },
-  { path: 'filmDetail/:id', component: FilmDetailComponent },
-  { path: 'filmAdd', component: FilmAddComponent },
-  { path: 'filmExport', component: FilmExportComponent },
-  { path: 'filmImport', component: FilmImportComponent },
-  { path: 'filmAdmin', component: FilmAdminComponent }
+  { path: 'filmList', component: FilmListComponent, canActivate: [AuthGuard] },
+  { path: 'filmDetail/:id', component: FilmDetailComponent, canActivate: [AuthGuard] },
+  { path: 'filmAdd', component: FilmAddComponent, canActivate: [AuthGuard] },
+  { path: 'filmExport', component: FilmExportComponent, canActivate: [AuthGuard] },
+  { path: 'filmImport', component: FilmImportComponent, canActivate: [AuthGuard] },
+  { path: 'filmAdmin', component: FilmAdminComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

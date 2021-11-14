@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8762/dvdtheque',
   websocketApiUrl: 'ws://localhost:8762/dvdtheque/websocket',
+  authApi: 'http://localhost:8080/api/auth/',
+  configFile: 'assets/config/config.dev.json'
   // apiUrl: 'http://localhost:8083/dvdtheque',
   // websocketApiUrl: 'ws://localhost:8083/dvdtheque/websocket',
   // apiUrl: 'http://192.168.1.101:8762/dvdtheque',

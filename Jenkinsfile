@@ -20,7 +20,6 @@ pipeline {
                     echo "DEV_SERVER_IP = ${DEV_SERVER_IP}"
                     echo "GIT_REVISION = ${GIT_REVISION}"
 					echo "GIT_BRANCH_NAME = ${GIT_BRANCH_NAME}"
-					echo "ARTIFACT_VERSION = ${ARTIFACT_VERSION}"
                 '''
                 sh 'env'
             }
