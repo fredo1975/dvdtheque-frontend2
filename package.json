@@ -3,7 +3,7 @@
   "version": "2.12.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config src/proxy.conf.dev.json -c dev",
+    "start": "ng serve --proxy-config src/proxy.conf.local.json -c local",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
