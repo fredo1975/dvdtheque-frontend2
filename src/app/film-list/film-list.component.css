@@ -10,7 +10,7 @@ body {
 .column {
   float: left;
   width: 25%;
-  padding: 0 10px;
+  padding: 0 2px;
 }
 
 /* Remove extra left and right margins, due to padding in columns */
@@ -26,7 +26,7 @@ body {
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-  padding: 10px;
+  padding: 0px;
   padding-top: 15px;
   background-color: #f1f1f1;
   font-size: 0.9rem;
