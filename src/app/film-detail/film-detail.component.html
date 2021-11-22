@@ -18,7 +18,7 @@
     </div>
     <div *ngIf="film && !loading">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="column">
                 <img src="{{film.posterPath}}" alt="" />
             </div>
             <div class="col-sm-9">
@@ -29,24 +29,26 @@
                     <strong>une erreur est survenue</strong>
                 </div>
                 <div class="card ">
-                    <span class="row"><span class="col">Titre : <b>{{film.titre | uppercase}}</b></span></span>
+                    <span class="row"><span class="col">Titre : </span><span class="col"><b>{{film.titre |
+                                uppercase}}</b></span></span>
 
-                    <span class="row"><span class="col">Titre Original :
+                    <span class="row"><span class="col">Titre Original :</span><span class="col">
                             <b>{{film.titreO | uppercase}}</b></span></span>
 
-                    <span class="row"><span class="col">Date de sortie :
+                    <span class="row"><span class="col">Date de sortie :</span><span class="col">
                             <b>{{film.dateSortie | date: 'dd/MM/yyyy'}}</b></span></span>
 
-                    <span class="row"><span class="col">Réalisateur : <b>{{film.realisateurs | realisateurs}}
+                    <span class="row"><span class="col">Réalisateur : </span><span class="col"><b>{{film.realisateurs |
+                                realisateurs}}
                                 &nbsp;</b></span></span>
-                    <span class="row"><span class="col">Genres : <b>{{film.genres | genres}} &nbsp;</b></span></span>
-                    <span class="row"><span class="col">Durée : <b>{{film.runtime}} minutes</b></span></span>
-
+                    <span class="row"><span class="col">Genres : </span><span class="col"><b>{{film.genres | genres}}
+                                &nbsp;</b></span></span>
+                    <span class="row"><span class="col">Durée : </span><span class="col"><b>{{film.runtime}}
+                                minutes</b></span></span>
+                    <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'"><span class="col">Sortie DVD :</span><span class="col"
+                            *ngIf="film.dvd && film.dvd.dateSortie"><b>{{film.dvd.dateSortie | date:
+                                'dd/MM/yyyy'}}</b></span></span>
                     <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'">
-                        <div class="col-sm-1">Sortie en DVD : </div>
-                        <div class="col-sm-1" *ngIf="film.dvd && film.dvd.dateSortie">
-                            <b>{{film.dvd.dateSortie | date: 'dd/MM/yyyy'}}</b>
-                        </div>
                         <div class="col-sm-2">
                             <form class="form-inline">
                                 <div class="input-group">
@@ -71,8 +73,7 @@
                     <div class="card-header">Acteurs </div>
                     <div class="card-body">
                         <div class="row">
-                            <div *ngFor="let act of film.acteurs">
-                                <div class="col">
+                                <div class="col" *ngFor="let act of film.acteurs">
                                     <div class="content">
                                         <img class="acteurs"
                                             *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
@@ -81,7 +82,6 @@
                                     </div>
 
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
