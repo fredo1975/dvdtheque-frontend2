@@ -6,7 +6,6 @@ import { Film } from '../model/film';
 import { Personne } from '../model/personne';
 import { Genre } from '../model/genre';
 import { Origine } from '../model/origine.enum';
-import { environment } from '../../environments/environment';
 import { FilmListParam } from '../model/film-list-param';
 
 const httpOptions = {
@@ -22,7 +21,7 @@ export class ApiService {
 
   constructor(protected http: HttpClient) { }
 
-  private readonly backendUrl = '/dvdtheque'
+  private readonly backendUrl = '/dvdtheque-service'
 
   private createdisplayTypeParam(displayType: string): HttpParams {
     let params = new HttpParams();

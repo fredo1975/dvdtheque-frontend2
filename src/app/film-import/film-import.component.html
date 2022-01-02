@@ -25,7 +25,8 @@
     <div class="col-lg-8" *ngIf="loadingStatus">
       <p>Status de l'import {{completedStatus}}
         &nbsp;<span *ngIf="completedStatus"> en {{time / 1000}} s</span></p>
-
+        <p>Nombre de film importé {{completedStatus}}
+          &nbsp;<span *ngIf="completedStatus"> en {{time / 1000}} s</span></p>
 
       <table class="table table-bordered table-striped">
         <thead>

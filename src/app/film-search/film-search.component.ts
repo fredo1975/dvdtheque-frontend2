@@ -38,7 +38,7 @@ export class FilmSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('FilmSearchComponent::ngOnInit', this.filmService.getOrigine(), this.filmService.getDisplayType());
+    //console.log('FilmSearchComponent::ngOnInit', this.filmService.getOrigine(), this.filmService.getDisplayType());
     this.annees = this.filmService.getAnneesSelect();
     // tslint:disable-next-line:max-line-length
     this.origines = [Origine[Origine.DVD], Origine[Origine.EN_SALLE], Origine[Origine.TV], Origine[Origine.GOOGLE_PLAY], Origine[Origine.TOUS]];

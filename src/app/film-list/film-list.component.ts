@@ -67,8 +67,8 @@ export class FilmListComponent implements OnInit {
     // console.log('FilmListComponent::filterOnRealisateur::id', event);
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
-      for (let j = 0; j < this.films[i].realisateurs.length; j++) {
-        if (this.films[i].realisateurs[j].id === id) {
+      for (let j = 0; j < this.films[i].realisateur.length; j++) {
+        if (this.films[i].realisateur[j].id === id) {
           this.filteredFilms.push(this.films[i]);
         }
       }
@@ -87,8 +87,8 @@ export class FilmListComponent implements OnInit {
     // console.log('FilmListComponent::filterOnActeur::acteur.id=' + acteur);
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
-      for (let j = 0; j < this.films[i].acteurs.length; j++) {
-        if (this.films[i].acteurs[j].id === acteur) {
+      for (let j = 0; j < this.films[i].acteur.length; j++) {
+        if (this.films[i].acteur[j].id === acteur) {
           this.filteredFilms.push(this.films[i]);
         }
       }
@@ -111,8 +111,8 @@ export class FilmListComponent implements OnInit {
   filterOnGenre(genre: string) {
     this.filteredFilms = [];
     for (let i = 0; i < this.films.length; i++) {
-      for (let j = 0; j < this.films[i].genres.length; j++) {
-        if (this.films[i].genres[j].name === genre) {
+      for (let j = 0; j < this.films[i].genre.length; j++) {
+        if (this.films[i].genre[j].name === genre) {
           this.filteredFilms.push(this.films[i]);
           break;
         }

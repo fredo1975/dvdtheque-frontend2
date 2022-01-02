@@ -38,10 +38,10 @@
                     <span class="row"><span class="col">Date de sortie :</span><span class="col">
                             <b>{{film.dateSortie | date: 'dd/MM/yyyy'}}</b></span></span>
 
-                    <span class="row"><span class="col">Réalisateur : </span><span class="col"><b>{{film.realisateurs |
+                    <span class="row"><span class="col">Réalisateur : </span><span class="col"><b>{{film.realisateur |
                                 realisateurs}}
                                 &nbsp;</b></span></span>
-                    <span class="row"><span class="col">Genres : </span><span class="col"><b>{{film.genres | genres}}
+                    <span class="row"><span class="col">Genres : </span><span class="col"><b>{{film.genre | genres}}
                                 &nbsp;</b></span></span>
                     <span class="row"><span class="col">Durée : </span><span class="col"><b>{{film.runtime}}
                                 minutes</b></span></span>
@@ -73,7 +73,7 @@
                     <div class="card-header">Acteurs </div>
                     <div class="card-body">
                         <div class="row">
-                                <div class="col" *ngFor="let act of film.acteurs">
+                                <div class="col" *ngFor="let act of film.acteur">
                                     <div class="content">
                                         <img class="acteurs"
                                             *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"

@@ -9,8 +9,8 @@ export const environment = {
     // apiUrl: 'http://localhost:8083/dvdtheque',
     // websocketApiUrl: 'ws://localhost:8083/dvdtheque/websocket',
     configFile: 'assets/config/config.local.json',
-    apiUrl: 'http://localhost:8762/dvdtheque',
-    websocketApiUrl: 'ws://localhost:8762/dvdtheque/websocket'
+    apiUrl: 'http://localhost:8762/dvdtheque-service',
+    websocketApiUrl: 'ws://localhost:8762/dvdtheque-service/websocket'
   };
   
   /*
