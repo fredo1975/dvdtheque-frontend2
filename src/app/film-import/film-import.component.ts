@@ -131,7 +131,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
     // Subscribe to its state (to know its connected or not)
     this.messagingService.state().subscribe((state: StompState) => {
       this.state = StompState[state];
-      // console.log('this.state=', this.state);
+        console.log('this.state=', this.state);
     });
   }
 }
