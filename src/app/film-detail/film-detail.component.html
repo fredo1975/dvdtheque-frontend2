@@ -183,15 +183,15 @@
                     </div>
                 </div>
 
-                <div class="card" *ngIf="critiquesPresseExist">
+                <div class="card" *ngIf="critiquePresseExist">
                     <div class="card-header">Critiques Presse </div>
                     <div class="card-body">
 
-                        <div class="row" *ngFor="let critiquePresse of film.critiquesPresse">
-                            <div class="col-sm-1"><b> {{critiquePresse.nomSource}} </b></div>
-                            <div class="col-sm-1"><label>Note : {{critiquePresse.note}}</label></div>
+                        <div class="row" *ngFor="let critiquePresse of film.critiquePresse">
+                            <div class="col-sm-1"><b> {{critiquePresse.newsSource}} </b></div>
+                            <div class="col-sm-1"><label>Note : {{critiquePresse.rating}}</label></div>
                             <div class="col-sm-10">
-                                {{critiquePresse.critique}}
+                                {{critiquePresse.body}}
                             </div>
                             <span>&nbsp;</span>
                         </div>

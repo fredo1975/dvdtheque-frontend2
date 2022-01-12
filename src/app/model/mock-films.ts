@@ -4,7 +4,7 @@ import { Dvd } from './dvd';
 import { DvdFormat } from './dvd-format.enum';
 import { Genre } from './genre';
 import { Origine } from './origine.enum';
-import { CritiquesPresse } from './critiques-presse';
+import { CritiquePresse } from './critique-presse';
 
 const titre = 'spider-man';
 const _annee = 2016;
@@ -12,7 +12,7 @@ const real1 = new Personne(1, 'wong kar', 'wyy', 'profilePath');
 const real = [real1,];
 const act1 = new Personne(2, 'chung', 'fat', 'profilePath');
 const act = [act1];
-const critiquesPresse = { id: 2, code: 1, nomSource: 'fat', auteur: 'profile_path', critique: 'fake', note: 5 } as CritiquesPresse;
+const critiquesPresse = { id: 2, code: 1, newsSource: 'fat', author: 'profile_path', body: 'fake', rating: 5 } as CritiquePresse;
 const critiquesPresseArr = [critiquesPresse,];
 const dvd = new Dvd(2002, '1', 'sony', true, new Date(), new Date(), DvdFormat.DVD);
 const posterPath = '';

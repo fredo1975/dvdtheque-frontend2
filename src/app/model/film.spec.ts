@@ -4,7 +4,7 @@ import { Dvd } from './dvd';
 import { Genre } from './genre';
 import { DvdFormat } from './dvd-format.enum';
 import { Origine } from './origine.enum';
-import { CritiquesPresse } from './critiques-presse';
+import { CritiquePresse } from './critique-presse';
 
 const titre = 'spider-man';
 const _annee = 2016;
@@ -12,7 +12,7 @@ const real = new Personne(1, 'wong kar', 'wyy', 'profile_path');
 const real1 = [real,];
 const act1 = new Personne(2, 'chung', 'fat', 'profile_path');
 const act = [act1,];
-const critiquesPresse = { id: 2, code: 1, nomSource: 'fat', auteur: 'profile_path', critique: 'fake', note: 5 } as CritiquesPresse;
+const critiquesPresse = { id: 2, code: 1, newsSource: 'fat', author: 'profile_path', body: 'fake', rating: 5 } as CritiquePresse;
 const critiquesPresseArr = [critiquesPresse,];
 const genre = new Genre(1, 'comedy', 1);
 const genreArray = [genre];
