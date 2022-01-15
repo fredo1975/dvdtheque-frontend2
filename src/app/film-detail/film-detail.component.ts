@@ -42,12 +42,8 @@ export class FilmDetailComponent implements OnInit {
     }
       , (error) => {
         console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']);
-        this.loading = false;
-        this.buttonDisabled = false;
       }
       , () => {
-        this.loading = false;
-        this.buttonDisabled = false;
         if (this.film.critiquePresse && this.film.critiquePresse.length > 0) {
           // console.log('ngOnInit this.film.critiquesPresse');
         } else {
@@ -55,6 +51,8 @@ export class FilmDetailComponent implements OnInit {
           this.critiquePresseExist = false;
         }
       });
+    this.loading = false;
+    this.buttonDisabled = false;
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
     this.dvdFormats = [null, DvdFormat[DvdFormat.BLUERAY], DvdFormat[DvdFormat.DVD]];
