@@ -128,6 +128,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private initializeWebSocketConnection() {
     // Instantiate a messagingService
     this.messagingService = new MessagingService(environment.websocketApiUrl, this.TOPIC);
+    console.log('environment.websocketApiUrl',environment.websocketApiUrl);
     // Subscribe to its state (to know its connected or not)
     this.messagingService.state().subscribe((state: StompState) => {
       this.state = StompState[state];
