@@ -84,7 +84,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
         this.messageHistory.splice(2, 0, jmsStatusMessage);
         // tslint:disable-next-line:max-line-length
       } else if (JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_COMPLETED_SUCCESS.toString() || JmsStatus[jmsStatusMessage.getStatus()].toString() === JmsStatus.IMPORT_COMPLETED_ERROR.toString()) {
-        console.log('subscribeTopic end', JSON.parse(message.body));
+        //console.log('subscribeTopic end', JSON.parse(message.body));
         this.buttonDisabled = false;
         this.loading = false;
         this.time = jmsStatusMessage.getTiming();
@@ -110,7 +110,7 @@ export class FilmImportComponent implements OnInit, OnDestroy {
       this.loadingStatus = false;
     }
       , () => {
-        console.log('subscribeTopic end');
+        //console.log('subscribeTopic end');
         this.buttonDisabled = false;
         this.loadingStatus = false;
       });
@@ -128,11 +128,11 @@ export class FilmImportComponent implements OnInit, OnDestroy {
   private initializeWebSocketConnection() {
     // Instantiate a messagingService
     this.messagingService = new MessagingService(environment.websocketApiUrl, this.TOPIC);
-    console.log('environment.websocketApiUrl',environment.websocketApiUrl);
+    //console.log('environment.websocketApiUrl',environment.websocketApiUrl);
     // Subscribe to its state (to know its connected or not)
     this.messagingService.state().subscribe((state: StompState) => {
       this.state = StompState[state];
-        console.log('this.state=', this.state);
+        //console.log('this.state=', this.state);
     });
   }
 }

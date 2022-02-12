@@ -98,7 +98,7 @@
                     <div class="card-header">DVDTHEQUE </div>
                     <div class="card-body">
                         <div class="row" *ngIf="film.dvd">
-                            <div class="col-sm-1">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label htmlFor="zone_dvd">Zone DVD</label>
                                     <select class="form-control" [(ngModel)]="film.dvd.zone">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-1">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label htmlFor="annee">Format DVD</label>
                                     <select class="form-control" [(ngModel)]="film.dvd.format">
@@ -122,22 +122,21 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="film.origine=='DVD'">
-                            <div class="col-sm-1">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label><input type="checkbox" [(checked)]="film.dvd.ripped"
                                             (change)="setRippedSelected($event.target,film)" /> Ripped</label>
 
                                 </div>
-                            </div>
-                            <div class="col-sm-2" *ngIf="film.dvd.dateRip && film.dvd.ripped">
                                 <div class="form-group">
                                     <label>Rippé le : </label>
                                     <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="row">
-                            <div class="col-sm-1">
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <label><input type="checkbox" [(checked)]="film.vu"
                                             (change)="setVuSelected($event.target,film)" /> Vu</label>
@@ -145,24 +144,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-1"><label>Ajouté le : </label></div>
-                            <div class="col-sm-1">
-                                <b>{{film.dateInsertion | date: 'dd/MM/yyyy'}}</b>
-                            </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-12">
+                                <label>Ajouté le : </label><b>{{film.dateInsertion | date: 'dd/MM/yyyy'}}</b>
                                 <form class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
-                                                [(ngModel)]="dateInsertion" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                    type="button"></button>
-                                            </div>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
+                                            [(ngModel)]="dateInsertion" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                type="button"></button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -188,9 +183,12 @@
                     <div class="card-body">
 
                         <div class="row" *ngFor="let critiquePresse of film.critiquePresse">
-                            <div class="col-sm-1"><b> {{critiquePresse.newsSource}} </b></div>
-                            <div class="col-sm-1"><label>Note : {{critiquePresse.rating}}</label></div>
-                            <div class="col-sm-10">
+                            
+                            <div class="col-sm-12">
+                                <b> {{critiquePresse.newsSource}} </b>
+                                <br/>
+                                <label>Note : {{critiquePresse.rating}}</label>
+                                <br/>
                                 {{critiquePresse.body}}
                             </div>
                             <span>&nbsp;</span>
