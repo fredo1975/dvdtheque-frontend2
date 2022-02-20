@@ -128,7 +128,7 @@
                                             (change)="setRippedSelected($event.target,film)" /> Ripped</label>
 
                                 </div>
-                                <div class="form-group" *ngIf="film.dvd.ripped">
+                                <div class="form-group" *ngIf="film.dvd.ripped && film.dvd.dateRip">
                                     <label>Rippé le : </label>
                                     <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
                                 </div>
