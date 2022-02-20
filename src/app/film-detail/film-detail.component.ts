@@ -34,6 +34,14 @@ export class FilmDetailComponent implements OnInit {
   constructor(private filmService: FilmService, private route: ActivatedRoute, private router: Router) {
   }
 
+  checkIfCritiquePresseExist(){
+    if (this.film.critiquePresse && this.film.critiquePresse.length > 0) {
+      // console.log('ngOnInit this.film.critiquesPresse');
+    } else {
+      // console.log('ngOnInit !! this.film.critiquesPresse');
+      this.critiquePresseExist = false;
+    }
+  }
   ngOnInit() {
     this.loading = true;
     this.buttonDisabled = true;
@@ -44,12 +52,7 @@ export class FilmDetailComponent implements OnInit {
         console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']);
       }
       , () => {
-        if (this.film.critiquePresse && this.film.critiquePresse.length > 0) {
-          // console.log('ngOnInit this.film.critiquesPresse');
-        } else {
-          // console.log('ngOnInit !! this.film.critiquesPresse');
-          this.critiquePresseExist = false;
-        }
+        this.checkIfCritiquePresseExist();
       });
     this.loading = false;
     this.buttonDisabled = false;
@@ -130,6 +133,7 @@ export class FilmDetailComponent implements OnInit {
         this.loading = false;
         this.buttonDisabled = false;
         this.updated = true;
+        this.checkIfCritiquePresseExist();
       });
   }
 
