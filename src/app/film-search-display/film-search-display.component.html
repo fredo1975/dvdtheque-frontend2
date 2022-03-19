@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row">
+        
+        <div class="col-lg-4">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="titre">Titre</label>
+              <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control"/>
+            </div>
+          </div>
+          <div class="col-lg-2" *ngIf="filmListParam && filmListParam.realisateurs">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="realisateur">Réalisateur : {{filmListParam.realisateursLength}}</label>
+              <select class="form-control" [(ngModel)]="filmSearch.realisateur" allowClear="true">
+                <option *ngFor="let real of filmListParam.realisateurs" [ngValue]="real.id">{{real.prenom | uppercase}}
+                  {{real.nom | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-2" *ngIf="filmListParam && filmListParam.acteurs">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="acteur">Acteur : {{filmListParam.acteursLength}}</label>
+              <select class="form-control" [(ngModel)]="filmSearch.acteur"
+                allowClear="true">
+                <option *ngFor="let acteur of filmListParam.acteurs" [ngValue]="acteur">{{acteur.prenom | uppercase}}
+                  {{acteur.nom | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-1">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="annee">Année</label>
+              <select class="form-control" [(ngModel)]="filmSearch.annee" allowClear="true">
+                <option *ngFor="let annee of annees" [ngValue]="annee">{{annee}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-1" *ngIf="filmListParam && filmListParam.genres">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="genre">Categorie</label>
+              <select class="form-control" [(ngModel)]="filmSearch.genre" allowClear="true">
+                <option *ngFor="let genre of filmListParam.genres" [ngValue]="genre.name">{{genre.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-1">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="vu">Vu</label>
+              <select class="form-control" name="vu" [(ngModel)]="filmSearch.vu" allowClear="true">
+                <option key='tous' value='tous'>Tous</option>
+                <option key='vu' value='vu'>Vu</option>
+                <option key='nonvu' value='nonvu'>Non Vu</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-1" *ngIf="origine=='DVD'">
+            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+              <label htmlFor="ripped">DVD Rippé</label>
+              <select class="form-control" name="ripped" allowClear="true">
+                <option key='tous' value='tous'>Tous</option>
+                <option key='ripped' value='ripped'>Rippé</option>
+                <option key='nonripped' value='nonripped'>Non Rippé</option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-6">
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+            <div class="spinner-grow text-muted" *ngIf="loading"></div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!loading">
+        <div class="col-lg-6 offset-lg-6">
+          <button type="button" class="btn btn-primary" (click)="search()">Rechercher</button>
+        </div>
+      </div>
+</div>

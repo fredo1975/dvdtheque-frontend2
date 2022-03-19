@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './init/keycloak-init.factory';
 import { ConfigInitService } from './init/config-init.service';
+import { FilmSearchDisplayComponent } from './film-search-display/film-search-display.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -40,6 +41,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     GenresPipe,
     RealisateursPipe,
     FilmAdminComponent,
+    FilmSearchDisplayComponent,
   ],
   imports: [
     BrowserModule,
