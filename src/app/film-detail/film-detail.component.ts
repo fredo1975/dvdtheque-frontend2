@@ -47,6 +47,7 @@ export class FilmDetailComponent implements OnInit {
     this.buttonDisabled = true;
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
+      console.log(this.film)
     }
       , (error) => {
         console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']);
@@ -76,6 +77,7 @@ export class FilmDetailComponent implements OnInit {
     if (selectElement.checked) {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
       this.film.dvd.ripped = true;
+      this.film.dvd.dateRip = new Date;
     } else {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
       this.film.dvd.ripped = false;
