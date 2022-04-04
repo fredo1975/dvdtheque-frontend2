@@ -23,6 +23,8 @@ export class Film {
         public overview: string,
         public runtime: number,
         public homepage: string,
-        public origine: Origine) {
+        public origine: Origine,
+        public dateMaj: Date,
+        public dateVue: Date) {
     }
 }
