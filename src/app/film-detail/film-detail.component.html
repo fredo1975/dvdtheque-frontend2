@@ -1,19 +1,13 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="loading">
         <div class="col-md-7 offset-md-5">
-            <div *ngIf="loading">
-                <div *ngIf="!filteredFilms">
-                    <div class="col-lg-6">
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                        <div class="spinner-grow text-muted"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-muted"></div>
         </div>
     </div>
     <div *ngIf="film && !loading">
@@ -45,7 +39,8 @@
                                 &nbsp;</b></span></span>
                     <span class="row"><span class="col">Durée : </span><span class="col"><b>{{film.runtime}}
                                 minutes</b></span></span>
-                    <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'"><span class="col">Sortie DVD :</span><span class="col"
+                    <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'"><span class="col">Sortie
+                            DVD :</span><span class="col"
                             *ngIf="film.dvd && film.dvd.dateSortie"><b>{{film.dvd.dateSortie | date:
                                 'dd/MM/yyyy'}}</b></span></span>
                     <span class="row" *ngIf="film.origine=='EN_SALLE' || film.origine=='DVD'">
@@ -73,15 +68,15 @@
                     <div class="card-header">Acteurs </div>
                     <div class="card-body">
                         <div class="row">
-                                <div class="col" *ngFor="let act of film.acteur">
-                                    <div class="content">
-                                        <img class="acteurs"
-                                            *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
-                                            src="{{act.profilePath}}" />
-                                        <p><b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b></p>
-                                    </div>
-
+                            <div class="col" *ngFor="let act of film.acteur">
+                                <div class="content">
+                                    <img class="acteurs"
+                                        *ngIf="act.profilePath && act.profilePath != 'http://image.tmdb.org/t/p/w500null'"
+                                        src="{{act.profilePath}}" />
+                                    <p><b>{{act.prenom | uppercase}} {{act.nom | uppercase}}</b></p>
                                 </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +128,7 @@
                                     <b> {{film.dvd.dateRip | date: 'dd/MM/yyyy'}}</b>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -161,7 +156,7 @@
                                     </div>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -187,12 +182,12 @@
                     <div class="card-body">
 
                         <div class="row" *ngFor="let critiquePresse of film.critiquePresse">
-                            
+
                             <div class="col-sm-12">
                                 <b> {{critiquePresse.newsSource}} </b>
-                                <br/>
+                                <br />
                                 <label>Note : {{critiquePresse.rating}}</label>
-                                <br/>
+                                <br />
                                 {{critiquePresse.body}}
                             </div>
                             <span>&nbsp;</span>
