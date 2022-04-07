@@ -74,7 +74,7 @@ export class ApiService {
   updateFilm(film: Film): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log('apiUr=' + this.backendUrl + '/films/update/' + film.id);
+    //console.log('apiUr=' + this.backendUrl + '/films/update/' + film.id);
     return this.http.put(this.backendUrl + '/films/update/' + film.id, film, httpOptions).pipe(
       tap(_ => console.log(`updated film id=${film.id}`))
     );
@@ -112,7 +112,7 @@ export class ApiService {
 
   importFilmList(formdata: FormData): Observable<any> {
     const url = '/films/import';
-    console.log('importFilmList');
+    //console.log('importFilmList');
     return this.http.post(this.backendUrl + '/films/import', formdata).pipe(
       tap(_ => console.log('importFilmList done')));
   }
