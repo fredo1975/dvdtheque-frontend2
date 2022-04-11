@@ -47,7 +47,7 @@ export class FilmDetailComponent implements OnInit {
     this.buttonDisabled = true;
     this.filmService.getFilm(this.route.snapshot.params['id']).subscribe(_film => {
       this.film = _film;
-      console.log(this.film)
+      //console.log(this.film)
     }
       , (error) => {
         console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']);
