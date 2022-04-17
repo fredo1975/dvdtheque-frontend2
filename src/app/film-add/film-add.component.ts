@@ -38,8 +38,13 @@ export class FilmAddComponent implements OnInit {
     this.loading = true;
     this.errorOccured = false;
     this.filmService.getAllTmdbFilmsByTitre(this.titre).subscribe((data: Film[]) => {
-      this.tmdbFilms = data;
-      // console.log(this.tmdbFilms);
+      if(data){
+        this.tmdbFilms = data;
+      }else{
+        this.tmdbFilms = [];
+      }
+      
+      console.log(this.tmdbFilms);
     }
       , (error) => {
         this.errorOccured = true;
