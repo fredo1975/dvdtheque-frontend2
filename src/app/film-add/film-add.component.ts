@@ -43,8 +43,7 @@ export class FilmAddComponent implements OnInit {
       }else{
         this.tmdbFilms = [];
       }
-      
-      console.log(this.tmdbFilms);
+      //console.log(this.tmdbFilms);
     }
       , (error) => {
         this.errorOccured = true;
