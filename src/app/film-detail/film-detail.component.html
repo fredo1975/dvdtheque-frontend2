@@ -179,8 +179,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="card" *ngIf="critiquePresseExist">
                     <div class="card-header">Critiques Presse </div>
                     <div class="card-body">
@@ -198,8 +196,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header">Remplacement de Film </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
+                            </div>
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+        
             </div>
         </div>
-        <app-film-tmdb-search [film]="film" (replacedFilm)="doReplaceFilm($event);"></app-film-tmdb-search>
+
+        
+        
     </div>
 </div>
