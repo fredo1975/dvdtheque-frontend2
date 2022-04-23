@@ -156,26 +156,26 @@
                                     </div>
                                 </form>
                             </div>
-
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
+                                    modifications</button>&nbsp;
+                                <button type="button" class="btn btn-primary"
+                                    (click)="transformFilmEnSalleIntoDvd()">Transformer en
+                                    DVD</button>&nbsp;
+                                <button type="button" class="btn btn-primary"
+                                    (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-3 offset-sm-3">
-                        <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
-                            modifications</button>
-                    </div>
-                    <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
-                        <button type="button" class="btn btn-primary"
-                            (click)="transformFilmEnSalleIntoDvd()">Transformer en
-                            DVD</button>
-                    </div>
-                    <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
-                        <button type="button" class="btn btn-primary"
-                            (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
-                    </div>
-                </div>
+                
 
                 <div class="card" *ngIf="critiquePresseExist">
                     <div class="card-header">Critiques Presse </div>
