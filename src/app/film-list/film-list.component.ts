@@ -25,6 +25,8 @@ export class FilmListComponent implements OnInit {
   origine: string;
   displayType: string;
   errorOccured: boolean;
+  limitFilmSizeList: number[];
+  limitFilmSizeSelected: number;
   constructor(protected filmService: FilmService) {
     // console.log('FilmListComponent constructor origine=' + this.origine);
   }
@@ -32,6 +34,8 @@ export class FilmListComponent implements OnInit {
   ngOnInit() {
     this.origine = 'DVD';
     this.displayType = 'DERNIERS_AJOUTS';
+    this.limitFilmSizeList = this.filmService.getLimitFilmSizeSelect();
+    //console.log(this.limitFilmSizeList);
     if (!this.filmService.getOrigine()) {
       this.filmService.setOrigine(this.origine);
     } else {
@@ -42,7 +46,13 @@ export class FilmListComponent implements OnInit {
     } else {
       this.displayType = this.filmService.getDisplayType();
     }
-
+    
+    if (!this.filmService.getLimitFilmSize()) {
+      this.limitFilmSizeSelected = this.limitFilmSizeList[0];
+      this.filmService.setLimitFilmSize(this.limitFilmSizeSelected);
+    } else {
+      this.limitFilmSizeSelected = this.filmService.getLimitFilmSize();
+    }
     // console.log('FilmListComponent ngOnInit origine ', this.origine);
     // const origineRetrieved = this.filmService.getOrigine();
     // console.log('FilmListComponent ngOnInit origineRetrieved ', this.filmService.getOrigine());
@@ -120,10 +130,10 @@ export class FilmListComponent implements OnInit {
     }
   }
   protected filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
-    // console.log('FilmListComponent::filterOnDisplayTypeAndOrigine::event=', displayTypeEvent, origineEvent);
+    console.log('FilmListComponent::filterOnDisplayTypeAndOrigine::this.filmService.getLimitFilmSize()=', displayTypeEvent, origineEvent,this.filmService.getLimitFilmSize());
     this.loading = true;
     this.errorOccured = false;
-    this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent).subscribe((data: FilmListParam) => {
+    this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent, this.filmService.getLimitFilmSize()).subscribe((data: FilmListParam) => {
       this.films = [...data.films];
       this.filteredFilms = [...data.films];
       // tslint:disable-next-line:max-line-length
@@ -341,5 +351,10 @@ export class FilmListComponent implements OnInit {
         return val2.dvd.format.toString().toLowerCase() > val1.dvd.format.toString().toLowerCase() ? -1 : val1.dvd.format.toString().toLowerCase() > val2.dvd.format.toString().toLowerCase() ? 1 : 0;
       }
     });
+  }
+
+  limitFilmSizeSelect(event: any){
+    //console.log(event);
+    this.limitFilmSizeSelected = event;
   }
 }

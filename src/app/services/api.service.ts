@@ -23,19 +23,22 @@ export class ApiService {
 
   private readonly backendUrl = '/dvdtheque-service'
 
-  private createdisplayTypeParam(displayType: string): HttpParams {
+  private createdisplayTypeParam(displayType: string,limitFilmSize: number): HttpParams {
     let params = new HttpParams();
     params = params.append('displayType', displayType);
+    if(limitFilmSize > 0){
+      params = params.append('limitFilmSize', limitFilmSize.toString());
+    }
     return params;
   }
 
-  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
-    const params: HttpParams = this.createdisplayTypeParam(displayType);
+  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string, limitFilmSize: number): Observable<FilmListParam> {
+    const params: HttpParams = this.createdisplayTypeParam(displayType, limitFilmSize);
     return this.http.get<FilmListParam>(this.backendUrl + '/filmListParam/byOrigine/' + origine, { params: params });
   }
 
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
-    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    const params: HttpParams = this.createdisplayTypeParam(displayType, 0);
     return this.http.get<Film[]>(this.backendUrl + '/films/byOrigine/' + origine, { params: params });
   }
 
@@ -49,7 +52,7 @@ export class ApiService {
 
   getAllActeursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllActeursByOrigine::displayType', displayType, origine);
-    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    const params: HttpParams = this.createdisplayTypeParam(displayType, 0);
     return this.http.get<Personne[]>(this.backendUrl + '/acteurs/byOrigine/' + origine, { params: params });
   }
 
@@ -59,7 +62,7 @@ export class ApiService {
 
   getAllRealisateursByOrigine(origine: string, displayType: string): Observable<Personne[]> {
     // console.log('ApiService::getAllRealisateursByOrigine::displayType', displayType, origine);
-    const params: HttpParams = this.createdisplayTypeParam(displayType);
+    const params: HttpParams = this.createdisplayTypeParam(displayType, 0);
     return this.http.get<Personne[]>(this.backendUrl + '/realisateurs/byOrigine/' + origine, { params: params });
   }
 

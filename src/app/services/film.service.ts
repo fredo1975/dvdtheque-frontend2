@@ -15,6 +15,7 @@ export class FilmService {
 
   private origine: string;
   private displayType: string;
+  private limitFilmSize: number;
   constructor(private apiService: ApiService) {
   }
 
@@ -33,8 +34,11 @@ export class FilmService {
   getOrigine(): string {
     return this.origine;
   }
-  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string): Observable<FilmListParam> {
-    return this.apiService.findFilmListParamByFilmDisplayTypeParam(origine, displayType);
+  getLimitFilmSize(): number{
+    return this.limitFilmSize;
+  }
+  findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string, limitFilmSize: number): Observable<FilmListParam> {
+    return this.apiService.findFilmListParamByFilmDisplayTypeParam(origine, displayType, limitFilmSize);
   }
 
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
@@ -104,5 +108,18 @@ export class FilmService {
       anneeList.push(i);
     }
     return anneeList;
+  }
+
+  getLimitFilmSizeSelect = () => {
+    const limitFilmSizeList = [];
+    // anneeList.push(nonRenseigne);
+    for (let i = 10; i <= 100; i=i+10) {
+      limitFilmSizeList.push(i);
+    }
+    return limitFilmSizeList;
+  }
+
+  setLimitFilmSize(limitFilmSizeList: number) {
+    this.limitFilmSize = limitFilmSizeList;
   }
 }

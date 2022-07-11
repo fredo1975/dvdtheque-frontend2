@@ -33,14 +33,20 @@ body {
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
+    float: left;
+    width: 50%;
+    padding: 0 2px;
   }
 }
-
+@media screen and (max-width: 1200px) {
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 2px;
+  }
+}
 img.ripped {
   width: 15px;
   height: auto;

@@ -10,21 +10,19 @@
       <div class="spinner-grow text-muted"></div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-2">
-      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-        <label htmlFor="displayType">Type d'affichage</label>
-        <select class="form-control" [(ngModel)]="displayType" (ngModelChange)="filterOnDisplayType($event)">
-          <option *ngFor="let displayType of displayTypes" [ngValue]="displayType"
-            [selected]="filmSearch.displayType === displayType">
-            {{displayType}}
-          </option>
-        </select>
-      </div>
+  <div class="row" class="col-lg-3">
+    <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+      <label htmlFor="displayType">Type d'affichage</label>
+      <select class="form-control" [(ngModel)]="displayType" (ngModelChange)="filterOnDisplayType($event)">
+        <option *ngFor="let displayType of displayTypes" [ngValue]="displayType"
+          [selected]="filmSearch.displayType === displayType">
+          {{displayType}}
+        </option>
+      </select>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-2">
       <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
         <label htmlFor="origine">Origine</label>
         <select class="form-control" [(ngModel)]="origine" (ngModelChange)="filterOnOrigine($event)">
