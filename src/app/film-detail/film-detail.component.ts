@@ -87,6 +87,7 @@ export class FilmDetailComponent implements OnInit {
     if (selectElement.checked) {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' checked');
       this.film.vu = true;
+      this.film.dateVue = new Date;
     } else {
       // console.log('act=' + act.prenom + ' ' + act.nom + ' unchecked');
       this.film.vu = false;
