@@ -355,6 +355,8 @@ export class FilmListComponent implements OnInit {
 
   limitFilmSizeSelect(event: any){
     //console.log(event);
-    this.limitFilmSizeSelected = event;
+    //this.limitFilmSizeSelected = event;
+    this.filmService.setLimitFilmSize(event);
+    this.filterOnOrigine(this.filmService.getOrigine());
   }
 }
