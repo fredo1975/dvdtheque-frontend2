@@ -130,7 +130,7 @@ export class FilmListComponent implements OnInit {
     }
   }
   protected filterOnDisplayTypeAndOrigine(displayTypeEvent: any, origineEvent: any) {
-    console.log('FilmListComponent::filterOnDisplayTypeAndOrigine::this.filmService.getLimitFilmSize()=', displayTypeEvent, origineEvent,this.filmService.getLimitFilmSize());
+    //console.log('FilmListComponent::filterOnDisplayTypeAndOrigine::this.filmService.getLimitFilmSize()=', displayTypeEvent, origineEvent,this.filmService.getLimitFilmSize());
     this.loading = true;
     this.errorOccured = false;
     this.filmService.findFilmListParamByFilmDisplayTypeParam(origineEvent, displayTypeEvent, this.filmService.getLimitFilmSize()).subscribe((data: FilmListParam) => {
@@ -354,7 +354,7 @@ export class FilmListComponent implements OnInit {
   }
 
   limitFilmSizeSelect(event: any){
-    console.log(event);
+    //console.log(event);
     //this.limitFilmSizeSelected = event;
     this.filmService.setLimitFilmSize(event);
     this.filterOnOrigine(this.filmService.getOrigine());
