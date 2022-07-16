@@ -122,4 +122,8 @@ export class FilmService {
   setLimitFilmSize(limitFilmSizeList: number) {
     this.limitFilmSize = limitFilmSizeList;
   }
+
+  search(query: string, offset: number, limit: number,sort: string): Observable<Film[]>{
+    return this.apiService.search(query,offset,limit, sort);
+  }
 }

@@ -1,12 +1,33 @@
 <div class="container-fluid">
-    <div class="row">
-        
-        <div class="col-lg-4">
-            <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
-              <label htmlFor="titre">Titre</label>
-              <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control"/>
-            </div>
-          </div>
+  <div class="row">
+
+    <div class="col-lg-3">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="titre">Titre</label>
+        <input [(ngModel)]="filmSearch.titre" placeholder="titre" class="form-control" />
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="realisateur">Realisateur</label>
+        <input [(ngModel)]="filmSearch.realisateur" placeholder="realisateur" class="form-control" />
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="acteur">Acteur</label>
+        <input [(ngModel)]="filmSearch.acteur" placeholder="acteur" class="form-control" />
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
+        <label htmlFor="annee">Année</label>
+        <select class="form-control" [(ngModel)]="filmSearch.annee" allowClear="true">
+          <option *ngFor="let annee of annees" [ngValue]="annee">{{annee}}</option>
+        </select>
+      </div>
+    </div>
+    <!--
           <div class="col-lg-2" *ngIf="filmListParam && filmListParam.realisateurs">
             <div class="form-group #{!name.valid ? 'has-error' : 'none'}">
               <label htmlFor="realisateur">Réalisateur : {{filmListParam.realisateursLength}}</label>
@@ -62,21 +83,50 @@
               </select>
             </div>
           </div>
+          -->
+  </div>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6">
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
+      <div class="spinner-grow text-muted" *ngIf="loading"></div>
     </div>
-    <div class="row">
-        <div class="col-lg-6 offset-lg-6">
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-            <div class="spinner-grow text-muted" *ngIf="loading"></div>
-        </div>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-lg-6 offset-lg-6">
+      <button type="button" class="btn btn-primary" (click)="search()">Rechercher</button>
     </div>
-    <div class="row" *ngIf="!loading">
-        <div class="col-lg-6 offset-lg-6">
-          <button type="button" class="btn btn-primary" (click)="search()">Rechercher</button>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorOccured">
+    <strong>une erreur est survenue</strong>
+  </div>
+
+  &nbsp;
+  <div class="row" *ngIf="films">
+    <div class="column" *ngFor="let film of films">
+      <div class="card ">
+        <a routerLink="/filmDetail/{{film.id}}" title="{{film.titre}}">
+          <img class="card-img-top" src="{{film.posterPath}}" />
+        </a>
+        <div class="card-body">
+          <span class="card-text">Durée : {{film.runtime}}</span><br />
+          <span class="card-text">{{film.origine}}</span> &nbsp;
+          <span class="card-text" *ngIf="film.origine == 'DVD' && film.dvd.ripped">Rippé : &nbsp;<img
+              src="assets/img/ok.png" class="img ripped"><br />
+          </span>
+          <span class="card-text" *ngIf="film.origine == 'DVD' && !film.dvd.ripped">Rippé : &nbsp;<img
+              src="assets/img/ko.png" class="img ripped"><br />
+          </span>
+          <span class="card-text" *ngIf="film.origine != 'DVD'"><br />
+          </span>
+          <span class="card-text" *ngIf="film.vu">Vu : &nbsp;<img src="assets/img/ok.png" class="img ripped"></span>
+          <span class="card-text" *ngIf="!film.vu">Vu : &nbsp;<img src="assets/img/ko.png" class="img ripped"></span>
         </div>
       </div>
+    </div>
+  </div>
 </div>

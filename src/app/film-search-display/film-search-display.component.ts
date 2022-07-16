@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
+import { Film } from '../model/film';
 import { FilmDisplayType } from '../model/film-display-type.enum';
 import { FilmListParam } from '../model/film-list-param';
 import { FilmSearch } from '../model/film-search';
@@ -23,7 +24,7 @@ export class FilmSearchDisplayComponent implements OnInit {
   filmSearch: FilmSearch;
   filmListParam: FilmListParam;
   loading = false;
-
+  films: Film[];
   constructor(protected filmService: FilmService) { }
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class FilmSearchDisplayComponent implements OnInit {
     this.displayTypes = [FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS], FilmDisplayType[FilmDisplayType.TOUS], FilmDisplayType[FilmDisplayType.DERNIERS_AJOUTS_NON_VUS]];
     this.filmSearch = new FilmSearch('', 0, false, null, null, null, false, Origine.TOUS, FilmDisplayType.TOUS);
     this.filmListParam = { realisateurs: [], acteurs: [], films: [], genres: [], realisateursLength: 0, acteursLength: 0 };
+    /*
     this.loading = true;
     forkJoin({
       realisateurs: this.filmService.getAllRealisateursByOrigine(this.origine, this.displayType),
@@ -55,10 +57,36 @@ export class FilmSearchDisplayComponent implements OnInit {
     }
     , () => {
       this.loading = false;
-    });
+    });*/
   }
 
   search(){
-    
+    console.log(this.filmSearch.titre);
+    let query;
+    if(this.filmSearch.titre){
+      query = 'titre:eq:'+this.filmSearch.titre+':AND,';
+    }
+    if(this.filmSearch.realisateur){
+      query = 'realisateur:eq:'+this.filmSearch.realisateur+':AND,';
+    }
+    if(this.filmSearch.acteur){
+      query = 'acteur:eq:'+this.filmSearch.acteur+':AND,';
+    }
+    if(this.filmSearch.annee){
+      query = 'annee:eq:'+this.filmSearch.annee+':AND,';
+    }
+    this.loading = true;
+    this.filmService.search(query,1,10,'-titre').subscribe((data: Film[]) => {
+      console.log(data);
+      this.films = [...data];
+    }
+      , (error) => {
+        this.errorOccured = true;
+        this.loading = false;
+        console.log(error);
+      }
+      , () => {
+        this.loading = false;
+      });
   }
 }

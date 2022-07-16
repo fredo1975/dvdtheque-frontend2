@@ -128,4 +128,10 @@ export class ApiService {
       }), responseType: 'blob'
     });
   }
+
+  search(query: string,offset: number, limit: number,sort: string): Observable<Film[]>{
+    let params = new HttpParams();
+    params = params.append('query', query).append('offset', offset.toString()).append('limit', limit.toString()).append('sort', sort);
+    return this.http.get<Film[]>(this.backendUrl + '/films/search', { params: params });
+  }
 }
