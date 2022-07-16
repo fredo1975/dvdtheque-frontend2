@@ -57,7 +57,7 @@ export class FilmSearchDisplayComponent implements OnInit {
     if (query) {
       //console.log(query);
       this.loading = true;
-      this.filmService.search(query, 1, 10, '-titre').subscribe((data: Film[]) => {
+      this.filmService.search(query, 1, 30, '-titre').subscribe((data: Film[]) => {
         console.log(data);
         this.films = [...data];
       }
