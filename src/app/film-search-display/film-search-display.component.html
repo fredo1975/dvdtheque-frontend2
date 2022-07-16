@@ -97,8 +97,10 @@
     </div>
   </div>
   <div class="row" *ngIf="!loading">
-    <div class="col-lg-6 offset-lg-6">
-      <button type="button" class="btn btn-primary" (click)="search()">Rechercher</button>
+    <div class="col-lg-7 offset-lg-5">
+      <button type="button" class="btn btn-primary" (click)="search()">Rechercher</button>&nbsp;
+      <button type="button" class="btn btn-primary" (click)="resetFilter()">Effacer les
+        filtres</button>
     </div>
   </div>
   <div class="alert alert-danger" *ngIf="errorOccured">
