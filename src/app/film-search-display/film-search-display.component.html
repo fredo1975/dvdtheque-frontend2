@@ -104,7 +104,9 @@
   <div class="alert alert-danger" *ngIf="errorOccured">
     <strong>une erreur est survenue</strong>
   </div>
-
+  <div class="row" *ngIf="films">
+    <div class="col-lg-12">Nombre de films : {{films.length}}</div>
+  </div>
   &nbsp;
   <div class="row" *ngIf="films">
     <div class="column" *ngFor="let film of films">
