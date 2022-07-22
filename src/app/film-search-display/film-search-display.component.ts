@@ -42,7 +42,7 @@ export class FilmSearchDisplayComponent implements OnInit {
     this.filmListParam = { realisateurs: [], acteurs: [], films: [], genres: [], realisateursLength: 0, acteursLength: 0 };
   }
 
-  search() {
+  buildQuery(): string{
     let query = '';
     if (this.filmSearch.titre) {
       query = query.concat('titre:eq:' + this.filmSearch.titre + ':AND,');
@@ -56,9 +56,27 @@ export class FilmSearchDisplayComponent implements OnInit {
     if (this.filmSearch.annee) {
       query = query.concat('annee:eq:' + this.filmSearch.annee + ':AND,');
     }
+    return query
+  }
+  search() {
+    let query = this.buildQuery()
+    /*
+    if (this.filmSearch.titre) {
+      query = query.concat('titre:eq:' + this.filmSearch.titre + ':AND,');
+    }
+    if (this.filmSearch.realisateur) {
+      query = query.concat('realisateur:eq:' + this.filmSearch.realisateur + ':AND,');
+    }
+    if (this.filmSearch.acteur) {
+      query = query.concat('acteur:eq:' + this.filmSearch.acteur + ':AND,');
+    }
+    if (this.filmSearch.annee) {
+      query = query.concat('annee:eq:' + this.filmSearch.annee + ':AND,');
+    }
 
+    */
     if (query) {
-      //console.log(query);
+      console.log(query);
       this.loading = true;
       this.filmService.search(query, 1, 100, '-titre').subscribe((data: Film[]) => {
         //console.log(data);
@@ -88,7 +106,8 @@ export class FilmSearchDisplayComponent implements OnInit {
     this.loading = true;
     this.errorOccured = false;
     const fileName = 'SearchDvdExport';
-    this.filmService.exportFilmList(Origine.TOUS).subscribe((data: any) => {
+    console.log(this.origine,Origine.TOUS);
+    this.filmService.exportFilmSearch(this.buildQuery()).subscribe((data: any) => {
       const now = Date.now();
       this.filmService.saveAsExcelFile(data, `${fileName}-${now}` + EXCEL_EXTENSION);
     }

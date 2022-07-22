@@ -123,7 +123,7 @@ export class ApiService {
       tap(_ => console.log('importFilmList done')));
   }
 
-  exportFilmList(origine: Origine) {
+  exportFilmList(origine: string) {
     return this.http.post(this.backendUrl + '/films/export', origine, {
       headers: new HttpHeaders({
         'Authorization': 'Basic ' + encodedAuth,
@@ -131,7 +131,14 @@ export class ApiService {
       }), responseType: 'blob'
     });
   }
-
+  exportFilmSearch(query: string) {
+    return this.http.post(this.backendUrl + '/films/search/export', query, {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic ' + encodedAuth,
+        'Content-Type': 'application/octet-stream',
+      }), responseType: 'blob'
+    });
+  }
   search(query: string,offset: number, limit: number,sort: string): Observable<Film[]>{
     let params = new HttpParams();
     params = params.append('query', query).append('offset', offset.toString()).append('limit', limit.toString()).append('sort', sort);

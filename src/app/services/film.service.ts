@@ -92,8 +92,11 @@ export class FilmService {
     return this.apiService.saveFilm(tmdbId, filmOrigine);
   }
 
-  exportFilmList(origine: Origine) {
+  exportFilmList(origine: string) {
     return this.apiService.exportFilmList(origine);
+  }
+  exportFilmSearch(query: string) {
+    return this.apiService.exportFilmSearch(query);
   }
   importFilmList(formdata: FormData): Observable<any> {
     return this.apiService.importFilmList(formdata);
@@ -128,6 +131,6 @@ export class FilmService {
   }
 
   saveAsExcelFile(data: any, fileName: string): void {
-    this.saveAsExcelFile(data,fileName);
+    this.apiService.saveAsExcelFile(data,fileName);
   }
 }
