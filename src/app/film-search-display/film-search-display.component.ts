@@ -9,6 +9,9 @@ import { Origine } from '../model/origine.enum';
 import { Personne } from '../model/personne';
 import { FilmService } from '../services/film.service';
 
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+const EXCEL_EXTENSION = '.xlsx';
+
 @Component({
   selector: 'app-film-search-display',
   templateUrl: './film-search-display.component.html',
@@ -79,5 +82,23 @@ export class FilmSearchDisplayComponent implements OnInit {
     this.filmSearch.acteur = null;
     this.filmSearch.annee = null;
     this.films = null;
+  }
+
+  export(){
+    this.loading = true;
+    this.errorOccured = false;
+    const fileName = 'SearchDvdExport';
+    this.filmService.exportFilmList(Origine.TOUS).subscribe((data: any) => {
+      const now = Date.now();
+      this.filmService.saveAsExcelFile(data, `${fileName}-${now}` + EXCEL_EXTENSION);
+    }
+      , (error) => {
+        console.log(error);
+        this.loading = false;
+        this.errorOccured = true;
+      }
+      , () => {
+        this.loading = false;
+      });
   }
 }

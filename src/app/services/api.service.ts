@@ -7,13 +7,16 @@ import { Personne } from '../model/personne';
 import { Genre } from '../model/genre';
 import { Origine } from '../model/origine.enum';
 import { FilmListParam } from '../model/film-list-param';
-
+import * as FileSaver from 'file-saver';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 };
 const encodedAuth = window.localStorage.getItem('encodedAuth');
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+const EXCEL_EXTENSION = '.xlsx';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -133,5 +136,10 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append('query', query).append('offset', offset.toString()).append('limit', limit.toString()).append('sort', sort);
     return this.http.get<Film[]>(this.backendUrl + '/films/search', { params: params });
+  }
+
+  saveAsExcelFile(data: any, fileName: string): void {
+    const blob: Blob = new Blob([data], { type: EXCEL_TYPE });
+    FileSaver.saveAs(blob, fileName);
   }
 }

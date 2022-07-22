@@ -36,7 +36,7 @@ export class FilmExportComponent implements OnInit {
     const fileName = 'ListeDvdExport';
     this.filmService.exportFilmList(this.origine).subscribe((data: any) => {
       const now = Date.now();
-      this.saveAsExcelFile(data, `${fileName}-${now}-${this.origine}` + EXCEL_EXTENSION);
+      this.filmService.saveAsExcelFile(data, `${fileName}-${now}-${this.origine}` + EXCEL_EXTENSION);
     }
       , (error) => {
         console.log(error);
@@ -48,9 +48,5 @@ export class FilmExportComponent implements OnInit {
         this.buttonDisabled = false;
         this.loading = false;
       });
-  }
-  private saveAsExcelFile(data: any, fileName: string): void {
-    const blob: Blob = new Blob([data], { type: EXCEL_TYPE });
-    FileSaver.saveAs(blob, fileName);
   }
 }

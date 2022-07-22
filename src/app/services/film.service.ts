@@ -126,4 +126,8 @@ export class FilmService {
   search(query: string, offset: number, limit: number,sort: string): Observable<Film[]>{
     return this.apiService.search(query,offset,limit, sort);
   }
+
+  saveAsExcelFile(data: any, fileName: string): void {
+    this.saveAsExcelFile(data,fileName);
+  }
 }
