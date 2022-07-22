@@ -162,16 +162,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <button type="button" class="btn btn-primary" (click)="updateFilm()">Sauver les
                                     modifications</button>
                             </div>
-                            <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
+                            <div class="col-sm-4" *ngIf="film.origine=='EN_SALLE'">
                                 <button type="button" class="btn btn-primary"
                                     (click)="transformFilmEnSalleIntoDvd()">Transformer en
                                     DVD</button>
                             </div>
-                            <div class="col-sm-3" *ngIf="film.origine=='EN_SALLE'">
+                            <div class="col-sm-4" *ngIf="film.origine=='EN_SALLE'">
                                 <button type="button" class="btn btn-primary"
                                     (click)="transformFilmEnSalleIntoGooglePlay()">Transformer en Google Play</button>
                             </div>
