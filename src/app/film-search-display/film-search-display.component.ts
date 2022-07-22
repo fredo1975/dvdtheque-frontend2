@@ -76,7 +76,7 @@ export class FilmSearchDisplayComponent implements OnInit {
 
     */
     if (query) {
-      console.log(query);
+      //console.log(query);
       this.loading = true;
       this.filmService.search(query, 1, 100, '-titre').subscribe((data: Film[]) => {
         //console.log(data);
@@ -106,7 +106,7 @@ export class FilmSearchDisplayComponent implements OnInit {
     this.loading = true;
     this.errorOccured = false;
     const fileName = 'SearchDvdExport';
-    console.log(this.origine,Origine.TOUS);
+    //console.log(this.origine,Origine.TOUS);
     this.filmService.exportFilmSearch(this.buildQuery()).subscribe((data: any) => {
       const now = Date.now();
       this.filmService.saveAsExcelFile(data, `${fileName}-${now}` + EXCEL_EXTENSION);
