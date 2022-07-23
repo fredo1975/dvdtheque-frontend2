@@ -123,7 +123,7 @@ export class ApiService {
       tap(_ => console.log('importFilmList done')));
   }
 
-  exportFilmList(origine: string) {
+  exportFilmList(origine: Origine) {
     return this.http.post(this.backendUrl + '/films/export', origine, {
       headers: new HttpHeaders({
         'Authorization': 'Basic ' + encodedAuth,

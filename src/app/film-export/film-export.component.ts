@@ -34,8 +34,8 @@ export class FilmExportComponent implements OnInit {
     this.loading = true;
     this.errorOccured = false;
     const fileName = 'ListeDvdExport';
-    console.log(this.origine,this.filmOrigines[0]);
-    this.filmService.exportFilmList(Origine[this.origine]).subscribe((data: any) => {
+    console.log(this.origine);
+    this.filmService.exportFilmList(this.origine).subscribe((data: any) => {
       const now = Date.now();
       this.filmService.saveAsExcelFile(data, `${fileName}-${now}-${this.origine}` + EXCEL_EXTENSION);
     }

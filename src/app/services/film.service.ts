@@ -92,7 +92,7 @@ export class FilmService {
     return this.apiService.saveFilm(tmdbId, filmOrigine);
   }
 
-  exportFilmList(origine: string) {
+  exportFilmList(origine: Origine) {
     return this.apiService.exportFilmList(origine);
   }
   exportFilmSearch(query: string) {
