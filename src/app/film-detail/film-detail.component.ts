@@ -51,11 +51,13 @@ export class FilmDetailComponent implements OnInit {
     }
       , (error) => {
         console.log('an error occured when fetching film with id : ' + this.route.snapshot.params['id']);
+        this.loading = false;
       }
       , () => {
         this.checkIfCritiquePresseExist();
+        this.loading = false;
       });
-    this.loading = false;
+    
     this.buttonDisabled = false;
     this.annees = this.filmService.getAnneesSelect();
     this.zonesList = this.getZonesList();
