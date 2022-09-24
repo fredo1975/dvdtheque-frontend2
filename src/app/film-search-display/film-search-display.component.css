@@ -33,20 +33,20 @@
   }
   
   /* Responsive columns - one column layout (vertical) on small screens */
-  @media screen and (max-width: 800px) {
-    .column {
-      float: left;
-      width: 50%;
-      padding: 0 2px;
-    }
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  .column {
+    float: left;
+    width: 50%;
+    padding: 0 2px;
   }
-  @media screen and (max-width: 1200px) {
-    .column {
-      float: left;
-      width: 25%;
-      padding: 0 2px;
-    }
+}
+@media screen and (min-width: 400px) and (max-width: 1200px) {
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 2px;
   }
+}
   img.ripped {
     width: 15px;
     height: auto;
