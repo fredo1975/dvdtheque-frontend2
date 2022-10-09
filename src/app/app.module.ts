@@ -24,6 +24,7 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './init/keycloak-init.factory';
 import { ConfigInitService } from './init/config-init.service';
 import { FilmSearchDisplayComponent } from './film-search-display/film-search-display.component';
+import { FilmUpdateCritiquepresseComponent } from './film-update-critiquepresse/film-update-critiquepresse.component';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -42,6 +43,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     RealisateursPipe,
     FilmAdminComponent,
     FilmSearchDisplayComponent,
+    FilmUpdateCritiquepresseComponent,
   ],
   imports: [
     BrowserModule,
