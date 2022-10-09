@@ -8,6 +8,7 @@ import { FilmImportComponent } from './film-import/film-import.component';
 import { FilmAdminComponent } from './film-admin/film-admin.component';
 import { AuthGuard } from './guard/auth.guard';
 import { FilmSearchDisplayComponent } from './film-search-display/film-search-display.component';
+import { FilmUpdateCritiquepresseComponent } from './film-update-critiquepresse/film-update-critiquepresse.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/filmList', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'filmAdd', component: FilmAddComponent, canActivate: [AuthGuard] },
   { path: 'filmExport', component: FilmExportComponent, canActivate: [AuthGuard] },
   { path: 'filmImport', component: FilmImportComponent, canActivate: [AuthGuard] },
-  { path: 'filmAdmin', component: FilmAdminComponent, canActivate: [AuthGuard] }
+  { path: 'filmAdmin', component: FilmAdminComponent, canActivate: [AuthGuard] },
+  { path: 'filmUpdateCritiquepresse', component: FilmUpdateCritiquepresseComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

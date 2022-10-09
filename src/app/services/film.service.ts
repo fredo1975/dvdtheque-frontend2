@@ -6,6 +6,7 @@ import { Origine } from '../model/origine.enum';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { FilmListParam } from '../model/film-list-param';
+import { FicheFilm } from '../model/fiche-film';
 
 const nonRenseigne = 'Non renseigné';
 @Injectable({
@@ -40,7 +41,9 @@ export class FilmService {
   findFilmListParamByFilmDisplayTypeParam(origine: string, displayType: string, limitFilmSize: number): Observable<FilmListParam> {
     return this.apiService.findFilmListParamByFilmDisplayTypeParam(origine, displayType, limitFilmSize);
   }
-
+  getAllCritiquePresseByAllocineFilmByTitle(title: string): Observable<FicheFilm[]> {
+    return this.apiService.getAllCritiquePresseByAllocineFilmByTitle(title);
+  }
   getAllFilmsByOrigineAndDisplayType(origine: string, displayType: string): Observable<Film[]> {
     return this.apiService.getAllFilmsByOrigineAndDisplayType(origine, displayType);
   }
