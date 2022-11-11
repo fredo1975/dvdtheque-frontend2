@@ -1,1 +1,81 @@
-<p>film-update-critiquepresse works!</p>
+<div class="col-lg-8 offset-lg-4" *ngIf="loading">
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+    <div class="spinner-grow text-muted"></div>
+</div>
+<div class="alert alert-danger" *ngIf="errorOccured">
+    <strong>une erreur est survenue</strong>
+</div>
+
+<div class="row" *ngIf="ficheFilmTab && !loading">
+    <div class="col-lg-12">
+        critique presse sélectionnée : {{film.allocineFicheFilmId}}
+    </div>
+    <div class="col-lg-12">
+        <div class="column" *ngFor="let ficheFilm of ficheFilmTab">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                      <th>Titre</th>
+                      <th>url</th>
+                      <th>allocineFilmId</th>
+                      <th>allocineFicheFilmId</th>
+                      <th>critiques presse</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ficheFilm of ficheFilmTab">
+                        <td>
+                            {{ficheFilm.title}}
+                        </td>
+                        <td>
+                            {{ficheFilm.url}}
+                        </td>
+                        <td>
+                            {{ficheFilm.allocineFilmId}}
+                        </td>
+                        <td>
+                            {{ficheFilm.id}}
+                        </td>
+                        <td>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                      <th>newsSource</th>
+                                      <th>rating</th>
+                                      <th>author</th>
+                                      <th>body</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let critiquePresse of ficheFilm.critiquePresse">
+                                        <td>
+                                            {{critiquePresse.newsSource}}
+                                        </td>
+                                        <td>
+                                            {{critiquePresse.rating}}
+                                        </td>
+                                        <td>
+                                            {{critiquePresse.author}}
+                                        </td>
+                                        <td>
+                                            {{critiquePresse.body}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" (click)="choose(ficheFilm.id)" [disabled]="buttonDisabled">Sélectionner</button><br /><br />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

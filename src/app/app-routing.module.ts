@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'filmExport', component: FilmExportComponent, canActivate: [AuthGuard] },
   { path: 'filmImport', component: FilmImportComponent, canActivate: [AuthGuard] },
   { path: 'filmAdmin', component: FilmAdminComponent, canActivate: [AuthGuard] },
-  { path: 'filmUpdateCritiquepresse', component: FilmUpdateCritiquepresseComponent, canActivate: [AuthGuard] }
+  { path: 'filmUpdateCritiquepresse/:id', component: FilmUpdateCritiquepresseComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

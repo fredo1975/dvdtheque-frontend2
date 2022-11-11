@@ -29,13 +29,13 @@ const _origine: Origine = Origine.DVD;
 describe('Film', () => {
   it('should create an instance', () => {
     // tslint:disable-next-line:max-line-length
-    expect(new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine,new Date(),new Date())).toBeTruthy();
+    expect(new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine,new Date(),new Date(),1)).toBeTruthy();
   });
 });
 
 it('Film should accept values in the constructor', () => {
   // tslint:disable-next-line:max-line-length
-  const film = new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine,new Date(),new Date());
+  const film = new Film(1, titre, titre, _annee, dateSortie, dateInsertion, true, real1, act, critiquesPresseArr, genreArray, dvd, posterPath, alreadyInDvdtheque, tmdbId, overview, runtime, homepage, _origine,new Date(),new Date(),1);
   expect(film.titre).toEqual(titre);
   expect(film.titreO).toEqual(titre);
   expect(film.dvd.ripped).toEqual(true);

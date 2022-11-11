@@ -156,7 +156,7 @@ export class FilmDetailComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateur, film.acteur, film.critiquePresse, film.genre,
       // tslint:disable-next-line:max-line-length
-      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD, film.dateMaj, film.dateVue);
+      dvd, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.DVD, film.dateMaj, film.dateVue,film.allocineFicheFilmId);
   }
 
   transformFilmEnSalleIntoDvd() {
@@ -191,7 +191,7 @@ export class FilmDetailComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     return new Film(film.id, film.titre, film.titreO, film.annee, film.dateSortie, new Date(), film.vu, film.realisateur, film.acteur, film.critiquePresse, film.genre,
       // tslint:disable-next-line:max-line-length
-      null, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.GOOGLE_PLAY, film.dateMaj, film.dateVue);
+      null, film.posterPath, film.alreadyInDvdtheque, film.tmdbId, film.overview, film.runtime, film.homepage, Origine.GOOGLE_PLAY, film.dateMaj, film.dateVue,film.allocineFicheFilmId);
   }
   transformFilmEnSalleIntoGooglePlay() {
     this.loading = true;

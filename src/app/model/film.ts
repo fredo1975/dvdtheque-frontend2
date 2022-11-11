@@ -25,6 +25,7 @@ export class Film {
         public homepage: string,
         public origine: Origine,
         public dateMaj: Date,
-        public dateVue: Date) {
+        public dateVue: Date,
+        public allocineFicheFilmId: number) {
     }
 }

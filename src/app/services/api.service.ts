@@ -8,6 +8,7 @@ import { Genre } from '../model/genre';
 import { Origine } from '../model/origine.enum';
 import { FilmListParam } from '../model/film-list-param';
 import * as FileSaver from 'file-saver';
+import { FicheFilm } from '../model/fiche-film';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -44,7 +45,11 @@ export class ApiService {
     const params: HttpParams = this.createdisplayTypeParam(displayType, 0);
     return this.http.get<Film[]>(this.backendUrl + '/films/byOrigine/' + origine, { params: params });
   }
-
+  getAllCritiquePresseByAllocineFilmByTitle(title: string): Observable<FicheFilm[]> {
+    let params = new HttpParams();
+    params = params.append('title', title);
+    return this.http.get<FicheFilm[]>(this.backendUrl + '/films/allocine/byTitle', { params: params });
+  }
   getAllTmdbFilmsByTitre(titre: string): Observable<Film[]> {
     return this.http.get<Film[]>(this.backendUrl + '/films/tmdb/byTitre/' + titre);
   }

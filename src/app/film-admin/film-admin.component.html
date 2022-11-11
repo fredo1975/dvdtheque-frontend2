@@ -78,7 +78,7 @@
               [disabled]="buttonDisabled">Supprimer</button><br /><br />
             <button class="btn btn-primary" (click)="retrieveFilmImage(film.id)" [disabled]="buttonDisabled">Trouver
               le poster</button><br>
-              <a routerLink="/filmUpdateCritiquepresse" routerLinkActive="active" ariaCurrentWhenActive="page">Choose critiques presse</a>
+            <a *ngIf="film.allocineFicheFilmId" routerLink="/filmUpdateCritiquepresse/{{film.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">Choose critiques presse</a>
           </td>
         </tr>
       </tbody>
