@@ -12,7 +12,7 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
   private film: Film;
 
   removeFilm(id: number) {
-    const confir = confirm('Sûr de supprimer le film?');
+    const confir = confirm('Sûr de supprimer le film ?');
     if (confir) {
       this.buttonDisabled = true;
       this.loading = true;
@@ -74,7 +74,7 @@ export class FilmAdminComponent extends FilmListComponent implements OnInit {
   }
 
   retrieveAllFilmImages() {
-    const confir = confirm('Sûr de récupérer toutes les images manquantes?');
+    const confir = confirm('Sûr de récupérer toutes les images manquantes ?');
     if (confir) {
       this.buttonDisabled = true;
       this.loading = true;
