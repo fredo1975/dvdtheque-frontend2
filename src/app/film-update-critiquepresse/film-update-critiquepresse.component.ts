@@ -18,7 +18,7 @@ export class FilmUpdateCritiquepresseComponent implements OnInit {
   loading = false;
   buttonDisabled = false;
   errorOccured = false;
-  private updated = false;
+  updated = false;
   private critiquePresseExist = true;
   constructor(protected filmService: FilmService, private route: ActivatedRoute) { }
 
@@ -29,35 +29,19 @@ export class FilmUpdateCritiquepresseComponent implements OnInit {
       switchMap(
         film => {
           this.film = film
+          console.log(film)
           return this.filmService.getAllCritiquePresseByAllocineFilmByTitle(film.titre)
         }
       )
       ).subscribe(_ficheFilmTab => {
         this.ficheFilmTab = _ficheFilmTab;
-        //console.log(this.ficheFilmTab)
+        console.log(this.ficheFilmTab)
         this.loading = false
       }
         , (error) => {
           console.log('an error occured when fetching allocine film with title : ' + this.film.titre);
           this.loading = false;
         });
-/*
-    const currentFilm$ = this.getCurrentFilm().pipe(switchMap(film => {
-      this.film = film
-      return this.getAllCritiquePresseByAllocineFilmByTitle(film)
-    }
-      ));
-    //console.log(currentFilm$)
-    currentFilm$.subscribe(ficheFilmTab => {
-      this.ficheFilmTab = ficheFilmTab;
-      console.log(this.ficheFilmTab)
-      this.loading = false
-    }
-      , (error) => {
-        console.log('an error occured when fetching allocine film with title : ' + this.film.titre);
-        this.loading = false;
-      });
-        */
   }
 
   getCurrentFilm = () => {

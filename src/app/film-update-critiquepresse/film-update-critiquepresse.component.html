@@ -10,16 +10,23 @@
 <div class="alert alert-danger" *ngIf="errorOccured">
     <strong>une erreur est survenue</strong>
 </div>
-
-<div class="row" *ngIf="ficheFilmTab && !loading">
-    <div class="col-lg-12">
-        critique presse sélectionnée : {{film.allocineFicheFilmId}}
+<div class="alert alert-success" *ngIf="updated">
+    <strong>critique presse modifiée</strong>
+</div>
+<div class="alert alert-danger" *ngIf="ficheFilmTab && !loading && !ficheFilmTab.length">
+    <strong>pas de critique presse disponible</strong>
+</div>
+<div class="row" *ngIf="ficheFilmTab && !loading && ficheFilmTab.length">
+    <div class="col-sm-3 offset-md-4">
+        <div class="card ">
+            <span class="row"><span class="col">critique presse sélectionnée : </span><span
+                    class="col"><b>{{film.allocineFicheFilmId}}</b></span></span>
+            <span class="row"><span class="col">nombre de critiques presse disponible : </span><span
+                    class="col"><b>{{ficheFilmTab.length}}</b></span></span>
+        </div>
     </div>
     <div class="col-lg-12">
-        nombre de critiques presse disponible : {{ficheFilmTab.length}}
-    </div>
-    <div class="col-lg-12">
-        <div class="column" *ngFor="let ficheFilm of ficheFilmTab">
+        <div class="column" >
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -74,7 +81,7 @@
                               </table>
                         </td>
                         <td>
-                            <button class="btn btn-primary" (click)="choose(ficheFilm.id)" [disabled]="buttonDisabled">Sélectionner</button><br /><br />
+                            <button class="btn btn-primary" (click)="choose(ficheFilm.id)" [disabled]="buttonDisabled">Sélectionner</button><br /><br/>
                         </td>
                     </tr>
                 </tbody>
