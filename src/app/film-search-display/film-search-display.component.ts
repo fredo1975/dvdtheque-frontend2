@@ -45,7 +45,7 @@ export class FilmSearchDisplayComponent implements OnInit {
   buildQuery(): string{
     let query = '';
     if (this.filmSearch.titre) {
-      query = query.concat('titre:eq:' + this.filmSearch.titre + ':AND,');
+      query = query.concat('titre:eq:' + this.filmSearch.titre.toLowerCase + ':AND,');
     }
     if (this.filmSearch.realisateur) {
       query = query.concat('realisateur:eq:' + this.filmSearch.realisateur + ':AND,');
@@ -60,21 +60,6 @@ export class FilmSearchDisplayComponent implements OnInit {
   }
   search() {
     let query = this.buildQuery()
-    /*
-    if (this.filmSearch.titre) {
-      query = query.concat('titre:eq:' + this.filmSearch.titre + ':AND,');
-    }
-    if (this.filmSearch.realisateur) {
-      query = query.concat('realisateur:eq:' + this.filmSearch.realisateur + ':AND,');
-    }
-    if (this.filmSearch.acteur) {
-      query = query.concat('acteur:eq:' + this.filmSearch.acteur + ':AND,');
-    }
-    if (this.filmSearch.annee) {
-      query = query.concat('annee:eq:' + this.filmSearch.annee + ':AND,');
-    }
-
-    */
     if (query) {
       //console.log(query);
       this.loading = true;
