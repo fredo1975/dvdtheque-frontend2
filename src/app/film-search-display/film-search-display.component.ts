@@ -45,7 +45,7 @@ export class FilmSearchDisplayComponent implements OnInit {
   buildQuery(): string{
     let query = '';
     if (this.filmSearch.titre) {
-      query = query.concat('titre:eq:' + this.filmSearch.titre.toLowerCase + ':AND,');
+      query = query.concat('titre:eq:' + this.filmSearch.titre.toLowerCase() + ':AND,');
     }
     if (this.filmSearch.realisateur) {
       query = query.concat('realisateur:eq:' + this.filmSearch.realisateur + ':AND,');
