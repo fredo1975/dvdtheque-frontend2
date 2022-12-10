@@ -34,7 +34,7 @@ export class FilmUpdateCritiquepresseComponent implements OnInit {
         }
       )
       ).subscribe(_ficheFilmTab => {
-        this.ficheFilmTab = _ficheFilmTab;
+        this.ficheFilmTab = _ficheFilmTab.slice();
         console.log(this.ficheFilmTab)
         this.loading = false
       }
